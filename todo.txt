@@ -1,0 +1,24 @@
+- gui interface to plain text todo.txt
+- allow hand editing of file or individual todo lines
+- store file on server
+- wp plugin?
+- allow download of todo.txt file
+- file format
+- allow configurable date options
+
+Sample entry:
+x (A) DONE-MM-DD START-MM-DD item description +camelCaseTag @context key:value
+
+Sample List
+
+(A) Call Mom @Phone +Family
+(A) Schedule annual checkup +Health
+(B) Outline chapter 5 +Novel @Computer
+(C) Add cover sheets @Office +TPSReports
+Plan backyard herb garden @Home
+Pick up milk @GroceryStore
+Research self-publishing services +Novel @Computer
+x Download Todo.txt mobile app @Phone
+
+handling data: https://stackoverflow.com/questions/24468459/sending-a-json-to-server-and-retrieving-a-json-in-return-without-jquery#24468752
+

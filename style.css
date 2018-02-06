@@ -1,0 +1,13 @@
+
+
+.task-list {
+	list-style-type: none;
+}
+.task-item-description {
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+.task-item-context {
+	color: #A9A9A9;
+}

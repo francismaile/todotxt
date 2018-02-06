@@ -5,6 +5,17 @@
 - allow download of todo.txt file
 - file format
 - allow configurable date options
+- heirarchical lists
+	- outline format
+	- glued to first (highest) item in sublist
+- strikethrough finished items
+- sort by:
+	- date started
+	- date due
+	- date completed
+	- tags
+	- context
+	- key:value
 
 Sample entry:
 x (A) DONE-MM-DD START-MM-DD item description +camelCaseTag @context key:value

@@ -2,31 +2,59 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>ToDo_txt</title>
+<title>ToDo_txt app</title>
+<link href="style.css" rel="stylesheet">
 </head>
 
 <body>
 <h1>ToDo_txt App</h1>
+<h2>Task List</h2>
 <p>
-<ul>
-<li>gui interface to plain text todo.txt</li>
-<li>allow hand editing of file</li>
-<li>store file on server</li>
-<li>wp plugin</li>
-<li>allow download of todo.txt file</li>
-<li><a href="https://github.com/todotxt/todo.txt">file format</a></li>
-<li><img src="https://github.com/todotxt/todo.txt/blob/master/description.png?raw=true" /> </li>
-<li>allow configurable date options</li>
+<ul class="task-list">
+<li class="task-item">
+	<div class="task-item-description">Item description</div>
+	<div class="task-item-context">@context</div>
+</li>
 <li></li>
 <li></li>
 <li></li>
 <li></li>
 <li></li>
-
-
+<li></li>
+<li></li>
 </ul>
 </p>
+<h2>Task Item Edit</h2>
+<p>
+<ul>
+	<li></li>
+</ul>
+
+</p>
+
+<h2>Specification:</h2>
 <pre>
+- gui interface to plain text todo.txt
+- allow hand editing of file or individual todo lines
+- store file on server
+- wp plugin?
+- allow download of todo.txt file
+- file format
+- allow configurable date options
+- heirarchical lists
+	- outline format
+	- glued to first (highest) item in sublist
+- strikethrough finished items
+- sort by:
+	- date started
+	- date due
+	- date completed
+	- tags
+	- context
+	- key:value
+
+
+
 x (A) DONE-MM-DD START-MM-DD item description +camelCaseTag @context key:value
 
 Sample List
@@ -41,5 +69,8 @@ Research self-publishing services +Novel @Computer
 x Download Todo.txt mobile app @Phone
 
 </pre>
+<p><a href="https://github.com/todotxt/todo.txt">file format discription on github</a><br>
+<img src="https://github.com/todotxt/todo.txt/blob/master/description.png?raw=true" /> 
+</p>
 </body>
 </html>

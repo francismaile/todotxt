@@ -11,25 +11,40 @@
 <h2>Task List</h2>
 <p>
 <ul class="task-list">
-<li class="task-item">
-	<div class="task-item-description">Item description</div>
-	<div class="task-item-context">@context</div>
+<li class="item">
+	<div class="description">Item description</div>
+	<div class="context">@context</div>
 </li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
 </ul>
 </p>
 <h2>Task Item Edit</h2>
 <p>
-<ul>
-	<li></li>
-</ul>
+<form action="" id="" name="">
+<fieldset>
+<legend>Task Item</legend>
+  <label>Task:<input	type="text" name="description"></div></label>
+	<label>Context:<input list="contexts" name="task-context"></label>
+	<datalist id="contexts">
+		<select>
+		<option value="Home">
+		<option value="Phone">
+		<option value="Grocery">
+		</select>
+<!-- values filled in programmatically -->
+	</datalist>
+</fieldset>
 
+<ul id="" class="task-edit">
+	<li>task description</li>
+	<li>context</li>
+	<li></li>
+	<li>tags</li>
+	<li>key:value</li>
+	<li>date started</li>
+	<li>date due</li>
+	<li>date completed</li>
+</ul>
+</form>
 </p>
 
 <h2>Specification:</h2>
@@ -45,6 +60,7 @@
 	- outline format
 	- glued to first (highest) item in sublist
 - strikethrough finished items
+- task edit options optional
 - sort by:
 	- date started
 	- date due

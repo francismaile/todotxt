@@ -1,13 +1,16 @@
 
+label {
+	display: block;
+}
 
 .task-list {
 	list-style-type: none;
 }
-.task-item-description {
+.task-list .description {
 	font-size: 1.2em;
 	font-weight: bold;
 }
 
-.task-item-context {
+.task-list .context {
 	color: #A9A9A9;
 }

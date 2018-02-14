@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <title>ToDo_txt app</title>
 <link href="style.css" rel="stylesheet">
+
+<script src="polyfills.js"></script>
+
 </head>
 
 <body>
@@ -19,10 +22,12 @@
 </p>
 <h2>Task Item Edit</h2>
 <p>
-<form action="" id="" name="">
+<form action="" id="" name="" method="get">
 <fieldset>
 <legend>Task Item</legend>
-  <label>Task:<input	type="text" name="description"></div></label>
+  <label>Task:<input type="text" name="description" size="80">
+
+	</label>
 	<label>Context:<input list="contexts" name="task-context"></label>
 	<datalist id="contexts">
 		<select>
@@ -30,21 +35,46 @@
 		<option value="Phone">
 		<option value="Grocery">
 		</select>
-<!-- values filled in programmatically -->
 	</datalist>
+</fieldset>
+
+<fieldset>
+<legend>Options</legend>
+			<select name="priority">
+			<option value selected disabled>-- priority --</option>
+			<option value="A">A</option>
+			<option value="B">B</option>
+			<option value="C">C</option>
+			<option value="D">D</option>
+			<option value="E">E</option>
+			<option value="F">F</option>
+			<option value="G">G</option>
+			<option value="H">H</option>
+		</select>
+	<label for="use_start"><input type="checkbox" id="use_start" name="use_start">
+	Start Date:
+		<input type="date" name="start_date" id="start_date" min="2018-02-12" disabled>
+	</label>
+	<label for="due_date">Due Date:
+		<input type="date" name="due_date" id="due_date" min="2018-02-12" >
+	</label>
+	<label for="completed_date">Completed Date:
+		<input type="date" name="completed_date" id="completed_date"  min="2018-02-12"> 
+	</label>
 </fieldset>
 
 <ul id="" class="task-edit">
 	<li>task description</li>
 	<li>context</li>
-	<li></li>
+	<li>priority</li>
 	<li>tags</li>
 	<li>key:value</li>
 	<li>date started</li>
 	<li>date due</li>
 	<li>date completed</li>
 </ul>
-</form>
+<input type="submit" value="Go">
+</form><!-- end of form -->
 </p>
 
 <h2>Specification:</h2>
@@ -54,7 +84,7 @@
 - store file on server
 - wp plugin?
 - allow download of todo.txt file
-- file format
+- file format - JSON
 - allow configurable date options
 - heirarchical lists
 	- outline format
@@ -68,7 +98,9 @@
 	- tags
 	- context
 	- key:value
-
+- Dates
+	- due date cannot precede current date
+	- completion date may precede current date but not start date
 
 
 x (A) DONE-MM-DD START-MM-DD item description +camelCaseTag @context key:value
@@ -85,8 +117,31 @@ Research self-publishing services +Novel @Computer
 x Download Todo.txt mobile app @Phone
 
 </pre>
-<p><a href="https://github.com/todotxt/todo.txt">file format discription on github</a><br>
+<p><a href="https://github.com/todotxt/todo.txt" target="_blank">file format discription on github</a><br>
 <img src="https://github.com/todotxt/todo.txt/blob/master/description.png?raw=true" /> 
 </p>
+
+<script>
+// start date - set with php
+const startDateControl = document.getElementById("start_date");
+const theDate = new Date;
+const today =  theDate.getFullYear() + "-" +( 1 + theDate.getMonth() ).toString().padStart(2, "0") + "-" +  theDate.getDate();
+startDateControl.value = today;
+const useStartControl = document.getElementById("use_start");
+// due date  - set with php
+const dueDateControl = document.getElementById("due_date");
+dueDateControl.value = startDateControl.value; 
+dueDateControl.min = startDateControl.value;
+dueDateControl.addEventListener("change", function(event) {
+	console.log("change", event);
+});
+// completed  date - set with php
+const completedDateControl = document.getElementById("completed_date");
+completedDateControl.value = startDateControl.value; 
+completedDateControl.min = startDateControl.value;
+
+console.log(startDateControl.value);
+</script>
+
 </body>
 </html>

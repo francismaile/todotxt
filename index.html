@@ -25,42 +25,46 @@
 <form action="" id="" name="" method="get">
 <fieldset>
 <legend>Task Item</legend>
-  <label>Task:<input type="text" name="description" size="80">
-
-	</label>
-	<label>Context:<input list="contexts" name="task-context"></label>
-	<datalist id="contexts">
-		<select>
-		<option value="Home">
-		<option value="Phone">
-		<option value="Grocery">
-		</select>
-	</datalist>
+	<div>
+  	<label>Task:<input type="text" name="description" size="80">
+		</label>
+	</div>
+	<div>
+		<label>Context:<input list="contexts" name="task-context"></label>
+		<datalist id="contexts">
+			<select>
+			<option value="Home">
+			<option value="Phone">
+			<option value="Grocery">
+			</select>
+		</datalist>
+	</div>
 </fieldset>
 
 <fieldset>
 <legend>Options</legend>
-			<select name="priority">
-			<option value selected disabled>-- priority --</option>
-			<option value="A">A</option>
-			<option value="B">B</option>
-			<option value="C">C</option>
-			<option value="D">D</option>
-			<option value="E">E</option>
-			<option value="F">F</option>
-			<option value="G">G</option>
-			<option value="H">H</option>
-		</select>
-	<label for="use_start"><input type="checkbox" id="use_start" name="use_start">
-	Start Date:
-		<input type="date" name="start_date" id="start_date" min="2018-02-12" disabled>
-	</label>
-	<label for="due_date">Due Date:
+	Priority:
+	<select name="priority">
+		<option value >-</option>
+		<option value="A">A</option>
+		<option value="B">B</option>
+		<option value="C">C</option>
+	</select>
+	<div>
+		<label for="use_start"><input type="checkbox" id="use_start" name="use_start">
+			Start Date:</label>
+		<input type="date" name="start_date" id="start_date" >
+	</div>
+	<div>
+		<label for="due_date"><input type="checkbox" id="use_date" name="use_due">
+			Due Date:</label>
 		<input type="date" name="due_date" id="due_date" min="2018-02-12" >
-	</label>
-	<label for="completed_date">Completed Date:
+	</div>
+	<div>
+		<label for="completed_date"><input type="checkbox" id="use_date" name="use_due">
+			Completed Date:</label>
 		<input type="date" name="completed_date" id="completed_date"  min="2018-02-12"> 
-	</label>
+	</div>
 </fieldset>
 
 <ul id="" class="task-edit">
@@ -117,30 +121,15 @@ Research self-publishing services +Novel @Computer
 x Download Todo.txt mobile app @Phone
 
 </pre>
-<p><a href="https://github.com/todotxt/todo.txt" target="_blank">file format discription on github</a><br>
+<p>
+<a href="img/task-list.png" target="_blank">Wunderlist task list</a><br>
+<a href="img/task-item-edit.png" target="_blank">Wunderlist task item edit</a><br>
+<a href="img/list-list.png" target="_blank">Wunderlist list of lists</a>(contexts in todo_txt)<br>
+<a href="https://github.com/todotxt/todo.txt" target="_blank">file format discription on github</a><br>
 <img src="https://github.com/todotxt/todo.txt/blob/master/description.png?raw=true" /> 
 </p>
 
-<script>
-// start date - set with php
-const startDateControl = document.getElementById("start_date");
-const theDate = new Date;
-const today =  theDate.getFullYear() + "-" +( 1 + theDate.getMonth() ).toString().padStart(2, "0") + "-" +  theDate.getDate();
-startDateControl.value = today;
-const useStartControl = document.getElementById("use_start");
-// due date  - set with php
-const dueDateControl = document.getElementById("due_date");
-dueDateControl.value = startDateControl.value; 
-dueDateControl.min = startDateControl.value;
-dueDateControl.addEventListener("change", function(event) {
-	console.log("change", event);
-});
-// completed  date - set with php
-const completedDateControl = document.getElementById("completed_date");
-completedDateControl.value = startDateControl.value; 
-completedDateControl.min = startDateControl.value;
-
-console.log(startDateControl.value);
+<script src="index.js">
 </script>
 
 </body>

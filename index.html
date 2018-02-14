@@ -21,7 +21,7 @@
 </ul>
 </p>
 <h2>Task Item Edit</h2>
-<p>
+<div>
 <form action="" id="" name="" method="get">
 <fieldset>
 <legend>Task Item</legend>
@@ -51,19 +51,19 @@
 		<option value="C">C</option>
 	</select>
 	<div>
-		<label for="use_start"><input type="checkbox" id="use_start" name="use_start">
-			Start Date:</label>
-		<input type="date" name="start_date" id="start_date" >
+		<label for="use_start">Start Date:
+			<input type="date" name="start_date" id="start_date" >
+		</label>
 	</div>
 	<div>
-		<label for="due_date"><input type="checkbox" id="use_date" name="use_due">
-			Due Date:</label>
-		<input type="date" name="due_date" id="due_date" min="2018-02-12" >
+		<label for="due_date">Due Date:
+			<input type="date" name="due_date" id="due_date">
+		</label>
 	</div>
 	<div>
-		<label for="completed_date"><input type="checkbox" id="use_date" name="use_due">
-			Completed Date:</label>
-		<input type="date" name="completed_date" id="completed_date"  min="2018-02-12"> 
+		<label for="completed_date">Completed Date:
+			<input type="date" name="completed_date" id="completed_date"> 
+		</label>
 	</div>
 </fieldset>
 
@@ -79,55 +79,7 @@
 </ul>
 <input type="submit" value="Go">
 </form><!-- end of form -->
-</p>
-
-<h2>Specification:</h2>
-<pre>
-- gui interface to plain text todo.txt
-- allow hand editing of file or individual todo lines
-- store file on server
-- wp plugin?
-- allow download of todo.txt file
-- file format - JSON
-- allow configurable date options
-- heirarchical lists
-	- outline format
-	- glued to first (highest) item in sublist
-- strikethrough finished items
-- task edit options optional
-- sort by:
-	- date started
-	- date due
-	- date completed
-	- tags
-	- context
-	- key:value
-- Dates
-	- due date cannot precede current date
-	- completion date may precede current date but not start date
-
-
-x (A) DONE-MM-DD START-MM-DD item description +camelCaseTag @context key:value
-
-Sample List
-
-(A) Call Mom @Phone +Family
-(A) Schedule annual checkup +Health
-(B) Outline chapter 5 +Novel @Computer
-(C) Add cover sheets @Office +TPSReports
-Plan backyard herb garden @Home
-Pick up milk @GroceryStore
-Research self-publishing services +Novel @Computer
-x Download Todo.txt mobile app @Phone
-
-</pre>
-<p>
-<a href="img/task-list.png" target="_blank">Wunderlist task list</a><br>
-<a href="img/task-item-edit.png" target="_blank">Wunderlist task item edit</a><br>
-<a href="img/list-list.png" target="_blank">Wunderlist list of lists</a>(contexts in todo_txt)<br>
-<a href="https://github.com/todotxt/todo.txt" target="_blank">file format discription on github</a><br>
-<img src="https://github.com/todotxt/todo.txt/blob/master/description.png?raw=true" /> 
-</p>
+</div>
 
 <script src="index.js">
 </script>

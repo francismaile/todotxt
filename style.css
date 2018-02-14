@@ -1,3 +1,4 @@
+input:focus { outline: solid gray thin; }
 
 label {
 	display: block;

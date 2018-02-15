@@ -2,6 +2,7 @@ server.js
 cheatsheet.vim
 listing.txt
 .DS_Store
+*.swp
 
 
 img/

@@ -3,12 +3,13 @@
 - store file on server
 - wp plugin?
 - allow download of todo.txt file
-- file format
+- file format - JSON
 - allow configurable date options
 - heirarchical lists
 	- outline format
 	- glued to first (highest) item in sublist
 - strikethrough finished items
+- task edit options optional
 - sort by:
 	- date started
 	- date due
@@ -16,6 +17,11 @@
 	- tags
 	- context
 	- key:value
+- Dates
+	- due date cannot precede current date
+	- completion date may precede current date but not start date
+- all file io should happen in the background via ajax
+
 
 Sample entry:
 x (A) DONE-MM-DD START-MM-DD item description +camelCaseTag @context key:value

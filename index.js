@@ -2,9 +2,8 @@
 const startDateControl = document.getElementById("start_date");
 const theDate = new Date;
 const today =  theDate.getFullYear() + "-" +( 1 + theDate.getMonth() ).toString().padStart(2, "0") + "-" +  theDate.getDate();
-startDateControl.value = today;
+// startDateControl.value = today;
 startDateControl.min = today;
-const useStartControl = document.getElementById("use_start");
 
 startDateControl.addEventListener("input", function(e){
 	const value = new Date(e.target.value);
@@ -24,6 +23,4 @@ dueDateControl.min = startDateControl.value;
 const completedDateControl = document.getElementById("completed_date");
 completedDateControl.value = startDateControl.value; 
 completedDateControl.min = startDateControl.value;
-
-console.log(startDateControl.value);
 

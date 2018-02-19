@@ -17,4 +17,7 @@ if (!String.prototype.padStart) {
     };
 }
 
+String.prototype.leftTrim = function() {
+    return this.replace(/^\s+/,"");
+}
 

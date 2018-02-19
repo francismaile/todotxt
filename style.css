@@ -1,8 +1,5 @@
 input:focus { outline: solid gray thin; }
-
-label {
-	display: block;
-}
+select:focus { outline: solid gray thin; }
 
 .task-list {
 	list-style-type: none;

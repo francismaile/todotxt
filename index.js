@@ -1,3 +1,18 @@
+// get and parse the todo file
+// populate the metadata and todo list divs
+// make the metadata clickable
+// make the list items clickable for editing
+
+
+
+
+
+
+
+
+
+
+
 // start date - set with php
 const startDateControl = document.getElementById("start_date");
 const theDate = new Date;

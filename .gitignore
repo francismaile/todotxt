@@ -1,9 +1,12 @@
 server.js
 cheatsheet.vim
 listing.txt
+frameworks.css
 .DS_Store
+.jshintrc
 *.swp
 
 
 img/
 backup/
+todotxt-github

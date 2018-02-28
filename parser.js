@@ -1,11 +1,63 @@
-function clog(...args) { console.log(...args) }
+const todoFile = "todo.txt";
+const lines = [];
+const todoList = [];
+getFile(todoFile);
 
-// fix blank lines
-let todoList = [];
+function getFile(filePath) {
+	fetch(todoFile)
+		.then(response => response.text())
+		.then(text => {
+			lines.push(...text.split('\n') );
+			parse(lines);
+			displayList(todoList); 
+		});
+}
 
-function parse(theText) {
+function displayList(todos) {
+	const taskListElem = document.getElementById('task-list');
+	const activeTodoList = document.getElementById('active-todos');
+	const completedTodoList  = document.getElementById('completed-todos');
+	const completed = [];
+	let  span = document.createElement('span');
+	todos.forEach( function (task) {
+		let li = document.createElement('li');
+		li.id = 'taskid_' + task.id;
+		li.textContent = task.description;
+		li.addEventListener('click', function(e) {
+			[toss, findMe] = this.id.split('_');
+			const foundTask = todoList.find( function(element) {
+				return element.id == this;
+			}, findMe);  
+			editTask(foundTask);
+		});
+			let div = document.createElement('div');
+		if( task.tags !== undefined && task.tags['due'] !== undefined ) {
+			if( task.tags['due'] !== undefined ) {
+				let span = document.createElement('span');
+				span.textContent = task.tags['due'];
+				span.className = 'task-due';
+				div.appendChild(span);
+			}
+		}
+		if( task.priority !== undefined ) {
+			let span = document.createElement('span');
+			span.textContent = "Priority: " + task.priority;
+			span.className = 'task-priority';
+			div.appendChild(span);
+		}
+		li.appendChild(div);
+		let spanPriority = document.createElement('span');
+		if( task.completed ) {
+			completedTodoList.appendChild(li);
+		} else {
+			activeTodoList.appendChild(li);
+		}
+	});
+}
+
+function parse(todo) {
 	let id = 0;
-	const lines = theText.split("\n");
+	const lines = todo;
 	lines.forEach(function(line) {
 		let result;
 		let regex = new RegExp();
@@ -13,77 +65,50 @@ function parse(theText) {
 			let task = {};
 			task.id = ++id; // should id start at 1?
 			line = line.trim();
-			// if task is completed, the line will begin with a "x "
-			regex = /x\s+/;
-			if( result = regex.exec(line) ) {
-				line = line.slice(result[0].length);
-				task.completed = true;
-			}
+			line = line.replace(/^x\s+/, function(match) {
+				
+				task.completed = !!match; // !! converts result.match to boolean
+				return '';
+			});
 			// determine if marked with a priority. currently limited to one of A, B , or C
-			regex = /\((A|B|C)\)\s+/;
-			if( result = regex.exec(line) ) {
-				line = line.slice(result[0].length);
-				task.priority = result[1];
-			}
+			line = line.replace(/\([A-C]\)\s+/, match => {
+				task.priority = match[1];
+				return '';
+			});
 			// creation and/or completion date
-			regex = /^\d{4}-\d{1,2}-\d{1,2}\s+/;
-				// if we find a date, check for another date
-				// if second date, first is completion date and this is creation date
-				// else date is creation date
-			if( result = regex.exec(line) ) {
-				task.createdDate = new Date(result[0].trim());
-				line = line.slice(result[0].length);
-				if( result = regex.exec(line) ) {
-					task.completedDate = task.createdDate;
-					task.createdDate = new Date(result[0].trim());
-					line = line.slice(result[0].length);
-				}
+			line = line.replace(/^\d{4}-\d{1,2}-\d{1,2}\s+/, match => {
+				task.createdDate = match.trim();
+				return '';
+			});
+			line = line.replace(/^\d{4}-\d{1,2}-\d{1,2}\s+/, match => {
+				task.completeDate = task.createdDate;
+				task.createdDate = match.trim();
+				return '';
+			});
+			// get todo item's context
+			line = line.replace(/\@\w+/i, match => {
+				task.context = match.slice(1);
+				return '';
+			});
+			// get todo item's project connection
+			line = line.replace(/\+\w+/i, match => {
+				task.project = match.slice(1);
+				return '';
+			});
+			// get all custom tags
+			const regex = /\w+:\d{4}-\d{1,2}-\d{1,2}|\w+:\w+/i;
+			let resultArr = [];
+			// task.tags = {};
+			while( (resultArr = regex.exec(line)) != null ) {
+				if( !task.hasOwnProperty('tags') ) task.tags = {};
+				[key, value] = resultArr[0].split(':');
+				task.tags[key] = value;
+				line = line.replace(resultArr[0],'');
 			}
-			regex = /\@\w+/i;
-			if( result = regex.exec(line) ) {
-				task.context = result[0].slice(1);
-				line = line.replace(regex, '');
+			if( task.tags !== undefined ) {
 			}
-			regex = /\+\w+/i;
-			if( result = regex.exec(line) ) {
-				task.project = result[0].slice(1);
-				line = line.replace(regex, '');
-			}
-			regex = /\w+:\d{4}-\d{1,2}-\d{1,2}|\w+:\w+/gi;
-			 if ( result = line.match(regex) ) {
-				 let key, value;
-				 task.tags = {};
-				 result.forEach(function(tag) {
-					 [key, value] = tag.split(":");
-					 task.tags[key] = value;
-					 line = line.replace(tag,'').trim();
-				 });
-			 }
 			task.description = line.trim();
-			line = "";
 			todoList.push(task);
-		}
-	}); // end lines.forEach
-	// return todoList;
-} // end parse()
-
-function getFile(path) {
-	return fetch(path)
-    .then(function (response) {
-      return response.text();
-    })
-    .then(function (text) {
-			return text;
-    });
-}
-
-getAndParse("todo.txt", parse);
-
-function getAndParse(filePath, parseFctn) {
-	// get the file - returns a promise
-	const fileData = getFile(filePath);
-	// process result of promise
-	return fileData.then( data => parseFctn(data) );
-
-
+		} // end if 
+	});
 }

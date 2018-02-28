@@ -1,27 +1,25 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta charset="utf-8">
-<title>ToDo_txt app</title>
-<link href="style.css" rel="stylesheet">
+	<meta charset="utf-8">
+	<title>ToDo_txt app</title>
+	<link href="style.css" rel="stylesheet">
 
-<script src="polyfills.js"></script>
+	<script src="polyfills.js"></script>
 
 </head>
 
 <body>
 <h1>ToDo_txt App</h1>
-<h2>Task List</h2>
-<p>
-<div id="todo-display">
-	<ul class="task-list">
-	<li class="item">
-		<div class="description">Item description</div>
-		<div class="context">@context</div>
-	</li>
-	</ul>
+<div id="task-list">
+<h3>Active Todos</h3>
+<ul id="active-todos">
+</ul>
+
+<h3>Completed Todos</h3>
+<ul id="completed-todos">
+</ul>
 </div>
-</p>
 
 
 <!-- Task Edit Form -->
@@ -31,85 +29,95 @@
 
 <h2>Task Item Edit</h2>
 <div>
-<form action="" id="" name="" method="get">
+<form action="#" name="taskedit" id="task-edit-form" method="get">
 <fieldset>
 <legend>Task Item</legend>
 	<div>
-  	<label>Task:<input type="text" name="description" size="80">
+  	<label>Task:<input type="text" id="description" value="" size="80">
 		</label>
-	</div>
-	<div>
-		<label>Context:<input list="contexts" name="task-context"></label>
-		<datalist id="contexts">
-			<select>
-			<option value="Home">
-			<option value="Phone">
-			<option value="Grocery">
-			</select>
-		</datalist>
 	</div>
 </fieldset>
 
 <fieldset>
 <legend>Options</legend>
 	Priority:
-	<select name="priority">
+	<select id="priority">
 		<option value >-</option>
 		<option value="A">A</option>
 		<option value="B">B</option>
 		<option value="C">C</option>
 	</select>
 	<div>
-		<label for="use_start">Start Date:
-			<input type="date" name="start_date" id="start_date" >
+		<label>Project:<input list="projects" id="project"></label>
+		<datalist id="projects">
+			<select>
+			<option value="Novel">
+			<option value="Health">
+			<option value="Family">
+			<option value="TPSReports">
+			<option value="camelCaseTag">
+			</select>
+		</datalist>
+	</div>
+	<div>
+		<label>Context:<input list="contexts" id="context"></label>
+		<datalist id="contexts">
+			<select>
+			<option value="Home">
+			<option value="Phone">
+			<option value="GroceryStore">
+			<option value="context">
+			<option value="Office">
+			</select>
+		</datalist>
+	</div>
+	<div>
+		<label for="created">Created Date:
+			<input type="date" name="creationDate" id="created">
 		</label>
 	</div>
 	<div>
-		<label for="due_date">Due Date:
-			<input type="date" name="due_date" id="due_date">
+		<label for="due">Due Date:
+			<input type="date" id="due">
 		</label>
 	</div>
 	<div>
-		<label for="completed_date">Completed Date:
-			<input type="date" name="completed_date" id="completed_date">
+		<label for="completed">Completed Date:
+			<input type="date" id="completed">
+		</label>
+	</div>
+	<div>
+		<label for="tags">Tags:
+			<textare id="tags"></textarea>
 		</label>
 	</div>
 </fieldset>
 
-<ul id="" class="task-edit">
-	<li>task description</li>
-	<li>context</li>
-	<li>project</li>
-	<li>priority</li>
-	<li>tags</li>
-	<li>key:value</li>
-	<li>date started</li>
-	<li>date due</li>
-	<li>date completed</li>
-</ul>
 <input type="submit" value="Go">
 </form><!-- end of form -->
 </div>
-
-<p><a href="todo.html" target="_blank">Specification</a></p>
 <pre>
-
-x (A) 2018-02-13 2018-02-10 item description +camelCaseTag @context key:value
-(A) Call Mom @Phone +Family due:2018-02-17
-(A) Schedule annual checkup +Health
+x (A) 2018-02-13 2018-02-10 item description +camelCaseTag @context key:value due:2018-02-13
+(A) Call Mom @Phone +Family due:2018-02-17 about:picnic weather:rain
+(A) 2018-02-17 Schedule annual checkup +Health
 (B) Outline chapter 5 +Novel @Computer
 (C) Add cover sheets @Office +TPSReports
 Plan backyard herb garden @Home
 Pick up milk @GroceryStore
 Research self-publishing services +Novel @Computer
 x Download Todo.txt mobile app @Phone
-
 </pre>
+
+<p><a href="todo.html" target="_blank">Specification</a></p>
+
 <script src="parser.js">
 </script>
 
-<script src="index.js">
+<!-- script src="index.js">
+</script -->
+<script src="taskedit.js" >
 </script>
+
 <div>
 Why we don't support IEx before 11:<a href="https://www.xfive.co/blog/stop-supporting-ie10-ie9-ie8/">
 WHY YOU SHOULD STOP SUPPORTING IE10, IE9 AND IE8</a>

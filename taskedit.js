@@ -63,6 +63,13 @@ function editTask(taskIndex) {
 	}
 }
 
+
+
+// if a completed date is set, the completed flag should be true
+// if the completed checkbox is checked, the current date should be set as date of completion
+// do I care if there are empty properties? should I? 
+
+
  taskEditForm.addEventListener('submit', event => event.preventDefault());
  taskEditForm.onsubmit=function() {
 	/* do what you want with the form */
@@ -75,15 +82,22 @@ function editTask(taskIndex) {
 	todoList[task].createdDate = taskEditForm.created.value;
 
 	// this part does not work
-	todoList[task].tags = {};
-	todoList[task].tags['due'] = taskEditForm.due.value;
+	// handle optional tags
+	if(taskEditForm.due.value !== '' ) {
+		todoList[task].tags = {};
+		todoList[task].tags['due'] = taskEditForm.due.value;
+	}
+	
 	todoList[task].completeDate = taskEditForm.completeDate.value;
 
-	const tags = taskEditForm.tags.value.split('\n');
-	tags.forEach( tag => {
-		[key, value] = tag.split(':');
-		todoList[task].tags[key] = value;
-	});
+	if( taskEditForm.tags.value !== '' ) {
+		if( !todoList[task].hasOwnProperty('tags') ) todoList[task].tags = {};
+		const tags = taskEditForm.tags.value.split('\n');
+		tags.forEach( tag => {
+			[key, value] = tag.split(':');
+			todoList[task].tags[key] = value;
+		});
+	}
 
 	console.log('current task:', todoList[task]);
 

@@ -28,7 +28,7 @@ function displayList(todos) {
 			const foundTask = todoList.find( function(element) {
 				return element.id == this;
 			}, findMe);  
-			editTask(foundTask);
+			editTask(foundTask); // in taskedit.js
 		});
 			let div = document.createElement('div');
 		if( task.tags !== undefined && task.tags['due'] !== undefined ) {
@@ -63,7 +63,8 @@ function parse(todo) {
 		let regex = new RegExp();
 		if( line !== '' ) {
 			let task = {};
-			task.id = ++id; // should id start at 1?
+			// task.id = ++id; // should id start at 1?
+			// use index of todoList array instead of assigning an id
 			line = line.trim();
 			line = line.replace(/^x\s+/, function(match) {
 				

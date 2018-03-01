@@ -1,4 +1,5 @@
-server.js
+favicon.ico
+server
 cheatsheet.vim
 listing.txt
 frameworks.css
@@ -6,7 +7,7 @@ frameworks.css
 .jshintrc
 *.swp
 
-
+css/
 img/
 backup/
 todotxt-github

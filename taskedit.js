@@ -1,8 +1,10 @@
+const taskEditForm = document.getElementById('taskEdit');
+
 function editTask(task) {
-	const taskEditForm = document.getElementById('task-edit-form');
 	// console.log(task );
-	const formElements = [...taskEditForm];
+	taskEditForm.reset();
 	taskEditForm.description.value = task.description;
+	taskEditForm.taskid.value = task.id;
 	// task project 
 	if( task.hasOwnProperty('project') )
 		taskEditForm.project.value = task.project;
@@ -35,51 +37,91 @@ function editTask(task) {
 	// deal with tags
 	if( task.hasOwnProperty('tags') ) {
 		// console.log(task.tags);
+		taskEditForm.tags.rows = 1;
+		taskEditForm.tags.value = '';
 		numberOfTags = task.tags.length;
 		if( task.tags.hasOwnProperty('due') ) {
 			numberOfTags = numberOfTags - 1;
 		}
-		taskEditForm.tags.rows = numberOfTags;
+		let tagContent = '';
+		numberOfTags = 0;
 		for( const key in task.tags ) {
-			console.log(key + ': ' + task.tags[key]);
 			if( key === 'due' ) {
 				taskEditForm.due.value = task.tags[key];
 			} else {
-				taskEditForm.tags.value = taskEditForm.tags.value + key + ': ' + task.tags[key];
+				tagContent = tagContent + '\n' + key + ': ' + task.tags[key];
+				numberOfTags++;
 			}
 		}
+		taskEditForm.tags.rows = numberOfTags;
+		taskEditForm.tags.value = tagContent.trim();
+		// console.log(tagContent.trim());
+	} else {
+		taskEditForm.tags.rows = 1;
+		taskEditForm.tags.value = '';
 	}
 }
 
-function processTaskEdit() {
+ taskEditForm.addEventListener('submit', event => event.preventDefault());
+ taskEditForm.onsubmit=function() {
+	/* do what you want with the form */
+	const task = todoList.findIndex( function(element) {
+		return element.id == this;
+	}, taskEditForm.taskid.value );
+	todoList[task].completed = taskEditForm.completed.checked || taskEditForm.completeDate.value !== '';
+	todoList[task].description = taskEditForm.description.value;	
+	todoList[task].priority = taskEditForm.priority.value;	
+	todoList[task].project = taskEditForm.project.value;
+	todoList[task].context = taskEditForm.context.value;
+	todoList[task].createdDate = taskEditForm.created.value;
+	todoList[task].tags = {};
+	todoList[task].tags['due'] = taskEditForm.due.value;
+	todoList[task].completeDate = taskEditForm.completeDate.value;
 
-}
+	const tags = taskEditForm.tags.value.split('\n');
+	tags.forEach( tag => {
+		[key, value] = tag.split(':');
+		todoList[task].tags[key] = value;
+	});
 
-function findPriority() {
-	return ; //index of priority in option list
-}
+	console.log('current task:', todoList[task]);
 
-function findProjectIndex() {
-	return ; //index of project in option list
-}
-
-function findContextIndex() {
-	return ; //index of context in option list
+	return false;
 }
 
 /*
 
-completeDate:Mon Feb 12 2018 16:00:00 GMT-0800 (PST) {}
-completed:true
-context:"context"
-createdDate:Fri Feb 09 2018 16:00:00 GMT-0800 (PST)
-description:"item description"
-id:1
-priority:"A"
-project:"camelCaseTag"
-tags:{key: "value", due: "2018-02-13"}
+id: 2
+priority: "A"
+context: "Phone"
+project: "Family"
+description: "Call Mom"
+tags: {
+	due: "2018-02-17"
+	about: "picnic"
+	weather: "rain"
+}
+
+0:input#taskid
+2:input#description
+4:select#priority
+5:input#project
+7:input#context
+9:input#created
+10:input#due
+11:input#completed
+12:textarea#tags
+
+completed:input#completed
+context:input#context
+created:input#created
+creationDate:input#created
+description:input#description
+due:input#due
+priority:select#priority
+project:input#project
+tags:textarea#tags
+taskid:input#taskid
+
 
 */
-// formElements.forEach( element => console.log(element, element.id));
-// console.log('description field:', taskEditForm.description);
-// console.log('description:', taskEditForm.description.value);

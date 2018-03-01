@@ -1,6 +1,6 @@
 x (B) 2018-02-10 2018-02-09 item description +camelCaseTag @context key:value due:2018-02-13
 (A) Call Mom @Phone +Family due:2018-02-17 about:picnic weather:rain
-(A) 2018-03-17 Schedule annual checkup +Health
+(A) 2018-02-17 Schedule annual checkup +Health
 (B) Outline chapter 5 +Novel @Computer
 (C) Add cover sheets @Office +TPSReports
 Plan backyard herb garden @Home

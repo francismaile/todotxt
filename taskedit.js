@@ -1,10 +1,11 @@
 const taskEditForm = document.getElementById('taskEdit');
 
-function editTask(task) {
+function editTask(taskIndex) {
 	// console.log(task );
+	const task = todoList[taskIndex];
 	taskEditForm.reset();
 	taskEditForm.description.value = task.description;
-	taskEditForm.taskid.value = task.id;
+	taskEditForm.taskid.value = taskIndex;
 	// task project 
 	if( task.hasOwnProperty('project') )
 		taskEditForm.project.value = task.project;
@@ -65,15 +66,15 @@ function editTask(task) {
  taskEditForm.addEventListener('submit', event => event.preventDefault());
  taskEditForm.onsubmit=function() {
 	/* do what you want with the form */
-	const task = todoList.findIndex( function(element) {
-		return element.id == this;
-	}, taskEditForm.taskid.value );
+	task = taskEditForm.taskid.value;
 	todoList[task].completed = taskEditForm.completed.checked || taskEditForm.completeDate.value !== '';
 	todoList[task].description = taskEditForm.description.value;	
 	todoList[task].priority = taskEditForm.priority.value;	
 	todoList[task].project = taskEditForm.project.value;
 	todoList[task].context = taskEditForm.context.value;
 	todoList[task].createdDate = taskEditForm.created.value;
+
+	// this part does not work
 	todoList[task].tags = {};
 	todoList[task].tags['due'] = taskEditForm.due.value;
 	todoList[task].completeDate = taskEditForm.completeDate.value;

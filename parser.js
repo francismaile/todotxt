@@ -14,49 +14,91 @@ function getFile(filePath) {
 }
 
 function displayList(todos) {
-	const taskListElem = document.getElementById('task-list');
+	// const taskListElem = document.getElementById('task-list');
 	const activeTodoList = document.getElementById('active-todos');
-	const completedTodoList  = document.getElementById('completed-todos');
-	const completed = [];
+	activeTodoList.addEventListener('click', function(event) {
+		// console.log(event.target.id.split('_')[1]);
+		taskid = event.target.id.split('_')[1];
+		editTask(taskid); // in taskedit.js
+	});
+	const completedTodoList = document.getElementById('completed-todos');
+	completedTodoList.addEventListener('click', function(event) {
+		// console.log(event.target.id.split('_')[1]);
+		editTask(event.target.id.split('_')[1]); // in taskedit.js
+	});
+	// const completed = [];
 	let  span = document.createElement('span');
-	todos.forEach( function (task) {
+	for(var i=0; i < todos.length; i++) {
 		let li = document.createElement('li');
-		li.id = 'taskid_' + task.id;
-		li.textContent = task.description;
-		li.addEventListener('click', function(e) {
-			[toss, findMe] = this.id.split('_');
-			const foundTask = todoList.find( function(element) {
-				return element.id == this;
-			}, findMe);  
-			editTask(foundTask); // in taskedit.js
-		});
-			let div = document.createElement('div');
-		if( task.tags !== undefined && task.tags['due'] !== undefined ) {
-			if( task.tags['due'] !== undefined ) {
+		li.id = 'task_' + i;
+ 		li.textContent = todos[i].description;
+		let div = document.createElement('div');
+		if( todos[i].tags !== undefined && todos[i].tags['due'] !== undefined ) {
+			if( todos[i].tags['due'] !== undefined ) {
 				let span = document.createElement('span');
-				span.textContent = task.tags['due'];
+				span.textContent = todos[i].tags['due'];
 				span.className = 'task-due';
 				div.appendChild(span);
 			}
 		}
-		if( task.priority !== undefined ) {
+		if( todos[i].priority !== undefined ) {
 			let span = document.createElement('span');
-			span.textContent = "Priority: " + task.priority;
+			span.textContent = "Priority: " + todos[i].priority;
 			span.className = 'task-priority';
 			div.appendChild(span);
 		}
 		li.appendChild(div);
 		let spanPriority = document.createElement('span');
-		if( task.completed ) {
+		if( todos[i].completed ) {
 			completedTodoList.appendChild(li);
 		} else {
 			activeTodoList.appendChild(li);
 		}
-	});
-}
+	} // end for loop
+} // end displayList
 
+
+
+
+// 	todos.forEach( function (task) {
+// 		let li = document.createElement('li');
+// 		li.id = 'taskid_' + task.id;
+// 		li.textContent = task.description;
+// 		li.addEventListener('click', function(e) {
+// 			[toss, findMe] = this.id.split('_');
+// 			const foundTask = todoList.find( function(element) {
+// 				return element.id == this;
+// 			}, findMe);  
+// 			editTask(foundTask); // in taskedit.js
+// 			// let's try calling this at ul level
+// 		});
+// 		let div = document.createElement('div');
+// 		if( task.tags !== undefined && task.tags['due'] !== undefined ) {
+// 			if( task.tags['due'] !== undefined ) {
+// 				let span = document.createElement('span');
+// 				span.textContent = task.tags['due'];
+// 				span.className = 'task-due';
+// 				div.appendChild(span);
+// 			}
+// 		}
+// 		if( task.priority !== undefined ) {
+// 			let span = document.createElement('span');
+// 			span.textContent = "Priority: " + task.priority;
+// 			span.className = 'task-priority';
+// 			div.appendChild(span);
+// 		}
+// 		li.appendChild(div);
+// 		let spanPriority = document.createElement('span');
+// 		if( task.completed ) {
+// 			completedTodoList.appendChild(li);
+// 		} else {
+// 			activeTodoList.appendChild(li);
+// 		}
+// 	});
+// }
+ 
 function parse(todo) {
-	let id = 0;
+	// let id = 0;
 	const lines = todo;
 	lines.forEach(function(line) {
 		let result;
@@ -112,4 +154,5 @@ function parse(todo) {
 			todoList.push(task);
 		} // end if 
 	});
+			console.log(todoList);
 }

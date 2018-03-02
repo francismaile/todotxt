@@ -113,5 +113,8 @@ function parse(todo) {
 			 todoList.push(task);
 		} // end if 
 	});
-			 console.log(todoList);
+			 // console.log(todoList);
+}
+
+
 }

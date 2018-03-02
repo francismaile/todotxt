@@ -1,4 +1,3 @@
-// this is in id2index
 const taskEditForm = document.getElementById('taskEdit');
 
 function editTask(taskIndex) {
@@ -38,7 +37,6 @@ function editTask(taskIndex) {
 	}
 	// deal with tags
 	if( task.hasOwnProperty('tags') ) {
-		// console.log(task.tags);
 		taskEditForm.tags.rows = 1;
 		taskEditForm.tags.value = '';
 		numberOfTags = task.tags.length;
@@ -51,29 +49,25 @@ function editTask(taskIndex) {
 			if( key === 'due' ) {
 				taskEditForm.due.value = task.tags[key];
 			} else {
-				tagContent = tagContent + '\n' + key + ': ' + task.tags[key];
+				tagContent = tagContent + '\n' + key + ':' + task.tags[key];
 				numberOfTags++;
 			}
 		}
 		taskEditForm.tags.rows = numberOfTags;
 		taskEditForm.tags.value = tagContent.trim();
-		// console.log(tagContent.trim());
 	} else {
 		taskEditForm.tags.rows = 1;
 		taskEditForm.tags.value = '';
 	}
 }
 
-
-
 // if a completed date is set, the completed flag should be true
 // if the completed checkbox is checked, the current date should be set as date of completion
 // do I care if there are empty properties? should I? 
 
-
+// process the form
  taskEditForm.addEventListener('submit', event => event.preventDefault());
  taskEditForm.onsubmit=function() {
-	/* do what you want with the form */
 	task = taskEditForm.taskid.value;
 	todoList[task].completed = taskEditForm.completed.checked || taskEditForm.completeDate.value !== '';
 	todoList[task].description = taskEditForm.description.value;	
@@ -105,39 +99,3 @@ function editTask(taskIndex) {
 	return false;
 }
 
-/*
-
-id: 2
-priority: "A"
-context: "Phone"
-project: "Family"
-description: "Call Mom"
-tags: {
-	due: "2018-02-17"
-	about: "picnic"
-	weather: "rain"
-}
-
-0:input#taskid
-2:input#description
-4:select#priority
-5:input#project
-7:input#context
-9:input#created
-10:input#due
-11:input#completed
-12:textarea#tags
-
-completed:input#completed
-context:input#context
-created:input#created
-creationDate:input#created
-description:input#description
-due:input#due
-priority:select#priority
-project:input#project
-tags:textarea#tags
-taskid:input#taskid
-
-
-*/

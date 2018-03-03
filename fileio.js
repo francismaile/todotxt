@@ -25,13 +25,15 @@ function saveTodo() {
 	});
 	console.log(todoTxt);
 // use fetch to post data to php script
+	fetch('process.php', {
+		body: todoTxt,
+		method: 'POST',
+		mode: 'cors',
+		redirect: 'follow',
+		headers: new Headers({
+			'Content-Type': 'text/plain'
+		})
+	}).then(function() { /* handle response */ });
 // php script saves file to server
 }
 
-
-// var request = new XMLHttpRequest();
-// request.open('POST', '/my/url', true);
-// request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-// request.send(data);
-
-// Content-Type: text/plain

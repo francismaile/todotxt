@@ -20,7 +20,11 @@
 </ul>
 </div>
 
-
+<p>
+<div id="save-it">Save nothing</div>
+	<button type="button" id="save-to-server">Save</button>
+	<button>Save to Disk</button>
+</p>
 <!-- Task Edit Form -->
 <!-- Task Edit Form -->
 <!-- Task Edit Form -->
@@ -112,11 +116,21 @@ x Download Todo.txt mobile app @Phone
 <script src="parser.js">
 </script>
 
-<!-- script src="index.js">
-</script -->
 <script src="taskedit.js" >
 </script>
 
+<script src="fileio.js">
+</script>
+<script>
+document.getElementById('save-to-server').addEventListener("click", function() {
+	saveTodo();
+}, false);
+
+document.getElementById('save-it').addEventListener('click', function() {
+	console.log('click!');
+	saveTodo();
+});
+</script>
 <div>
 Why we don't support IEx before 11:<a href="https://www.xfive.co/blog/stop-supporting-ie10-ie9-ie8/">
 WHY YOU SHOULD STOP SUPPORTING IE10, IE9 AND IE8</a>

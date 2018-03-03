@@ -16,16 +16,11 @@ function getFile(filePath) {
 function displayList(todos) {
 	// const taskListElem = document.getElementById('task-list');
 	const activeTodoList = document.getElementById('active-todos');
-	activeTodoList.addEventListener('click', function(event) {
-		// console.log(event.target.id.split('_')[1]);
-		taskid = event.target.id.split('_')[1];
-		editTask(taskid); // in taskedit.js
-	});
 	const completedTodoList = document.getElementById('completed-todos');
-	completedTodoList.addEventListener('click', function(event) {
-		// console.log(event.target.id.split('_')[1]);
-		editTask(event.target.id.split('_')[1]); // in taskedit.js
-	});
+// 	completedTodoList.addEventListener('click', function(event) {
+// 		// console.log(event.target.id.split('_')[1]);
+// 		editTask(event.target.id.split('_')[1]); // in taskedit.js
+// 	});
 	let  span = document.createElement('span');
 	for(var i=0; i < todos.length; i++) {
 		let li = document.createElement('li');
@@ -48,6 +43,10 @@ function displayList(todos) {
 		}
 		li.appendChild(div);
 		let spanPriority = document.createElement('span');
+		li.addEventListener('click', function(event) {
+			taskid = event.target.id.split('_')[1];
+			editTask(taskid); // in taskedit.js
+		});
 		if( todos[i].completed ) {
 			completedTodoList.appendChild(li);
 		} else {
@@ -117,4 +116,3 @@ function parse(todo) {
 }
 
 
-}

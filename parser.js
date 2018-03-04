@@ -13,14 +13,11 @@ function getFile(filePath) {
 		});
 }
 
+const activeTodoList = document.getElementById('active-todos');
+const completedTodoList = document.getElementById('completed-todos');
+
 function displayList(todos) {
 	// const taskListElem = document.getElementById('task-list');
-	const activeTodoList = document.getElementById('active-todos');
-	const completedTodoList = document.getElementById('completed-todos');
-// 	completedTodoList.addEventListener('click', function(event) {
-// 		// console.log(event.target.id.split('_')[1]);
-// 		editTask(event.target.id.split('_')[1]); // in taskedit.js
-// 	});
 	let  span = document.createElement('span');
 	for(var i=0; i < todos.length; i++) {
 		let li = document.createElement('li');

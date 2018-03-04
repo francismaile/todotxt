@@ -67,7 +67,7 @@ function editTask(taskIndex) {
 
 // process the form
  taskEditForm.addEventListener('submit', event => event.preventDefault());
- taskEditForm.onsubmit=function() {
+taskEditForm.onsubmit=function() {
 	task = taskEditForm.taskid.value;
 	todoList[task].completed = taskEditForm.completed.checked || taskEditForm.completeDate.value !== '';
 	todoList[task].description = taskEditForm.description.value;	
@@ -94,7 +94,9 @@ function editTask(taskIndex) {
 		});
 	}
 
-	console.log('current task:', todoList[task]);
+	activeTodoList.innerHTML = ''; 
+	completedTodoList.innerHTML = ''; 
+	displayList(todoList);
 
 	return false;
 }

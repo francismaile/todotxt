@@ -3,9 +3,9 @@ server
 .DS_Store
 .jshintrc
 *.swp
+todo.txt
 
 css/
 img/
 backup/
 stuff/
-todotxt-github

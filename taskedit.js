@@ -1,7 +1,6 @@
 const taskEditForm = document.getElementById('taskEdit');
 
 function editTask(taskIndex) {
-	// console.log(task );
 	const task = todoList[taskIndex];
 	taskEditForm.reset();
 	taskEditForm.description.value = task.description;
@@ -76,8 +75,6 @@ taskEditForm.onsubmit=function() {
 	todoList[task].context = taskEditForm.context.value;
 	todoList[task].createdDate = taskEditForm.created.value;
 
-	// this part does not work
-	// handle optional tags
 	if(taskEditForm.due.value !== '' ) {
 		todoList[task].tags = {};
 		todoList[task].tags['due'] = taskEditForm.due.value;

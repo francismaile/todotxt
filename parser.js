@@ -17,7 +17,6 @@ const activeTodoList = document.getElementById('active-todos');
 const completedTodoList = document.getElementById('completed-todos');
 
 function displayList(todos) {
-	// const taskListElem = document.getElementById('task-list');
 	let  span = document.createElement('span');
 	for(var i=0; i < todos.length; i++) {
 		let li = document.createElement('li');
@@ -109,7 +108,6 @@ function parse(todo) {
 			 todoList.push(task);
 		} // end if 
 	});
-			 // console.log(todoList);
 }
 
 

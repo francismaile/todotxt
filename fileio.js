@@ -1,6 +1,5 @@
 function saveTodo() {
 // convert todoList to todo.txt format
-	// console.log(todoList);
 	let todoTxt = '';
 	todoList.forEach( function(todo) {
 		if( todo.completed ) todoTxt += 'x ';
@@ -23,7 +22,7 @@ function saveTodo() {
 		}
 		todoTxt += '\n';
 	});
-	console.log(todoTxt);
+
 // use fetch to post data to php script
 	fetch('process.php', {
 		body: todoTxt,

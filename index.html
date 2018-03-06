@@ -10,38 +10,21 @@
 </head>
 
 <body>
-<div id="task-list">
-<h3>Active Todos</h3>
-<ul id="active-todos">
-</ul>
 
-<h3>Completed Todos</h3>
-<ul id="completed-todos">
-</ul>
-</div>
-
-<p>
-	<button type="button" id="save-to-server">Save</button>
-	<button>Save to Disk</button>
-</p>
+<div id="wrapper">
+<h1 id="main-title">ToDo_txt GUI</h1>
 <!-- Task Edit Form -->
-<!-- Task Edit Form -->
-<!-- Task Edit Form -->
-
-
-<h2>Task Item Edit</h2>
 <div>
 <form action="" id="taskEdit" method="">
 <input type="hidden" id="taskid">
 <fieldset>
 <legend>Task Item</legend>
 	<div>
-		<input type="checkbox" id="completed"><input type="text" id="description" value="" size="80">
+		<input type="checkbox" id="completed"><input type="text" size="55"  id="description" value="" size="80">
 	</div>
 </fieldset>
 
-<fieldset>
-<legend>Options</legend>
+<fieldset id="task-options">
 	Priority:
 	<select id="priority">
 		<option value ></option>
@@ -93,22 +76,32 @@
 			<textarea id="tags" rows=1></textarea>
 		</label>
 	</div>
+<input type="submit" value="Go">
 </fieldset>
 
-<input type="submit" value="Go">
 </form><!-- end of form -->
 </div>
-<pre>
-x (A) 2018-02-13 2018-02-10 item description +camelCaseTag @context key:value due:2018-02-13
-(A) Call Mom @Phone +Family due:2018-02-17 about:picnic weather:rain
-(A) 2018-02-17 Schedule annual checkup +Health
-(B) Outline chapter 5 +Novel @Computer
-(C) Add cover sheets @Office +TPSReports
-Plan backyard herb garden @Home
-Pick up milk @GroceryStore
-Research self-publishing services +Novel @Computer
-x Download Todo.txt mobile app @Phone
-</pre>
+<!-- Task Edit Form -->
+<!-- Task Edit Form -->
+
+<div id="task-list">
+<ul id="active-todos">
+</ul>
+
+<h3>Completed Todos</h3>
+<ul id="completed-todos">
+</ul>
+</div>
+
+<p>
+	<button type="button" id="save-to-server">Save</button>
+	<button>Save to Disk</button>
+</p>
+
+</div><!-- wrapper -->
+
+<button id="show-form">Show Form</button>
+<button id="hide-form">Hide Form</button>
 
 <p><a href="todo.html" target="_blank">Specification</a></p>
 
@@ -125,6 +118,14 @@ document.getElementById('save-to-server').addEventListener("click", function() {
 	saveTodo();
 }, false);
 
+
+document.getElementById('show-form').addEventListener("click", function() {
+	taskEditForm['task-options'].style.display = 'inline';
+}, false);
+
+document.getElementById('hide-form').addEventListener("click", function() {
+	taskEditForm['task-options'].style.display = 'none';
+}, false);
 </script>
 <div>
 Why we don't support IEx before 11:<a href="https://www.xfive.co/blog/stop-supporting-ie10-ie9-ie8/">

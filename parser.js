@@ -9,7 +9,7 @@ function getFile(filePath) {
 		.then(text => {
 			lines.push(...text.split('\n') );
 			parse(lines);
-			displayList(todoList); 
+			displayList(todoList);
 		});
 }
 
@@ -23,8 +23,8 @@ function displayList(todos) {
 		li.id = 'task_' + i;
  		li.textContent = todos[i].description;
 		let div = document.createElement('div');
-		if( todos[i].tags !== undefined && todos[i].tags['due'] !== undefined ) {
-			if( todos[i].tags['due'] !== undefined ) {
+		if( todos[i].tags !== undefined && todos[i].tags.due !== undefined ) {
+			if( todos[i].tags.due !== undefined ) {
 				let span = document.createElement('span');
 				span.textContent = todos[i].tags['due'];
 				span.className = 'task-due';
@@ -63,7 +63,7 @@ function parse(todo) {
 			 // use index of todoList array instead of assigning an id
 			 line = line.trim();
 			 line = line.replace(/^x\s+/, function(match) {
-				 
+
 				 task.completed = !!match; // !! converts result.match to boolean
 				 return '';
 			 });
@@ -106,8 +106,6 @@ function parse(todo) {
 			 }
 			 task.description = line.trim();
 			 todoList.push(task);
-		} // end if 
+		} // end if
 	});
 }
-
-

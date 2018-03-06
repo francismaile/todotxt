@@ -14,7 +14,7 @@ function saveTodo() {
 			if( todo.tags.due ) {
 				todoTxt += 'due:' + todo.tags.due;
 			}
-			for( key in todo.tags ) {
+			for( let key in todo.tags ) {
 				if( key !== 'due' ) {
 					todoTxt += key + ':' + todo.tags[key] + ' ';
 				}
@@ -35,4 +35,3 @@ function saveTodo() {
 	}).then(function() { /* handle response */ });
 // php script saves file to server
 }
-

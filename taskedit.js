@@ -5,17 +5,17 @@ function editTask(taskIndex) {
 	taskEditForm.reset();
 	taskEditForm.description.value = task.description;
 	taskEditForm.taskid.value = taskIndex;
-	// task project 
+	// task project
 	if( task.hasOwnProperty('project') )
 		taskEditForm.project.value = task.project;
 	else
 		taskEditForm.project.value = '';
-	// task context	
+	// task context
 	if( task.hasOwnProperty('context'))
 		taskEditForm.context.value = task.context;
 	else
 		taskEditForm.context.value = '';
-	// task priority	
+	// task priority
 	if( task.hasOwnProperty('priority')) {
 		for( let i=0; i<=taskEditForm.priority.length; i++ ) {
 			if( taskEditForm.priority.options[i].value === task.priority ) {
@@ -62,15 +62,15 @@ function editTask(taskIndex) {
 
 // if a completed date is set, the completed flag should be true
 // if the completed checkbox is checked, the current date should be set as date of completion
-// do I care if there are empty properties? should I? 
+// do I care if there are empty properties? should I?
 
 // process the form
  taskEditForm.addEventListener('submit', event => event.preventDefault());
 taskEditForm.onsubmit=function() {
 	task = taskEditForm.taskid.value;
 	todoList[task].completed = taskEditForm.completed.checked || taskEditForm.completeDate.value !== '';
-	todoList[task].description = taskEditForm.description.value;	
-	todoList[task].priority = taskEditForm.priority.value;	
+	todoList[task].description = taskEditForm.description.value;
+	todoList[task].priority = taskEditForm.priority.value;
 	todoList[task].project = taskEditForm.project.value;
 	todoList[task].context = taskEditForm.context.value;
 	todoList[task].createdDate = taskEditForm.created.value;
@@ -79,7 +79,7 @@ taskEditForm.onsubmit=function() {
 		todoList[task].tags = {};
 		todoList[task].tags['due'] = taskEditForm.due.value;
 	}
-	
+
 	todoList[task].completeDate = taskEditForm.completeDate.value;
 
 	if( taskEditForm.tags.value !== '' ) {
@@ -91,10 +91,9 @@ taskEditForm.onsubmit=function() {
 		});
 	}
 
-	activeTodoList.innerHTML = ''; 
-	completedTodoList.innerHTML = ''; 
+	activeTodoList.innerHTML = '';
+	completedTodoList.innerHTML = '';
 	displayList(todoList);
 
 	return false;
-}
-
+};

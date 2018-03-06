@@ -4,15 +4,6 @@
 // make the list items clickable for editing
 
 
-
-
-
-
-
-
-
-
-
 // start date - set with php
 const startDateControl = document.getElementById("start_date");
 const theDate = new Date;

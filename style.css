@@ -2,8 +2,76 @@ input:focus { outline: solid gray thin; }
 select:focus { outline: solid gray thin; }
 
 #wrapper {
+	display: flex;
+}
+
+nav {
+	flex: 2;
+	border: solid gray thin;
+}
+
+nav ul {
+	padding: 0;
+	list-style-type: none;
+}
+
+ul.nav {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.nav li {
+	display: inline;
+	flex: 1;
+	border: solid gray thin;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	margin-left: 1px;
+	text-align: center;
+}
+
+.tab-pane ul {
+	padding-left: 8px;
+	padding-top: 3px;
+	margin-top: 0;
+}
+
+.task-pane {
+	display: none;
+}
+
+.task-pane.active {
+	display: block;
+}
+
+#task-list {
+	flex: 5;
+}
+
+.nav { 
+	cursor: pointer;
+	margin-bottom: 0;
+	background-color: #FFF;
+}
+.nav .active { 
+	color: red;
+	border-bottom: none;
+}
+.tab-pane {
+	display: none;
+}
+.tab-pane.active {
+	display: block;
+	padding-top: 0;
+}
+.tab-content {
+	border: solid gray thin;
+	border-top: none;
+}
+#wrapper {
 	border: solid black;
-	width: 600px;
+	width: 800px;
 	margin: 10px auto;
 }
 

@@ -1,7 +1,25 @@
-// get and parse the todo file
-// populate the metadata and todo list divs
-// make the metadata clickable
-// make the list items clickable for editing
+// tabbed menu
+	(function(){
+		function onTabClick(event){
+			var actives = document.querySelectorAll('.active');
+
+			// deactivate existing active tab and panel
+			actives.forEach( activeElem => {
+				activeElem.classList.remove('active');
+			});
+
+			// activate new tab and panel
+			event.target.classList.add('active');
+			
+			const activeMenu = event.target.dataset.choice;
+			document.getElementById(activeMenu + '-tab').classList.add('active');
+			document.getElementById(activeMenu + '-pane').classList.add('active');
+		}
+
+		var el = document.getElementById('nav-tab');
+
+		el.addEventListener('click', onTabClick, false);
+	})();
 
 
 // start date - set with php

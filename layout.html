@@ -1,0 +1,223 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>The HTML Template</title>
+  <meta name="description" content="The HTML Template">
+  <meta name="author" content="FrancisMaile">
+
+  <link rel="stylesheet" href="style.css">
+<style>
+#wrapper {
+	display: flex;
+}
+
+nav {
+	flex: 2;
+	border: solid gray thin;
+}
+
+nav ul {
+	padding: 0;
+	list-style-type: none;
+}
+
+ul.nav {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.nav li {
+	display: inline;
+	flex: 1;
+	border: solid gray thin;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	margin-left: 1px;
+	text-align: center;
+}
+
+.tab-pane ul {
+	padding-left: 8px;
+	padding-top: 3px;
+	margin-top: 0;
+}
+
+#task-list {
+	flex: 5;
+}
+
+.nav { 
+	cursor: pointer;
+	margin-bottom: 0;
+	background-color: #FFF;
+}
+.nav .active { 
+	color: red;
+	border-bottom: none;
+}
+.tab-pane {
+	display: none;
+}
+.tab-pane.active {
+	display: block;
+	padding-top: 0;
+}
+.tab-content {
+	border: solid gray thin;
+	border-top: none;
+}
+</style>
+
+</head>
+
+<body>
+
+<div id="wrapper">
+<nav>
+	<ul id="nav-tab" class="nav">
+		<li class="tab active" data-pane="tab_all">*</li>
+		<li class="tab" data-pane="project_tab">+</li>
+		<li class="tab" data-pane="context_tab">@</li>
+		<li class="tab" data-pane="tags_tab">:</li>
+	</ul>
+
+	<!-- Tab panes -->
+	<div class="tab-content">
+		<div class="tab-pane active" id="tab_all">
+			<ul>
+				<li>Project</li>
+				<li>Context</li>
+				<li>Tags</li>
+				<li>Created</li>
+				<li>Due</li>
+				<li>Completed</li>
+			</ul>
+		</div><!-- tab-panes -->
+		<div class="tab-pane" id="project_tab">
+			<ul>
+				<li>Project 1</li>
+				<li>Project 2</li>
+				<li>Project 3</li>
+				<li>Created</li>
+				<li>Due</li>
+				<li>Completed</li>
+			</ul>
+		</div>
+		<div class="tab-pane" id="context_tab">
+			<ul>
+				<li>Context 1</li>
+				<li>Context 2</li>
+				<li>Context 3</li>
+				<li>Created</li>
+				<li>Due</li>
+				<li>Completed</li>
+			</ul>
+		</div>
+		<div class="tab-pane" id="tags_tab">
+			<ul>
+				<li>Tag 1</li>
+				<li>Tag 2</li>
+				<li>Tag 3</li>
+				<li>Created</li>
+				<li>Due</li>
+				<li>Completed</li>
+			</ul>
+		</div>
+	</div><!-- tab-content -->
+</nav>
+<div id="task-list">
+
+<ul id="active-todos">
+<li id="task_2">Schedule annual checkup<div><span class="task-priority">Priority: B</span></div></li>
+<li id="task_3">Outline chapter 5<div><span class="task-priority">Priority: B</span></div></li>
+<li id="task_4">Add cover sheets<div><span class="task-priority">Priority: B</span></div></li>
+<li id="task_5">Plan backyard herb garden<div></div></li>
+<li id="task_6">Pick up milk<div></div></li>
+<li id="task_7">Research self-publishing services<div></div></li>
+<li id="task_11">Schedule annual checkup<div><span class="task-priority">Priority: B</span></div></li>
+<li id="task_12">Outline chapter 5<div><span class="task-priority">Priority: B</span></div></li>
+<li id="task_13">Add cover sheets<div><span class="task-priority">Priority: B</span></div></li>
+<li id="task_14">Plan backyard herb garden<div></div></li>
+<li id="task_15">Pick up milk<div></div></li>
+<li id="task_16">Research self-publishing services<div></div></li>
+<li id="task_20">Schedule annual checkup<div><span class="task-priority">Priority: B</span></div></li>
+<li id="task_21">Outline chapter 5<div><span class="task-priority">Priority: B</span></div></li>
+<li id="task_22">Add cover sheets<div><span class="task-priority">Priority: B</span></div></li>
+<li id="task_23">Plan backyard herb garden<div></div></li>
+<li id="task_24">Pick up milk<div></div></li>
+<li id="task_25">Research self-publishing services<div></div></li>
+<li id="task_29">Schedule annual checkup<div><span class="task-priority">Priority: B</span></div></li>
+<li id="task_30">Outline chapter 5<div><span class="task-priority">Priority: B</span></div></li>
+<li id="task_31">Add cover sheets<div><span class="task-priority">Priority: B</span></div></li>
+<li id="task_32">Plan backyard herb garden<div></div></li>
+<li id="task_33">Pick up milk<div></div></li>
+<li id="task_34">Research self-publishing services<div></div></li>
+<li id="task_38">Schedule annual checkup<div><span class="task-priority">Priority: B</span></div></li>
+<li id="task_39">Outline chapter 5<div><span class="task-priority">Priority: B</span></div></li>
+<li id="task_40">Add cover sheets<div><span class="task-priority">Priority: B</span></div></li>
+<li id="task_41">Plan backyard herb garden<div></div></li>
+<li id="task_42">Pick up milk<div></div></li>
+<li id="task_43">Research self-publishing services<div></div></li>
+<li id="task_47">Schedule annual checkup<div><span class="task-priority">Priority: B</span></div></li>
+<li id="task_48">Outline chapter 5<div><span class="task-priority">Priority: B</span></div></li>
+<li id="task_49">Add cover sheets<div><span class="task-priority">Priority: B</span></div></li>
+<li id="task_50">Plan backyard herb garden<div></div></li>
+<li id="task_51">Pick up milk<div></div></li>
+<li id="task_52">Research self-publishing services<div></div></li>
+</ul>
+
+<h3>Completed Todos</h3>
+<ul id="completed-todos">
+<li id="task_0">item description<div><span class="task-due">2018-02-13</span><span class="task-priority">Priority: A</span></div></li>
+<li id="task_1">Call Mom<div><span class="task-due">2018-02-17</span><span class="task-priority">Priority: A</span></div></li>
+<li id="task_8">Download Todo.txt mobile app<div></div></li>
+<li id="task_9">item description<div><span class="task-due">2018-02-13</span><span class="task-priority">Priority: A</span></div></li>
+<li id="task_10">Call Mom<div><span class="task-due">2018-02-17</span><span class="task-priority">Priority: A</span></div></li>
+<li id="task_17">Download Todo.txt mobile app<div></div></li>
+<li id="task_18">item description<div><span class="task-due">2018-02-13</span><span class="task-priority">Priority: A</span></div></li>
+<li id="task_19">Call Mom<div><span class="task-due">2018-02-17</span><span class="task-priority">Priority: A</span></div></li>
+<li id="task_26">Download Todo.txt mobile app<div></div></li>
+<li id="task_27">item description<div><span class="task-due">2018-02-13</span><span class="task-priority">Priority: A</span></div></li>
+<li id="task_28">Call Mom<div><span class="task-due">2018-02-17</span><span class="task-priority">Priority: A</span></div></li>
+<li id="task_35">Download Todo.txt mobile app<div></div></li>
+<li id="task_36">item description<div><span class="task-due">2018-02-13</span><span class="task-priority">Priority: A</span></div></li>
+<li id="task_37">Call Mom<div><span class="task-due">2018-02-17</span><span class="task-priority">Priority: A</span></div></li>
+<li id="task_44">Download Todo.txt mobile app<div></div></li>
+<li id="task_45">item description<div><span class="task-due">2018-02-13</span><span class="task-priority">Priority: A</span></div></li>
+<li id="task_46">Call Mom<div><span class="task-due">2018-02-17</span><span class="task-priority">Priority: A</span></div></li>
+<li id="task_53">Download Todo.txt mobile app<div></div></li>
+</ul>
+</div>
+</div>
+
+<script src=""></script>
+<script type="text/javascript">
+	(function(){
+		function onTabClick(event){
+			var actives = document.querySelectorAll('.active');
+
+			// deactivate existing active tab and panel
+			actives.forEach( activeElem => {
+				activeElem.classList.remove('active');
+			});
+
+			// activate new tab and panel
+			event.target.classList.add('active');
+			// document.getElementById(event.target.href.split('#')[1]).className += ' active';
+			const activePane = event.target.dataset.pane;
+			document.getElementById(activePane).classList.add('active');
+		}
+
+		var el = document.getElementById('nav-tab');
+
+		el.addEventListener('click', onTabClick, false);
+	})();
+</script>
+</body>
+</html>
+
+

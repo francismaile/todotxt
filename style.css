@@ -65,10 +65,32 @@ ul.nav {
 	display: block;
 	padding-top: 0;
 }
+
+.tab-pane {
+	cursor: pointer;
+}
+
+.tab-pane ul li:hover {
+  background-color: powderblue;
+  transition: background-color .5s;
+}
+
 .tab-content {
 	border: solid gray thin;
 	border-top: none;
 }
+.task-category-divider {
+	text-align: center;
+}
+
+.task-category-divider:before {
+	content: '< ';
+}
+
+.task-category-divider:after {
+	content: ' >';
+}
+
 #wrapper {
 	border: solid black;
 	width: 800px;

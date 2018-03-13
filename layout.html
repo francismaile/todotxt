@@ -21,7 +21,7 @@
 		<li class="tab" data-choice="project">+</li>
 		<li class="tab" data-choice="context">@</li>
 		<li class="tab" data-choice="priority">()</li>
-		<li class="tab" data-choice="tags">:</li>
+		<li class="tab" data-choice="tag">:</li>
 	</ul>
 
 	<!-- Tab panes -->
@@ -66,7 +66,7 @@
 				<li>Completed</li>
 			</ul>
 		</div>
-		<div class="tab-pane" id="tags-tab">
+		<div class="tab-pane" id="tag-tab">
 			<ul>
 				<li>Tag 1</li>
 				<li>Tag 2</li>
@@ -120,7 +120,7 @@
 		<li id="task_7">Research self-publishing services<div></div></li>
 	</ul>
 </div>
-<div class="task-pane" id="tags-pane">
+<div class="task-pane" id="tag-pane">
 	<ul id="active-todos">
 		<li id="task_2">Tags version of todos<div><span class="task-priority">Priority: B</span></div></li>
 		<li id="task_3">Outline chapter 5<div><span class="task-priority">Priority: B</span></div></li>
@@ -136,6 +136,7 @@
 
 <script src=""></script>
 <script type="text/javascript">
+	// this is a test
 	(function(){
 		function onTabClick(event){
 			var actives = document.querySelectorAll('.active');

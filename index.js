@@ -1,27 +1,30 @@
-// tabbed menu
-	(function(){
-		function onTabClick(event){
-			var actives = document.querySelectorAll('.active');
+// ***************  tabbed menu  ******************
+(function(){
+	function onTabClick(event){
+		var actives = document.querySelectorAll('.active');
 
-			// deactivate existing active tab and panel
-			actives.forEach( activeElem => {
-				activeElem.classList.remove('active');
-			});
+		// deactivate existing active tab and panel
+		actives.forEach( activeElem => {
+			activeElem.classList.remove('active');
+		});
 
-			// activate new tab and panel
-			event.target.classList.add('active');
-			
-			const activeMenu = event.target.dataset.choice;
-			document.getElementById(activeMenu + '-tab').classList.add('active');
-			document.getElementById(activeMenu + '-pane').classList.add('active');
-		}
+		// activate new tab and panel
+		event.target.classList.add('active');
+		
+		const activeMenu = event.target.id;
+		document.getElementById(activeMenu + '-tab').classList.add('active');
+		document.getElementById(activeMenu + '-pane').classList.add('active');
+	}
 
-		var el = document.getElementById('nav-tab');
+	function onAllMenuClick(event) {
+		document.getElementById(event.target.id.split('-')[0]).click();
+	}
+	document.getElementById('all-menu').addEventListener('click', onAllMenuClick, false);
+	var el = document.getElementById('nav-tab');
+	document.getElementById('nav-tab').addEventListener('click', onTabClick, false);
+})();
 
-		el.addEventListener('click', onTabClick, false);
-	})();
-
-
+/*
 // start date - set with php
 const startDateControl = document.getElementById("start_date");
 const theDate = new Date;
@@ -47,4 +50,4 @@ dueDateControl.min = startDateControl.value;
 const completedDateControl = document.getElementById("completed_date");
 completedDateControl.value = startDateControl.value; 
 completedDateControl.min = startDateControl.value;
-
+*/

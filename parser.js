@@ -1,6 +1,6 @@
 const todoFile = "todo.txt";
 const lines = [];
-const todoList = [];
+let todoList = [];
 getFile(todoFile);
 
 function getFile(filePath) {
@@ -9,47 +9,9 @@ function getFile(filePath) {
 		.then(text => {
 			lines.push(...text.split('\n') );
 			parse(lines);
-			displayList(todoList);
+			displayAllTodoLists();
 		});
 }
-
-const activeTodoList = document.getElementById('active-todos');
-const completedTodoList = document.getElementById('completed-todos');
-
-function displayList(todos) {
-	let  span = document.createElement('span');
-	for(var i=0; i < todos.length; i++) {
-		let li = document.createElement('li');
-		li.id = 'task_' + i;
- 		li.textContent = todos[i].description;
-		let div = document.createElement('div');
-		if( todos[i].tags !== undefined && todos[i].tags.due !== undefined ) {
-			if( todos[i].tags.due !== undefined ) {
-				let span = document.createElement('span');
-				span.textContent = todos[i].tags['due'];
-				span.className = 'task-due';
-				div.appendChild(span);
-			}
-		}
-		if( todos[i].priority !== undefined ) {
-			let span = document.createElement('span');
-			span.textContent = "Priority: " + todos[i].priority;
-			span.className = 'task-priority';
-			div.appendChild(span);
-		}
-		li.appendChild(div);
-		let spanPriority = document.createElement('span');
-		li.addEventListener('click', function(event) {
-			taskid = event.target.id.split('_')[1];
-			editTask(taskid); // in taskedit.js
-		});
-		if( todos[i].completed ) {
-			completedTodoList.appendChild(li);
-		} else {
-			activeTodoList.appendChild(li);
-		}
-	} // end for loop
-} // end displayList
 
 function parse(todo) {
 	 // let id = 0;

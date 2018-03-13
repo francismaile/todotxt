@@ -12,39 +12,101 @@
 <body>
 
 <div id="wrapper">
-<h1 id="main-title">ToDo_txt GUI</h1>
+
+<nav>
+	<ul id="nav-tab" class="nav">
+		<li class="tab active" id="all">*</li>
+		<li class="tab" id="project">+</li>
+		<li class="tab" id="context">@</li>
+		<li class="tab" id="priority">()</li>
+		<li class="tab" id="tag">:</li>
+	</ul>
+
+	<!-- Tab panes -->
+	<div class="tab-content">
+		<div class="tab-pane active" id="all-tab">
+			<ul id="all-menu">
+				<li id="project-item">Projects</li>
+				<li id="context-item">Contexts</li>
+				<li id="priority-item">Priority</li>
+				<li id="tag-item">Tags</li>
+			</ul>
+		</div><!-- tab-panes -->
+		<div class="tab-pane" id="project-tab">
+			<ul id="project-menu">
+			</ul>
+		</div>
+		<div class="tab-pane" id="context-tab">
+			<ul id="context-menu">
+			</ul>
+		</div>
+		<div class="tab-pane" id="priority-tab">
+			<ul id="priority-menu">
+			</ul>
+		</div>
+		<div class="tab-pane" id="tag-tab">
+			<ul id="tag-menu">
+			</ul>
+		</div>
+	</div><!-- tab-content -->
+	<div id="sort-order"><p>Sort by:</p>
+		<ul>
+			<li>Created</li>
+			<li>Due</li>
+			<li>Completed</li>
+		</ul>
+	</div><!-- #sort-order -->
+</nav>
 
 <div id="task-list">
-<ul id="active-todos">
-</ul>
 
-<h3>Completed Todos</h3>
-<ul id="completed-todos">
-</ul>
+<div class="task-pane active" id="all-pane">
+	<ul><li>All tasks</li>
+	</ul>
 </div>
+<div class="task-pane" id="project-pane">
+	<ul><li>Projects</li>
+	</ul>
+</div>
+<div class="task-pane" id="context-pane">
+	<ul><li>Contexts</li>
+	</ul>
+</div>
+<div class="task-pane" id="priority-pane">
+	<ul><li>Priorities</li>
+	</ul>
+</div>
+<div class="task-pane" id="tag-pane">
+	<ul><li>Tags</li>
+	</ul>
+</div>
+
+</div><!-- task list -->
+</div><!-- #wrapper -->
+
+<p>
+<button id="show-form">Show Form</button>
+<button id="hide-form">Hide Form</button>
+</p>
 
 <p>
 	<button type="button" id="save-to-server">Save</button>
 	<button>Save to Disk</button>
 </p>
 
-</div><!-- wrapper -->
-
-<button id="show-form">Show Form</button>
-<button id="hide-form">Hide Form</button>
-
-<p><a href="todo.html" target="_blank">Specification</a></p>
+<script src="display.js">
+</script>
 
 <script src="parser.js">
 </script>
 
-<script src="taskedit.js" >
-</script>
+<!-- script src="taskedit.js" >
+</script -->
 
 <script src="fileio.js">
 </script>
 
-<script src="fileio.js">
+<script src="index.js">
 </script>
 
 <script>
@@ -61,9 +123,6 @@ document.getElementById('hide-form').addEventListener("click", function() {
 	taskEditForm['task-options'].style.display = 'none';
 }, false);
 </script>
-<div>
-Why we don't support IEx before 11:<a href="https://www.xfive.co/blog/stop-supporting-ie10-ie9-ie8/">
-WHY YOU SHOULD STOP SUPPORTING IE10, IE9 AND IE8</a>
-</div>
+
 </body>
 </html>

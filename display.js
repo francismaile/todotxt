@@ -61,10 +61,8 @@ function createCategoryMenu( category ) {
 }
 
 function displayList(category = 'all', which = 'all') {
+	if( which === 'All') which = 'all';
 		console.log('called with:', category, 'and', which);
-	if( category === 'project' ) {
-		console.log(todoList[0]);
-	}
 	if( category !== 'all' ) {
 		let thisTodoList = sortByCategory( todoList, category );
 	}
@@ -75,11 +73,21 @@ function displayList(category = 'all', which = 'all') {
 
 	// insert item to list all of category. call; displayList(category, 'all');
 	for(var i=0; i < todoList.length; i++) {
-		if( category !== 'all' && which === 'all' && currentCategory !== todoList[i][category] ) {
-			currentCategory = todoList[i][category];
-			insertDivider( currentCategory, listContainer );
+		if( which === 'all' ) {
+			if( category !== 'all' && currentCategory !== todoList[i][category] ) {
+				currentCategory = todoList[i][category];
+				insertDivider( currentCategory, listContainer );
+			}
+			displayTodoItem( i, todoList[i], listContainer );
+		} else {
+			if( todoList[i][category] === which ) {
+				displayTodoItem( i, todoList[i], listContainer );
+			}
 		}
-		displayTodoItem( i, todoList[i], listContainer );
+// 		if( category !== 'all' && which === 'all' && currentCategory !== todoList[i][category] ) {
+// 			currentCategory = todoList[i][category];
+// 			insertDivider( currentCategory, listContainer );
+// 		}
 	} // end for loop
 } // end displayList
 

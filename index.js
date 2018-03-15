@@ -2,7 +2,6 @@
 (function(){
 	function onTabClick(event){
 		var actives = document.querySelectorAll('.active');
-		console.log('tab click', event.target.id);
 		// deactivate existing active tab and panel
 		actives.forEach( activeElem => {
 			activeElem.classList.remove('active');

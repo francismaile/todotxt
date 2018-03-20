@@ -6,8 +6,6 @@ function displayAllTodoLists() {
 	createCategoryMenu('context', 'all');
 	displayList('priority', 'all');
 	createCategoryMenu('priority', 'all');
-	// displayList('tag', 'all');
-
 }
 
 function sortByCategory( todoList, category ) {

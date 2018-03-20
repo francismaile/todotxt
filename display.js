@@ -77,15 +77,15 @@ function displayList(category = 'all', which = 'all') {
 				insertDivider( currentCategory, listContainer );
 			}
 			displayTodoItem( i, todoList[i], listContainer );
+		} else if( which === 'Not Assigned' ) {
+			if( !todoList[i][category] ) {
+				displayTodoItem( i, todoList[i], listContainer );
+			}
 		} else {
 			if( todoList[i][category] === which ) {
 				displayTodoItem( i, todoList[i], listContainer );
 			}
 		}
-// 		if( category !== 'all' && which === 'all' && currentCategory !== todoList[i][category] ) {
-// 			currentCategory = todoList[i][category];
-// 			insertDivider( currentCategory, listContainer );
-// 		}
 	} // end for loop
 } // end displayList
 

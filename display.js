@@ -60,7 +60,7 @@ function createCategoryMenu( category ) {
 
 function displayList(category = 'all', which = 'all') {
 	if( which === 'All') which = 'all';
-		console.log('called with:', category, 'and', which);
+		// console.log('called with:', category, 'and', which);
 	if( category !== 'all' ) {
 		let thisTodoList = sortByCategory( todoList, category );
 	}

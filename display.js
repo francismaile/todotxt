@@ -50,6 +50,7 @@ function addMenuItem(category, currentCategory, menuElem) {
 function createCategoryMenu( category ) {
 	let currentCategory = '';
 	const menuElem = document.getElementById(category + '-menu');
+	menuElem.innerHTML = '';
 	addMenuItem(category, 'All', menuElem );
 	for(var i=0; i < todoList.length; i++) {
 		if( category !== 'All' && currentCategory !== todoList[i][category] ) {

@@ -4,6 +4,8 @@ server
 .jshintrc
 *.swp
 todo.txt
+format.html
+fstyle.css
 
 css/
 img/

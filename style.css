@@ -1,8 +1,32 @@
+*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 input:focus { outline: solid gray thin; }
 select:focus { outline: solid gray thin; }
 
 #wrapper {
+	border: solid black;
+	max-width: 980px;
+	margin: 10px auto;
 	display: flex;
+	flex-direction: row;
+}
+
+section {
+	border: solid green;
+	min-height: 500px;
+	min-width: 200px;
+}
+
+/* ********** */
+/* navigation */ 
+/* ********** */
+
+section#nav {
+	flex: 120px;
 }
 
 nav {
@@ -79,6 +103,25 @@ ul.nav {
 	border: solid gray thin;
 	border-top: none;
 }
+
+/* ********** */
+/* todo lists */
+/* ********** */
+
+section#todolist {
+	flex: 5;
+}
+
+#form-wrapper {
+	border: solid blue;
+	min-height: 70px;
+}
+
+#todo-wrapper {
+	border: solid blue;
+	min-height: 200px;
+}
+
 .task-category-divider {
 	text-align: center;
 }
@@ -91,44 +134,8 @@ ul.nav {
 	content: ' >';
 }
 
-#wrapper {
-	border: solid black;
-	width: 800px;
-	margin: 10px auto;
-}
-
-h1#main-title {
-	text-align: center;
-}
-
-form#taskEdit {
-	border: solid black thin;
-	background-color: #FFF;
-}
-
-form#taskEdit #description {
-	font-size: 20px;
-}
-
-input[type=checkbox] {
-	border: 5px solid blue;
-  transform: scale(1.75);
-	margin: 0 4px;
-	outline: none;
-	padding: 28px;
-}
-
-#task-options {
-	border: solid blue thin;
-	position: absolute;
-	left: 30%;
-	right: 30%;
-	margin: 10px auto;
-	/* display: none; */
-	background-color: #FFF;
-}
-
 #task-list {
+	margin-top: 6px;
 	font: sans-serif;
 	height: 500px;
 	overflow-y: scroll;
@@ -174,7 +181,34 @@ input[type=checkbox] {
 	font-size: 0.6em;
 }
 
-#completed:checked + input {
-	background: #DDD;
-	text-decoration: line-through;
+/* ************** */
+/* task edit form */
+/* ************** */
+
+form#taskEdit {
+	border: solid black thin;
+	background-color: #FFF;
 }
+
+form#taskEdit #description {
+	font-size: 20px;
+}
+
+input[type=checkbox] {
+	border: 5px solid blue;
+  transform: scale(1.75);
+	margin: 0 4px;
+	outline: none;
+	padding: 28px;
+}
+
+#task-options {
+	border: solid blue thin;
+	position: absolute;
+	left: 30%;
+	right: 30%;
+	margin: 10px auto;
+	display: none;
+	background-color: #FFF;
+}
+

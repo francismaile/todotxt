@@ -13,52 +13,127 @@
 
 <div id="wrapper">
 
-<nav>
-	<ul id="nav-tab" class="nav">
-		<li class="tab active" id="all">*</li>
-		<li class="tab" id="project">+</li>
-		<li class="tab" id="context">@</li>
-		<li class="tab" id="priority">()</li>
-		<li class="tab" id="tag">:</li>
-	</ul>
-
-	<!-- Tab panes -->
-	<div class="tab-content">
-		<div class="tab-pane active" id="all-tab">
-			<ul id="all-menu">
-				<li id="project-item">Projects</li>
-				<li id="context-item">Contexts</li>
-				<li id="priority-item">Priority</li>
-				<li id="tag-item">Tags</li>
-			</ul>
-		</div><!-- tab-panes -->
-		<div class="tab-pane" id="project-tab">
-			<ul id="project-menu">
-			</ul>
-		</div>
-		<div class="tab-pane" id="context-tab">
-			<ul id="context-menu">
-			</ul>
-		</div>
-		<div class="tab-pane" id="priority-tab">
-			<ul id="priority-menu">
-			</ul>
-		</div>
-		<div class="tab-pane" id="tag-tab">
-			<ul id="tag-menu">
-			</ul>
-		</div>
-	</div><!-- tab-content -->
-	<div id="sort-order"><p>Sort by:</p>
-		<ul>
-			<li>Created</li>
-			<li>Due</li>
-			<li>Completed</li>
+<section id="nav">
+	<nav>
+		<ul id="nav-tab" class="nav">
+			<li class="tab active" id="all">*</li>
+			<li class="tab" id="project">+</li>
+			<li class="tab" id="context">@</li>
+			<li class="tab" id="priority">()</li>
+			<li class="tab" id="tag">:</li>
 		</ul>
-	</div><!-- #sort-order -->
-</nav>
 
+		<!-- Tab panes -->
+		<div class="tab-content">
+			<div class="tab-pane active" id="all-tab">
+				<ul id="all-menu">
+					<li id="project-item">Projects</li>
+					<li id="context-item">Contexts</li>
+					<li id="priority-item">Priority</li>
+					<li id="tag-item">Tags</li>
+				</ul>
+			</div><!-- tab-panes -->
+			<div class="tab-pane" id="project-tab">
+				<ul id="project-menu">
+				</ul>
+			</div>
+			<div class="tab-pane" id="context-tab">
+				<ul id="context-menu">
+				</ul>
+			</div>
+			<div class="tab-pane" id="priority-tab">
+				<ul id="priority-menu">
+				</ul>
+			</div>
+			<div class="tab-pane" id="tag-tab">
+				<ul id="tag-menu">
+				</ul>
+			</div>
+		</div><!-- tab-content -->
+		<div id="sort-order"><p>Sort by:</p>
+			<ul>
+				<li>Created</li>
+				<li>Due</li>
+				<li>Completed</li>
+			</ul>
+		</div><!-- #sort-order -->
+	</nav>
+</section><!-- /nav -->
+
+<section id="todolist">
+
+<!-- Task Edit Form -->
+<div id="form-wrapper">
+<form action="" id="taskEdit" method="">
+<input type="hidden" id="taskid">
+<fieldset>
+<legend>Task Item</legend>
+	<div>
+		<input type="checkbox" id="completed"><input type="text" size="55"  id="description" value="" size="80">
+	</div>
+</fieldset>
+
+<fieldset id="task-options">
+	Priority:
+	<select id="priority">
+		<option value ></option>
+		<option value="A">A</option>
+		<option value="B">B</option>
+		<option value="C">C</option>
+	</select>
+	<div>
+		<label>Project:<input list="projects" id="project"></label>
+		<datalist id="projects">
+			<select>
+			<option value="Novel">
+			<option value="Health">
+			<option value="Family">
+			<option value="TPSReports">
+			<option value="camelCaseTag">
+			</select>
+		</datalist>
+	</div>
+	<div>
+		<label>Context:<input list="contexts" id="context"></label>
+		<datalist id="contexts">
+			<select>
+			<option value="Home">
+			<option value="Phone">
+			<option value="GroceryStore">
+			<option value="context">
+			<option value="Office">
+			</select>
+		</datalist>
+	</div>
+	<div>
+		<label for="created">Created Date:
+			<input type="date" id="created">
+		</label>
+	</div>
+	<div>
+		<label for="due">Due Date:
+			<input type="date" id="due">
+		</label>
+	</div>
+	<div>
+		<label for="completeDate">Completed Date:
+			<input type="date" id="completeDate">
+		</label>
+	</div>
+	<div>
+		<label for="tags">Tags:
+			<textarea id="tags" rows=1></textarea>
+		</label>
+	</div>
+<input type="submit" value="Go">
+</fieldset>
+
+</form>
+</div><!-- /form-wrapper -->
+
+<div id="todo-wrapper">
 <div id="task-list">
+
 
 <div class="task-pane active" id="all-pane">
 	<ul><li>All tasks</li>
@@ -82,26 +157,28 @@
 </div>
 
 </div><!-- task list -->
-</div><!-- #wrapper -->
+</div><!-- /todo-wrapper -->
+
+
+</section><!-- /todolist -->
+
+
+</div><!-- /wrapper -->
 
 <p>
 <button id="show-form">Show Form</button>
 <button id="hide-form">Hide Form</button>
 </p>
 
-<p>
-	<button type="button" id="save-to-server">Save</button>
-	<button>Save to Disk</button>
-</p>
+
+<script src="taskedit.js">
+</script>
 
 <script src="display.js">
 </script>
 
 <script src="parser.js">
 </script>
-
-<!-- script src="taskedit.js" >
-</script -->
 
 <script src="fileio.js">
 </script>
@@ -110,9 +187,13 @@
 </script>
 
 <script>
-document.getElementById('save-to-server').addEventListener("click", function() {
-	saveTodo();
-}, false);
+// const taskEditForm = document.getElementById('taskEdit');
+// const activeTodoList = document.getElementById('active-todos');
+// const completedTodoList = document.getElementById('completed-todos');
+
+// document.getElementById('save-to-server').addEventListener("click", function() {
+// 	saveTodo();
+// }, false);
 
 
 document.getElementById('show-form').addEventListener("click", function() {
@@ -122,7 +203,9 @@ document.getElementById('show-form').addEventListener("click", function() {
 document.getElementById('hide-form').addEventListener("click", function() {
 	taskEditForm['task-options'].style.display = 'none';
 }, false);
+
 </script>
+
 
 </body>
 </html>

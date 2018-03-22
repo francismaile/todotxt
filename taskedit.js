@@ -1,10 +1,11 @@
 const taskEditForm = document.getElementById('taskEdit');
 
-function editTask(taskIndex) {
-	const task = todoList[taskIndex];
+function editTask(taskId) {
+	// const task = todoList[taskIndex];
+	const task = todoList.find( todo => todo.id === parseInt(taskId));
 	taskEditForm.reset();
 	taskEditForm.description.value = task.description;
-	taskEditForm.taskid.value = taskIndex;
+	taskEditForm.taskid.value = task.id;
 	// task project
 	if( task.hasOwnProperty('project') )
 		taskEditForm.project.value = task.project;

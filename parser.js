@@ -14,8 +14,8 @@ function getFile(filePath) {
 }
 
 function parse(todo) {
-	 // let id = 0;
 	 const lines = todo;
+	 let taskid = 0;
 	 lines.forEach(function(line) {
 		 let result;
 		 let regex = new RegExp();
@@ -67,6 +67,7 @@ function parse(todo) {
 			 if( task.tags !== undefined ) {
 			 }
 			 task.description = line.trim();
+			 task.id = taskid++;
 			 todoList.push(task);
 		} // end if
 	});

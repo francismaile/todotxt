@@ -1,7 +1,6 @@
 const taskEditForm = document.getElementById('taskEdit');
 
 function editTask(taskId) {
-	// const task = todoList[taskIndex];
 	const task = todoList.find( todo => todo.id === parseInt(taskId));
 	taskEditForm.reset();
 	taskEditForm.description.value = task.description;
@@ -59,6 +58,7 @@ function editTask(taskId) {
 		taskEditForm.tags.rows = 1;
 		taskEditForm.tags.value = '';
 	}
+	taskEditForm['task-options'].style.display = 'inline';
 }
 
 // if a completed date is set, the completed flag should be true
@@ -68,7 +68,8 @@ function editTask(taskId) {
 // process the form
  taskEditForm.addEventListener('submit', event => event.preventDefault());
 taskEditForm.onsubmit=function() {
-	task = taskEditForm.taskid.value;
+	this['task-options'].style.display = 'none';
+	task = this.taskid.value;
 	todoList[task].completed = taskEditForm.completed.checked || taskEditForm.completeDate.value !== '';
 	todoList[task].description = taskEditForm.description.value;
 	todoList[task].priority = taskEditForm.priority.value;
@@ -92,9 +93,7 @@ taskEditForm.onsubmit=function() {
 		});
 	}
 
-	activeTodoList.innerHTML = '';
-	completedTodoList.innerHTML = '';
-	displayList(todoList);
+	displayAllTodoLists();
 
 	return false;
 };

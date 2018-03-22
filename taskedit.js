@@ -69,7 +69,7 @@ function editTask(taskId) {
  taskEditForm.addEventListener('submit', event => event.preventDefault());
 taskEditForm.onsubmit=function() {
 	this['task-options'].style.display = 'none';
-	task = this.taskid.value;
+	task = todoList.findIndex( task => task.id === parseInt(taskEditForm.taskid.value) );
 	todoList[task].completed = taskEditForm.completed.checked || taskEditForm.completeDate.value !== '';
 	todoList[task].description = taskEditForm.description.value;
 	todoList[task].priority = taskEditForm.priority.value;
@@ -93,6 +93,7 @@ taskEditForm.onsubmit=function() {
 		});
 	}
 
+	this.description.value = '';
 	displayAllTodoLists();
 
 	return false;

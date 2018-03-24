@@ -1,6 +1,6 @@
 const todoFile = "todo.txt";
 const lines = [];
-let todoList = [];
+const todoList = [];
 getFile(todoFile);
 
 function getFile(filePath) {

@@ -8,7 +8,7 @@ function displayAllTodoLists() {
 	createCategoryMenu('priority', 'All');
 }
 
-function sortByCategory( todoList, category ) {
+function sortByCategory( category ) {
 	return todoList.sort( function( taska, taskb ) {
 		if( taska[category] === undefined  ) return 1;
 		if( taskb[category] === undefined  ) return -1;
@@ -62,7 +62,7 @@ function createCategoryMenu( category ) {
 
 function displayList(category = 'all', which = 'All') {
 	if( category !== 'all' ) {
-		let thisTodoList = sortByCategory( todoList, category );
+		let thisTodoList = sortByCategory( category );
 		// console.log(thisTodoList);
 	}
 	const listContainer = document.getElementById(category + '-pane').firstElementChild;

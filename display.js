@@ -8,15 +8,6 @@ function displayAllTodoLists() {
 	createCategoryMenu('priority', 'All');
 }
 
-function sortByCategory( category ) {
-	return todoList.sort( function( taska, taskb ) {
-		if( taska[category] === undefined  ) return 1;
-		if( taskb[category] === undefined  ) return -1;
-		if( taska[category] < taskb[category] ) return -1;
-		if( taska[category] > taskb[category] ) return 1;
-		return 0;
-	});
-}
 
 function displayTodoItem( task, listContainer ) {
 	// console.log(arguments);
@@ -27,13 +18,6 @@ function displayTodoItem( task, listContainer ) {
 		taskid = event.target.id.split('_')[1];
 		editTask(taskid); // in taskedit.js
 	});
-	listContainer.appendChild(li);
-}
-
-function insertDivider(category = 'Not Assigned', listContainer ) {
-	let li = document.createElement('li');
-	li.className = 'task-category-divider';
-	li.textContent = category // || 'Not Assigned';
 	listContainer.appendChild(li);
 }
 
@@ -61,32 +45,32 @@ function createCategoryMenu( category ) {
 }
 
 function displayList(category = 'all', which = 'All') {
+	// category = all, project, context or priority
+	
 	if( category !== 'all' ) {
-		let thisTodoList = sortByCategory( category );
+		// let thisTodoList = sortByCategory( category );
 		// console.log(thisTodoList);
 	}
+
 	const listContainer = document.getElementById(category + '-pane').firstElementChild;
+	// console.log(listContainer);
 	listContainer.innerHTML = '';
 	// if which is 'All'
 	let currentCategory = '';
 
-	// insert item to list All of category. call; displayList(category, 'all');
-	for(var i=0; i < todoList.length; i++) {
-		if( which === 'All' ) {
-			if( category !== 'all' && currentCategory !== todoList[i][category] ) {
-				currentCategory = todoList[i][category];
-				insertDivider( currentCategory, listContainer );
-			}
-			displayTodoItem( todoList[i], listContainer );
-		} else if( which === 'Not Assigned' ) {
-			if( !todoList[i][category] ) {
-				displayTodoItem( todoList[i], listContainer );
-			}
-		} else {
-			if( todoList[i][category] === which ) {
-				displayTodoItem( todoList[i], listContainer );
-			}
-		}
-	} // end for loop
+	let projectList = todoList.reduce(function ( projects, task ) {
+		if( !( task.project in projects) ) projects[task.project] = [];
+		projects[task.project].push(task);
+		return projects;
+	}, []);
+	console.log(projectList);
 } // end displayList
+
+	// 1. create ul - top level
+// 2. create li - to hold individual project list
+// 3. create ul - begin list
+// 4. create li per todo list item
+// 5. create closing ul tag
+// 6. close li tag
+// 7. repeat from 2 for each category
 

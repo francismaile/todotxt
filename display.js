@@ -8,17 +8,13 @@ function displayAllTodoLists() {
 	createCategoryMenu('priority', 'All');
 }
 
-
-function displayTodoItem( task, listContainer ) {
+function createTodoItem( task ) {
 	// console.log(arguments);
-	let li = document.createElement('li');
-	li.id = 'task_' + task.id;
-	li.textContent = task.description;
-	li.addEventListener('click', function(event) {
-		taskid = event.target.id.split('_')[1];
-		editTask(taskid); // in taskedit.js
-	});
-	listContainer.appendChild(li);
+	listItem = document.createElement('li');
+	listItem.id = 'task_' + task.id;
+	listItem.textContent = task.description;
+	listItem.className = 'task-item';
+	return listItem;
 }
 
 function addMenuItem(category, currentCategory, menuElem) {
@@ -46,31 +42,45 @@ function createCategoryMenu( category ) {
 
 function displayList(category = 'all', which = 'All') {
 	// category = all, project, context or priority
-	
-	if( category !== 'all' ) {
-		// let thisTodoList = sortByCategory( category );
-		// console.log(thisTodoList);
-	}
+	let thisTodoList = [];
 
 	const listContainer = document.getElementById(category + '-pane').firstElementChild;
-	// console.log(listContainer);
 	listContainer.innerHTML = '';
-	// if which is 'All'
-	let currentCategory = '';
+	let listItem;
 
-	let projectList = todoList.reduce(function ( projects, task ) {
-		if( !( task.project in projects) ) projects[task.project] = [];
-		projects[task.project].push(task);
-		return projects;
-	}, []);
-	console.log(projectList);
+	if( category === 'all' ) {
+		thisTodoList = Array.from(todoList);
+		thisTodoList.forEach( function( todo ) {
+			listContainer.appendChild( createTodoItem(todo) );
+		});
+	} else {
+		thisTodoList = todoList.reduce(function ( taskList, task ) {
+			if( !( task[category] in taskList) ) taskList[task[category]] = [];
+			taskList[task[category]].push(task);
+			return taskList;
+		}, []);
+
+// display just one project/context/priority
+// undefined category needs to be pulled out until last and labeled:
+	// No Project/Context, Not Prioritized
+// priority needs to be sorted by priority letter
+
+		Object.keys(thisTodoList).forEach( function ( element ) {
+			let categoryHeader = document.createElement('li');
+			categoryHeader.className = 'category-header';
+			let categoryTitle = document.createElement('h3');
+			categoryTitle.textContent = element;
+			categoryHeader.appendChild(categoryTitle);
+			let listBlock = document.createElement('ul');
+			listBlock.id = category + '-' + element.toLowerCase();
+			let listItem;
+			thisTodoList[element].forEach( function( todo ) {
+				listBlock.appendChild(createTodoItem(todo));
+				categoryHeader.appendChild(listBlock);
+			});
+			listContainer.appendChild(categoryHeader);
+		});
+	}
+
 } // end displayList
-
-	// 1. create ul - top level
-// 2. create li - to hold individual project list
-// 3. create ul - begin list
-// 4. create li per todo list item
-// 5. create closing ul tag
-// 6. close li tag
-// 7. repeat from 2 for each category
 

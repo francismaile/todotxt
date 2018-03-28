@@ -13,6 +13,10 @@ function createTodoItem( task ) {
 	listItem.id = 'task_' + task.id;
 	listItem.textContent = task.description;
 	listItem.className = 'task-item';
+	listItem.addEventListener( 'click', function( event ) {
+		const taskid = event.target.id.split('_')[1];
+		editTask(taskid);
+	});
 	return listItem;
 }
 
@@ -26,12 +30,28 @@ function createMenuItem( category, item ) {
 	return menuItem;
 }
 
+function createDatalistItem( item ) {
+	dataItem = document.createElement('option');
+	dataItem.textContent = item;
+	return dataItem;
+}
+
 function createMenu( category, itemList ) {
+	// insert items into sidebar nav menu
 	const categoryMenu = document.getElementById(category + '-menu');
+	categoryMenu.innerHTML = '';
 	categoryMenu.appendChild(createMenuItem(category, 'All') );
 
 	itemList.forEach( item => 
 		categoryMenu.appendChild(createMenuItem(category, item) ) );
+	// insert items in task edit form datalist
+	if( category === 'project' || category === 'context' ) {
+		formDataList = document.getElementById(category + 's');
+		formDataList.innerHTML = '';
+		itemList.pop();
+		itemList.forEach( item => 
+			formDataList.appendChild(createDatalistItem(item) ) );
+	}
 }
 
 function displayList(category = 'all', which = 'All') {

@@ -2,7 +2,7 @@ const taskEditForm = document.getElementById('taskEdit');
 
 function editTask(taskId) {
 	const task = todoList.find( todo => todo.id === parseInt(taskId));
-	taskEditForm.reset();
+	// taskEditForm.reset();
 	taskEditForm.description.value = task.description;
 	taskEditForm.taskid.value = task.id;
 	// task project
@@ -66,15 +66,30 @@ function editTask(taskId) {
 // do I care if there are empty properties? should I?
 
 // process the form
+// add new projects to project dropdown
+// add new contexts to project dropdown
  taskEditForm.addEventListener('submit', event => event.preventDefault());
 taskEditForm.onsubmit=function() {
 	this['task-options'].style.display = 'none';
 	task = todoList.findIndex( task => task.id === parseInt(taskEditForm.taskid.value) );
 	todoList[task].completed = taskEditForm.completed.checked || taskEditForm.completeDate.value !== '';
 	todoList[task].description = taskEditForm.description.value;
-	todoList[task].priority = taskEditForm.priority.value;
-	todoList[task].project = taskEditForm.project.value;
-	todoList[task].context = taskEditForm.context.value;
+	// todoList[task].priority = taskEditForm.priority.value;
+	if( taskEditForm.priority.value !== '' ) {
+		todoList[task].priority = taskEditForm.priority.value;
+	} else {
+	 	delete todoList[task].priority;
+	}
+	if( taskEditForm.project.value !== '' ) {
+		todoList[task].project = taskEditForm.project.value.toCamelCase();
+	} else {
+	 	delete todoList[task].project;
+	}
+	if( taskEditForm.context.value !== '' ) {
+		todoList[task].context = taskEditForm.context.value.toCamelCase();
+	} else {
+	 	delete todoList[task].context;
+	}
 	todoList[task].createdDate = taskEditForm.created.value;
 
 	if(taskEditForm.due.value !== '' ) {
@@ -98,3 +113,8 @@ taskEditForm.onsubmit=function() {
 
 	return false;
 };
+
+taskEditForm.onreset = function() { 
+	taskEditForm['task-options'].style.display = 'none';
+}
+

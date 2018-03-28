@@ -21,3 +21,13 @@ String.prototype.leftTrim = function() {
     return this.replace(/^\s+/,"");
 }
 
+if(!String.prototype.toCamelCase) {
+	String.prototype.toCamelCase =  function () {
+		theStrings = this.split(' ');
+		if( theStrings.length <= 1 ) return this.toString();
+		let theCamel = theStrings.reduce( ( camel, word ) => {
+			return camel + word.charAt(0).toUpperCase() + word.slice(1);
+		});
+		return theCamel.charAt(0).toLowerCase() + theCamel.slice(1);
+	}
+}

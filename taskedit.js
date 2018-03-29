@@ -2,7 +2,7 @@ const taskEditForm = document.getElementById('taskEdit');
 
 function editTask(taskId) {
 	const task = todoList.find( todo => todo.id === parseInt(taskId));
-	// taskEditForm.reset();
+
 	taskEditForm.description.value = task.description;
 	taskEditForm.taskid.value = task.id;
 	// task project

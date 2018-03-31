@@ -1,4 +1,5 @@
 const taskEditForm = document.getElementById('taskEdit');
+const newTaskForm = document.getElementById('new-task');
 
 function editTask(taskId) {
 	const task = todoList.find( todo => todo.id === parseInt(taskId));
@@ -61,15 +62,22 @@ function editTask(taskId) {
 	taskEditForm['task-options'].style.display = 'inline';
 }
 
-// if a completed date is set, the completed flag should be true
-// if the completed checkbox is checked, the current date should be set as date of completion
-// do I care if there are empty properties? should I?
 
-// process the form
-// add new projects to project dropdown
-// add new contexts to project dropdown
+newTaskForm.addEventListener('submit', event => event.preventDefault());
+newTaskForm.onsubmit=function() {
+	console.log(newTaskForm.description.value);
+// need to sanitize the input
+	todoList.unshift( newTodoTask(this.description.value, todoList.length + 1) );
+	this.description.value = '';
+	displayAllTodoLists();
+
+	return false;
+}
+
+
  taskEditForm.addEventListener('submit', event => event.preventDefault());
 taskEditForm.onsubmit=function() {
+// need to sanitize the input
 	this['task-options'].style.display = 'none';
 	task = todoList.findIndex( task => task.id === parseInt(taskEditForm.taskid.value) );
 	todoList[task].completed = taskEditForm.completed.checked || taskEditForm.completeDate.value !== '';

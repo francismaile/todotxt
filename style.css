@@ -181,6 +181,15 @@ section#todolist {
 	font-size: 0.6em;
 }
 
+/* ************* */
+/* New Task Form */
+/* ************* */
+
+form#new-task  #description {
+	border: solid gray thin;
+	font-size: 20px;
+}
+
 /* ************** */
 /* task edit form */
 /* ************** */

@@ -194,6 +194,11 @@ form#new-task  #description {
 /* task edit form */
 /* ************** */
 
+#form-wrapper {
+	display: none;
+	position: absolute;
+}
+
 form#taskEdit {
 	border: solid black thin;
 	background-color: #FFF;
@@ -213,11 +218,6 @@ input[type=checkbox] {
 
 #task-options {
 	border: solid blue thin;
-	position: absolute;
-	left: 30%;
-	right: 30%;
-	margin: 10px auto;
-	display: none;
 	background-color: #FFF;
 }
 

@@ -62,50 +62,6 @@
 
 <section id="todolist">
 
-<div id="new-taodo-wrapper">
-<form action="" id="new-task" method="">
-	<div>
-		<fieldset>
-			<input type="text" size="55"  id="description" value="" size="80">
-		</fieldset>
-	</div>
-</form>
-</div>
-
-<div id="todo-wrapper">
-<div id="task-list">
-
-
-<div class="task-pane active" id="all-pane">
-	<ul><li>All tasks</li>
-	</ul>
-</div>
-<div class="task-pane" id="project-pane">
-	<ul><li>Projects</li>
-	</ul>
-</div>
-<div class="task-pane" id="context-pane">
-	<ul><li>Contexts</li>
-	</ul>
-</div>
-<div class="task-pane" id="priority-pane">
-	<ul><li>Priorities</li>
-	</ul>
-</div>
-<div class="task-pane" id="tag-pane">
-	<ul><li>Tags</li>
-	</ul>
-</div>
-
-</div><!-- task list -->
-</div><!-- /todo-wrapper -->
-
-
-</section><!-- /todolist -->
-
-
-</div><!-- /wrapper -->
-
 <!-- Task Edit Form -->
 <div id="form-wrapper">
 <form action="" id="taskEdit" method="">
@@ -176,12 +132,63 @@
 </form>
 </div><!-- /form-wrapper -->
 
+<div id="new-todo-wrapper">
+<form action="" id="new-task" method="">
+	<div>
+		<fieldset>
+			<input type="text" size="55"  id="description" value="" size="80">
+		</fieldset>
+	</div>
+</form>
+</div>
+
+
+<div id="todo-wrapper">
+<div id="task-list">
+
+
+<div class="task-pane active" id="all-pane">
+	<ul><li>All tasks</li>
+	</ul>
+</div>
+<div class="task-pane" id="project-pane">
+	<ul><li>Projects</li>
+	</ul>
+</div>
+<div class="task-pane" id="context-pane">
+	<ul><li>Contexts</li>
+	</ul>
+</div>
+<div class="task-pane" id="priority-pane">
+	<ul><li>Priorities</li>
+	</ul>
+</div>
+<div class="task-pane" id="tag-pane">
+	<ul><li>Tags</li>
+	</ul>
+</div>
+
+</div><!-- task list -->
+</div><!-- /todo-wrapper -->
+
+
+</section><!-- /todolist -->
+
+
+</div><!-- /wrapper -->
+
+
 
 <p>
 <button id="show-form">Show Form</button>
 <button id="hide-form">Hide Form</button>
 </p>
 
+
+<p>
+<button id="show-it">Show It</button>
+<button id="hide-it">Hide It</button>
+</p>
 
 <script src="taskedit.js">
 </script>
@@ -200,13 +207,20 @@
 
 <script>
 
-// document.getElementById('save-to-server').addEventListener("click", function() {
-// 	saveTodo();
-// }, false);
+const editForm = document.getElementById('form-wrapper');
 
+document.getElementById('hide-it').addEventListener("click", function() {
+	editForm.style.display = 'none';
+}, false);
+
+document.getElementById('show-it').addEventListener("click", function() {
+	editForm.style.display = 'inline';
+}, false);
 
 document.getElementById('show-form').addEventListener("click", function() {
-	taskEditForm['task-options'].style.display = 'inline';
+	const theForm = document.getElementById('form-wrapper');
+	theForm.style.diplay = 'inline';
+	console.log(theForm,style.display);
 }, false);
 
 document.getElementById('hide-form').addEventListener("click", function() {

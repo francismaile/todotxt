@@ -1,9 +1,10 @@
 const taskEditForm = document.getElementById('taskEdit');
 const newTaskForm = document.getElementById('new-task');
+const taskEditWrapper = document.getElementById('form-wrapper');
+// const newTaskForm = taskEditWrapper.childNodes[1];
 
 function editTask(taskId) {
 	const task = todoList.find( todo => todo.id === parseInt(taskId));
-
 	taskEditForm.description.value = task.description;
 	taskEditForm.taskid.value = task.id;
 	// task project
@@ -59,13 +60,15 @@ function editTask(taskId) {
 		taskEditForm.tags.rows = 1;
 		taskEditForm.tags.value = '';
 	}
-	taskEditForm['task-options'].style.display = 'inline';
+	
+	taskEditWrapper.style.display = 'inline';
+	// taskEditForm['task-options'].style.display = 'inline';
+
 }
 
 
 newTaskForm.addEventListener('submit', event => event.preventDefault());
 newTaskForm.onsubmit=function() {
-	console.log(newTaskForm.description.value);
 // need to sanitize the input
 	todoList.unshift( newTodoTask(this.description.value, todoList.length + 1) );
 	this.description.value = '';
@@ -78,7 +81,8 @@ newTaskForm.onsubmit=function() {
  taskEditForm.addEventListener('submit', event => event.preventDefault());
 taskEditForm.onsubmit=function() {
 // need to sanitize the input
-	this['task-options'].style.display = 'none';
+	// this['task-options'].style.display = 'none';
+	taskEditWrapper.style.display = 'none';
 	task = todoList.findIndex( task => task.id === parseInt(taskEditForm.taskid.value) );
 	todoList[task].completed = taskEditForm.completed.checked || taskEditForm.completeDate.value !== '';
 	todoList[task].description = taskEditForm.description.value;
@@ -123,6 +127,6 @@ taskEditForm.onsubmit=function() {
 };
 
 taskEditForm.onreset = function() { 
-	taskEditForm['task-options'].style.display = 'none';
+	taskEditWrapper.style.display = 'none';
 }
 

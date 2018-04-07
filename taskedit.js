@@ -3,6 +3,23 @@ const newTaskForm = document.getElementById('new-task');
 const taskEditWrapper = document.getElementById('form-wrapper');
 // const newTaskForm = taskEditWrapper.childNodes[1];
 
+function toggleTaskComplete(taskid) {
+	// get task by id
+	const taskIndex = todoList.findIndex( task => task.id === parseInt(taskid) );
+	const listItem = document.getElementById('task_' + todoList[taskIndex].id );
+	// update completed flag
+	if( todoList[taskIndex].completed ) {
+		delete todoList[taskIndex].completed;
+		delete todoList[taskIndex].completeDate;
+		listItem.classList.remove('task-completed');
+	} else {
+		todoList[taskIndex].completed = true;
+		const today = new Date();
+		todoList[taskIndex].completeDate = today.toISOString().split('T')[0];
+		listItem.classList.add('task-completed');
+	}
+}
+
 function editTask(taskId) {
 	const task = todoList.find( todo => todo.id === parseInt(taskId));
 	taskEditForm.description.value = task.description;

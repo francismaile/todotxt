@@ -143,7 +143,6 @@ section#todolist {
 
 #task-list ul {
 	list-style-type: none;
-	cursor: pointer;
 }
 
 #task-list li {
@@ -162,6 +161,7 @@ section#todolist {
 
 .task-description {
 	display: inline-block;
+	cursor: pointer;
 }
 
 .task-list .context {
@@ -192,9 +192,18 @@ li.task-item {
 	padding: 6px;
 }
 
+li.task-completed {
+	background-color: pink;
+}
+
+li.task-completed div.task-description {
+	text-decoration: line-through;
+}
+
 .task-meta{
 	display: inline-block;
 	min-width: 40px;
+	cursor: pointer;
 }
 
 input[type=checkbox].css-checkbox {

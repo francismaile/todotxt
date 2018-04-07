@@ -8,24 +8,21 @@ function displayAllTodoLists() {
 	createMenu('priority', priorities);
 }
 
-/*
-
-	<li id="task_0" class="task-item">
-			<input id="mark_complete_1" class="css-checkbox" type="checkbox" />
-			<label for="mark_complete_1" name="demo_lbl_2" class="css-label"></label>
-			<div style="display: inline-block;">learn to use command line commands</div>
-			<div id="todo-meta-taskid"><span class="task-meta task-meta-priority">(A)</span>
-			<span class="task-meta">@context</span></div>
-	</li>
-*/
 function createTodoItem( task, category ) {
 	const listItem = document.createElement('li');
 	listItem.className = 'task-item';
+	listItem.id = category + '_task_' + task.id;
+	if( task.completed ) {
+		listItem.classList.add( 'task-completed' );
+	}
 
 	const checkbox = document.createElement('input');
 	checkbox.type = 'checkbox';
 	checkbox.id = 'task_complete_' + task.id;
 	checkbox.className = "css-checkbox";
+	if( task.completed ) {
+		checkbox.checked = true;
+	}
 
 	const label = document.createElement('label');
 	label.htmlFor = 'task_complete_' + task.id;
@@ -66,13 +63,15 @@ function createTodoItem( task, category ) {
 	}
 
 	div_description.addEventListener( 'click', function( event ) {
-		const taskid = event.target.id.split('_')[1];
+		const taskid = event.target.id.split('_')[2];
+		console.log(event.target.id);
+		console.log(this.id);
 		editTask(taskid);
 	});
 
 	checkbox.addEventListener( 'click', function( event ) {
-		const taskid = event.target.id.split('_')[1];
-		markTaskComplete(taskid);
+		const taskid = event.target.id.split('_')[2];
+		toggleTaskComplete(taskid);
 	});
 
 
@@ -115,6 +114,7 @@ function createMenu( category, itemList ) {
 	}
 }
 
+
 function displayList(category = 'all', which = 'All') {
 	// console.log('called with:', category, which);
 	let thisTodoList = [];
@@ -122,12 +122,18 @@ function displayList(category = 'all', which = 'All') {
 
 	const listContainer = document.getElementById(category + '-pane').firstElementChild;
 	listContainer.innerHTML = '';
+	let completedList = [];
 	let listItem;
 
 	if( category === 'all' ) {
 		todoList.forEach( function( todo ) {
-			listContainer.appendChild( createTodoItem(todo, category) );
+			if( todo.completed ) {
+				completedList.push( todo );
+			} else {
+				listContainer.appendChild( createTodoItem(todo, category) );
+			}
 		});
+		completedList.forEach( todo => listContainer.appendChild(createTodoItem(todo, category)) );
 	} else {
 
 		thisTodoList = todoList.reduce(function ( taskList, task ) {
@@ -139,6 +145,7 @@ function displayList(category = 'all', which = 'All') {
 		catList = Object.keys(thisTodoList);
 		catList.push(catList.splice(catList.indexOf('undefined'), 1)[0]);
 		if( category === 'priority' ) catList.sort();
+
 
 		catList.forEach( function (taskCat, ind, arr) {
 			let categoryTitleText = '';
@@ -160,13 +167,22 @@ function displayList(category = 'all', which = 'All') {
 				let listBlock = document.createElement('ul');
 				listBlock.id = category + '-' + taskCat.toLowerCase();
 				let listItem;
+				let taskCount = 0;
 				thisTodoList[taskCat].forEach( function( todo ) {
-					listBlock.appendChild(createTodoItem(todo, category));
-					categoryHeader.appendChild(listBlock);
+					if( todo.completed ) {
+						completedList.push( todo );
+					} else {
+						listBlock.appendChild(createTodoItem(todo, category));
+						categoryHeader.appendChild(listBlock);
+						taskCount++;
+					}
 				});
-				listContainer.appendChild(categoryHeader);
+				if( taskCount ) {
+					listContainer.appendChild(categoryHeader);
+				}
 			}
 		});
+		completedList.forEach( todo => listContainer.appendChild(createTodoItem(todo, category)) );
 		return categoryList; 
 	}
 } // end displayList

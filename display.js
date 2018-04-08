@@ -3,11 +3,13 @@ document.getElementById('task-list').addEventListener( 'click', function( event 
 	console.log(event.target);
 });
 
-function sectionHeading(headingText) {
+function newSection(headingText) {
+	const section = document.createElement('ul');
 	let li = document.createElement('li');
 	li.textContent = headingText;
 	li.className = 'category-heading';
-	return li;
+	section.appendChild(li);
+	return section;
 }
 
 function renderTodoList(category = 'all') {
@@ -15,6 +17,8 @@ function renderTodoList(category = 'all') {
 	const todoListNodes = document.createElement('ul');
 	todoList.forEach( function( todo ) {
 		todoListNodes.appendChild( createTodoItem(todo, category) );
+		// set up menu and select datalist
+
 	});
 
 	let completedTodos = document.createElement('ul');
@@ -22,11 +26,9 @@ function renderTodoList(category = 'all') {
 		case 'project':
 			taskListDiv.innerHTML = '';
 			const projectList = [];
-			const noProjectTodos = document.createElement('ul');
-			noProjectTodos.appendChild(sectionHeading('No Project'));
+			const noProjectTodos = newSection('No Project');
 
-			completedTodos = document.createElement('ul');
-			completedTodos.appendChild(sectionHeading('Completed Todos'));
+			completedTodos = newSection('Completed Todos');
 
 			todoListNodes.childNodes.forEach( function( todoNode ) {
 				if(todoNode.classList.contains('task-completed') ) {
@@ -34,8 +36,7 @@ function renderTodoList(category = 'all') {
 				} else {
 					if( todoNode.dataset.project) {
 						if( ! Object.keys(projectList).includes(todoNode.dataset.project) ) {
-							projectList[todoNode.dataset.project] = document.createElement('ul');
-							projectList[todoNode.dataset.project].appendChild(sectionHeading(todoNode.dataset.project));
+							projectList[todoNode.dataset.project] = newSection(todoNode.dataset.project);
 						}
 						projectList[todoNode.dataset.project].appendChild(todoNode.cloneNode(true));
 					} else {
@@ -52,11 +53,9 @@ function renderTodoList(category = 'all') {
 		case 'context':
 			taskListDiv.innerHTML = '';
 			const contextList = [];
-			const noContextTodos = document.createElement('ul');
-			noContextTodos.appendChild(sectionHeading('No Context'));
+			noContextTodos = newSection('No Context');
 
-			completedTodos = document.createElement('ul');
-			completedTodos.appendChild(sectionHeading('Completed Todos'));
+			completedTodos = newSection('Completed Todos');
 
 			todoListNodes.childNodes.forEach( function( todoNode ) {
 				if(todoNode.classList.contains('task-completed') ) {
@@ -64,8 +63,7 @@ function renderTodoList(category = 'all') {
 				} else {
 					if( todoNode.dataset.context) {
 						if( ! Object.keys(contextList).includes(todoNode.dataset.context) ) {
-							contextList[todoNode.dataset.context] = document.createElement('ul');
-							contextList[todoNode.dataset.context].appendChild(sectionHeading(todoNode.dataset.context));
+							contextList[todoNode.dataset.context] = newSection(todoNode.dataset.context);
 						}
 						contextList[todoNode.dataset.context].appendChild(todoNode.cloneNode(true));
 					} else {
@@ -82,11 +80,9 @@ function renderTodoList(category = 'all') {
 		case 'priority':
 			taskListDiv.innerHTML = '';
 			const priorityList = [];
-			const noPriorityTodos = document.createElement('ul');
-			noPriorityTodos.appendChild(sectionHeading('No Priority'));
+			noPriorityTodos = newSection('No Priority');
 
-			completedTodos = document.createElement('ul');
-			completedTodos.appendChild(sectionHeading('Completed Todos'));
+			completedTodos = newSection('Completed Todos');
 
 			todoListNodes.childNodes.forEach( function( todoNode ) {
 				if(todoNode.classList.contains('task-completed') ) {
@@ -94,8 +90,7 @@ function renderTodoList(category = 'all') {
 				} else {
 					if( todoNode.dataset.priority) {
 						if( ! Object.keys(priorityList).includes(todoNode.dataset.priority) ) {
-							priorityList[todoNode.dataset.priority] = document.createElement('ul');
-							priorityList[todoNode.dataset.priority].appendChild(sectionHeading(todoNode.dataset.priority));
+							priorityList[todoNode.dataset.priority] = newSection(todoNode.dataset.priority);
 						}
 						priorityList[todoNode.dataset.priority].appendChild(todoNode.cloneNode(true));
 					} else {
@@ -114,8 +109,7 @@ function renderTodoList(category = 'all') {
 		default:
 			taskListDiv.innerHTML = '';
 			const activeTodos = document.createElement('ul');
-			completedTodos = document.createElement('ul');
-			completedTodos.appendChild(sectionHeading('Completed Todos'));
+			completedTodos = newSection('Completed Todos');
 			todoListNodes.childNodes.forEach( function( todoNode ) {
 				if(todoNode.classList.contains('task-completed') ) {
 					completedTodos.appendChild(todoNode.cloneNode(true));
@@ -126,16 +120,6 @@ function renderTodoList(category = 'all') {
 			taskListDiv.appendChild(activeTodos);
 			taskListDiv.appendChild(completedTodos);
 	}
-}
-
-function displayAllTodoLists() {
-	displayList('all', 'All');
-	const projects = displayList('project', 'All');
-	const prioritys = displayList('priority', 'All');
-	const priorities = displayList('priority', 'All');
-	createMenu('project', projects);
-	createMenu('priority', prioritys);
-	createMenu('priority', priorities);
 }
 
 function createTodoItem( task, category ) {
@@ -195,20 +179,14 @@ function createTodoItem( task, category ) {
 		div_meta.appendChild( span_category );
 	}
 
-	// div_description.addEventListener( 'click', function( event ) {
-	// 	const taskid = event.target.id.split('_')[2];
-	// 	editTask(taskid);
-	// });
-
-	// checkbox.addEventListener( 'click', function( event ) {
-	// 	const taskid = event.target.id.split('_')[2];
-	// 	toggleTaskComplete(taskid);
-	// });
-
-
 	listItem.appendChild(div_meta);
-
 	return listItem;
+}
+
+function createDatalistItem( item ) {
+	dataItem = document.createElement('option');
+	dataItem.textContent = item;
+	return dataItem;
 }
 
 function createMenuItem( category, item ) {
@@ -219,12 +197,6 @@ function createMenuItem( category, item ) {
 		displayList(category, this.textContent);
 	};
 	return menuItem;
-}
-
-function createDatalistItem( item ) {
-	dataItem = document.createElement('option');
-	dataItem.textContent = item;
-	return dataItem;
 }
 
 function createMenu( category, itemList ) {
@@ -245,75 +217,4 @@ function createMenu( category, itemList ) {
 	}
 }
 
-
-function displayList(category = 'all', which = 'All') {
-	let thisTodoList = [];
-	let categoryList = [];
-
-	const listContainer = document.getElementById(category + '-pane').firstElementChild;
-	listContainer.innerHTML = '';
-	let completedList = [];
-	let listItem;
-
-	if( category === 'all' ) {
-		todoList.forEach( function( todo ) {
-			if( todo.completed ) {
-				completedList.push( todo );
-			} else {
-				listContainer.appendChild( createTodoItem(todo, category) );
-			}
-		});
-		completedList.forEach( todo => listContainer.appendChild(createTodoItem(todo, category)) );
-	} else {
-
-		thisTodoList = todoList.reduce(function ( taskList, task ) {
-			if( !( task[category] in taskList) ) taskList[task[category]] = [];
-			taskList[task[category]].push(task);
-			return taskList;
-		}, []);
-
-		catList = Object.keys(thisTodoList);
-		catList.push(catList.splice(catList.indexOf('undefined'), 1)[0]);
-		if( category === 'priority' ) catList.sort();
-
-
-		catList.forEach( function (taskCat, ind, arr) {
-			let categoryTitleText = '';
-			if(taskCat=== 'undefined' ) {
-				if( category === 'project' || category === 'priority' )
-					categoryTitleText = 'No ' + category;
-				else if(category === 'priority')
-					categoryTitleText = 'Not prioritized';
-			} else {
-				categoryTitleText = taskCat;
-			}
-			categoryList.push(categoryTitleText);
-			if(  which === 'All' || which === taskCat || which === categoryTitleText) {
-				let categoryHeader = document.createElement('li');
-				categoryHeader.className = 'category-header';
-				let categoryTitle = document.createElement('h3');
-				categoryTitle.textContent = categoryTitleText;
-				categoryHeader.appendChild(categoryTitle);
-				let listBlock = document.createElement('ul');
-				listBlock.id = category + '-' + taskCat.toLowerCase();
-				let listItem;
-				let taskCount = 0;
-				thisTodoList[taskCat].forEach( function( todo ) {
-					if( todo.completed ) {
-						completedList.push( todo );
-					} else {
-						listBlock.appendChild(createTodoItem(todo, category));
-						categoryHeader.appendChild(listBlock);
-						taskCount++;
-					}
-				});
-				if( taskCount ) {
-					listContainer.appendChild(categoryHeader);
-				}
-			}
-		});
-		completedList.forEach( todo => listContainer.appendChild(createTodoItem(todo, category)) );
-		return categoryList; 
-	}
-} // end displayList
 

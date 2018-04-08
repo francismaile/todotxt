@@ -9,10 +9,10 @@
 
 		// activate new tab and panel
 		event.target.classList.add('active');
-		
+		renderTodoList(event.target.id);	
 		const activeMenu = event.target.id;
 		document.getElementById(activeMenu + '-tab').classList.add('active');
-		document.getElementById(activeMenu + '-pane').classList.add('active');
+		// document.getElementById(activeMenu + '-pane').classList.add('active');
 	}
 
 	function onAllMenuClick(event) {
@@ -20,7 +20,8 @@
 	}
 	document.getElementById('all-menu').addEventListener('click', onAllMenuClick, false);
 	var el = document.getElementById('nav-tab');
-	document.getElementById('nav-tab').addEventListener('click', onTabClick, false);
+	// document.getElementById('nav-tab')
+	el.addEventListener('click', onTabClick, false);
 })();
 
 /*

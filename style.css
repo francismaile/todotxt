@@ -200,10 +200,12 @@ li.task-completed div.task-description {
 	text-decoration: line-through;
 }
 
-.task-meta{
+.task-meta span {
 	display: inline-block;
 	min-width: 40px;
 	cursor: pointer;
+	display: inline-block;
+	margin: 0 8px;
 }
 
 input[type=checkbox].css-checkbox {
@@ -234,11 +236,6 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
 }
 .css-label {
 	background-image:url(http://www.csscheckbox.com/checkboxes/lite-x-gray.png);
-}
-
-.task-meta {
-	display: inline-block;
-	margin: 0 8px;
 }
 
 .task-meta-priority {

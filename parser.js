@@ -9,7 +9,8 @@ function getFile(filePath) {
 		.then(text => {
 			lines.push(...text.split('\n') );
 			parse(lines);
-			displayAllTodoLists();
+			// displayAllTodoLists();
+			renderTodoList();
 		});
 }
 

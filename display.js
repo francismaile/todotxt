@@ -1,3 +1,36 @@
+	const todoListNodes = document.createElement('ul');
+
+document.getElementById('task-list').addEventListener( 'click', function( event ) {
+	console.log(event.target);
+});
+	
+function renderTodoList(category = 'all') {
+	const taskListDiv = document.getElementById('task-list');
+	const activeTodos = document.createElement('ul');
+	const completedTodos = document.createElement('ul');
+	let i = 0;
+	todoList.forEach( function( todo ) {
+		todoListNodes.appendChild( createTodoItem(todo, category) );
+	});
+
+	todoNodes = [...todoListNodes.childNodes];
+
+	switch( category ) {
+		case 'project':
+			break;
+		default:
+			todoListNodes.childNodes.forEach( function( todoNode ) {
+				if(todoNode.classList.contains('task-completed') ) {
+					completedTodos.appendChild(todoNode.cloneNode(true));
+				} else {
+					activeTodos.appendChild(todoNode.cloneNode(true));
+				}
+			});
+			taskListDiv.appendChild(activeTodos);
+			taskListDiv.appendChild(completedTodos);
+	}
+}
+
 function displayAllTodoLists() {
 	displayList('all', 'All');
 	const projects = displayList('project', 'All');
@@ -64,8 +97,6 @@ function createTodoItem( task, category ) {
 
 	div_description.addEventListener( 'click', function( event ) {
 		const taskid = event.target.id.split('_')[2];
-		console.log(event.target.id);
-		console.log(this.id);
 		editTask(taskid);
 	});
 

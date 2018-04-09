@@ -1,6 +1,11 @@
-
 document.getElementById('task-list').addEventListener( 'click', function( event ) {
 	console.log(event.target);
+	eventId = event.target.id.split('_');
+	let taskId = eventId[eventId.length-1];
+	let taskPart = eventId[0];
+	// go to listing of that part (ex: project: +Novel)
+	
+	console.log({taskId}, {taskPart});
 });
 
 function newSection(headingText) {
@@ -149,6 +154,7 @@ function createTodoItem( task, category ) {
 	listItem.appendChild(label);
 
 	const div_description = document.createElement('div');
+	div_description.id = `description_${task.id}`;
 	div_description.className = 'task-description';
 	div_description.textContent = task.description;
 
@@ -158,6 +164,7 @@ function createTodoItem( task, category ) {
 	div_meta.className = 'task-meta';
 
 	const span_priority = document.createElement('span');
+	span_priority.id = `priority_${task.id}`;
 	span_priority.className = 'task-meta-priority';
 	if( task.priority && category !== 'priority' ) {
 		span_priority.textContent = `(${ task.priority })`;
@@ -167,6 +174,7 @@ function createTodoItem( task, category ) {
 	let span_category;
 	if( task.context && category !== 'context' ) {
 		span_category = document.createElement('span');
+		span_category.id = `context_${task.id}`;
 		span_category.className = 'task-meta-context';
 		span_category.textContent = `@${ task.context }`;
 		div_meta.appendChild( span_category );
@@ -174,6 +182,7 @@ function createTodoItem( task, category ) {
 
 	if( task.project && category !== 'project' ) {
 		span_category = document.createElement('span');
+		span_category.id = `project_${task.id}`;
 		span_category.className = 'task-meta-project';
 		span_category.textContent = `+${ task.project }`;
 		div_meta.appendChild( span_category );

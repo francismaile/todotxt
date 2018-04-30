@@ -1,10 +1,10 @@
-const todoFile = "todo.txt";
+const todoFile = 'todo.txt';
 const lines = [];
 const todoList = [];
 getFile(todoFile);
 
 function getFile(filePath) {
-	fetch(todoFile)
+	fetch(todoFile, { mode: 'no-cors' })
 		.then(response => response.text())
 		.then(text => {
 			lines.push(...text.split('\n') );

@@ -1,13 +1,39 @@
+/* eslint-disable indent */
 document.getElementById('task-list').addEventListener( 'click', function( event ) {
-
 	console.log(event.target);
-	eventId = event.target.id.split('_');
-	let taskId = eventId[eventId.length-1];
-	let taskPart = eventId[0];
+	const eventId = event.target.id.split('_');
+	const taskId = eventId[eventId.length-1];
+	const taskPart = eventId[0];
 	// go to listing of that part (ex: project: +Novel)
 	
 	console.log({taskId}, {taskPart});
 });
+
+// ***************  tabbed menu  ******************
+(function(){
+	function onTabClick(event){
+		var actives = document.querySelectorAll('.active');
+		// deactivate existing active tab and panel
+		actives.forEach( activeElem => {
+			activeElem.classList.remove('active');
+		});
+
+		// activate new tab and panel
+		event.target.classList.add('active');
+		renderTodoList(event.target.id);	
+		const activeMenu = event.target.id;
+		document.getElementById(activeMenu + '-tab').classList.add('active');
+		// document.getElementById(activeMenu + '-pane').classList.add('active');
+	}
+
+	function onAllMenuClick(event) {
+		document.getElementById(event.target.id.split('-')[0]).click();
+	}
+	document.getElementById('all-menu').addEventListener('click', onAllMenuClick, false);
+	var el = document.getElementById('nav-tab');
+	// document.getElementById('nav-tab')
+	el.addEventListener('click', onTabClick, false);
+})();
 
 function newSection(headingText) {
 	const section = document.createElement('ul');
@@ -23,20 +49,27 @@ function renderTodoList(category = 'all', which ) {
 	taskListDiv.innerHTML = '';
  
 	let completedTodos = document.createElement('ul');
+			// let noProjectTodos;
+			let projectTodos;
+			let contextTodos;
+			let priorityTodos;
+			let projectName = '';
+			let contextName = '';
+			let priorityName = '';
+			let priorities;
+			let activeTodos;
 	switch( category ) {
 		case 'project':
-			let noProjectTodos;
-			let projectName = '';
 
 			completedTodos = newSection('Completed Todos');
 
-			const projectTodos = todoList.reduce( function( arr, todo ) {
+			projectTodos = todoList.reduce( function( arr, todo ) {
 				projectName = todo.project !== undefined ? todo.project : 'No Project';
 				if( ! arr[projectName] ) {
 					arr[projectName] = newSection(todo.project || 'No Project');
 				}
 				if( todo.completed ) {
-					if( which === undefined || which === "All" ) {
+					if( which === undefined || which === 'All' ) {
 						completedTodos.appendChild( createTodoItem(todo, 'project') );
 					} else if( which === projectName ) {
 						completedTodos.appendChild( createTodoItem(todo, 'project') );
@@ -48,11 +81,11 @@ function renderTodoList(category = 'all', which ) {
 			}, [] );
 
 			if( which === undefined || which === 'All' ) {
-				for( project in projectTodos ) {
-					taskListDiv.appendChild(projectTodos[project]);;
+				for( let project in projectTodos ) {
+					taskListDiv.appendChild(projectTodos[project]);
 				}
 			} else {
-				taskListDiv.appendChild(projectTodos[which]);;
+				taskListDiv.appendChild(projectTodos[which]);
 			}
 			if(completedTodos.childNodes.length > 1) taskListDiv.appendChild(completedTodos);
 
@@ -60,17 +93,16 @@ function renderTodoList(category = 'all', which ) {
 
 			break;
 		case 'context':
-			let contextName = '';
 
 			completedTodos = newSection('Completed Todos');
 
-			const contextTodos = todoList.reduce( function( arr, todo ) {
+			contextTodos = todoList.reduce( function( arr, todo ) {
 				contextName = todo.context !== undefined ? todo.context : 'No Context';
 				if( ! arr[contextName] ) {
 					arr[contextName] = newSection(todo.context || 'No Context');
 				}
 				if( todo.completed ) {
-					if( which === undefined || which === "All" ) {
+					if( which === undefined || which === 'All' ) {
 						completedTodos.appendChild( createTodoItem(todo, 'context') );
 					} else if( which === contextName ) {
 						completedTodos.appendChild( createTodoItem(todo, 'context') );
@@ -82,11 +114,11 @@ function renderTodoList(category = 'all', which ) {
 			}, [] );
 
 			if( which === undefined || which === 'All' ) {
-				for( context in contextTodos ) {
-					taskListDiv.appendChild(contextTodos[context]);;
+				for( let context in contextTodos ) {
+					taskListDiv.appendChild(contextTodos[context]);
 				}
 			} else {
-				taskListDiv.appendChild(contextTodos[which]);;
+				taskListDiv.appendChild(contextTodos[which]);
 			}
 			if(completedTodos.childNodes.length > 1) taskListDiv.appendChild(completedTodos);
 
@@ -94,17 +126,15 @@ function renderTodoList(category = 'all', which ) {
 
 			break;
 		case 'priority':
-			let priorityName = '';
-
 			completedTodos = newSection('Completed Todos');
 
-			const priorityTodos = todoList.reduce( function( arr, todo ) {
-				priorityName = todo.priority !== undefined ? todo.priority : 'No Priority';
+			priorityTodos = todoList.reduce( function( arr, todo ) {
+			priorityName = todo.priority !== undefined ? todo.priority : 'No Priority';
 				if( ! arr[priorityName] ) {
 					arr[priorityName] = newSection(todo.priority || 'No Priority');
 				}
 				if( todo.completed ) {
-					if( which === undefined || which === "All" ) {
+					if( which === undefined || which === 'All' ) {
 						completedTodos.appendChild( createTodoItem(todo, 'priority') );
 					} else if( which === priorityName ) {
 						completedTodos.appendChild( createTodoItem(todo, 'priority') );
@@ -115,17 +145,14 @@ function renderTodoList(category = 'all', which ) {
 				return arr;
 			}, [] );
 
-			priorityTodos.sort( (a, b)  => {
-				console.log('todo:',a, b);
-			});
-			let priorities = Object.keys(priorityTodos).sort();;
+			priorities = Object.keys(priorityTodos).sort();
 
 			if( which === undefined || which === 'All' ) {
 				priorities.forEach( priority => {
 					taskListDiv.appendChild(priorityTodos[priority]);
 				});
 			} else {
-				taskListDiv.appendChild(priorityTodos[which]);;
+				taskListDiv.appendChild(priorityTodos[which]);
 			}
 			if(completedTodos.childNodes.length > 1) taskListDiv.appendChild(completedTodos);
 
@@ -133,7 +160,7 @@ function renderTodoList(category = 'all', which ) {
 
 			break;
 		default:
-			const activeTodos = newSection('');
+			activeTodos = newSection('');
 			completedTodos = newSection('Completed Todos');
 			todoList.forEach( function( todo ) {
 				if(todo.completed) {
@@ -145,6 +172,12 @@ function renderTodoList(category = 'all', which ) {
 			taskListDiv.appendChild(activeTodos);
 			taskListDiv.appendChild(completedTodos);
 	}
+// Save data to the current local store
+// localStorage.setItem('todo', JSON.stringify(todoList) );
+
+// Access some stored data
+// const theList = JSON.parse( localStorage.getItem('todo'));
+// theList.forEach( todoItem => console.log(todoItem) );
 }
 
 function createTodoItem( task, category ) {
@@ -152,7 +185,7 @@ function createTodoItem( task, category ) {
 	const listItem = document.createElement('li');
 	listItem.className = 'task-item';
 	listItem.id = 'task_' + task.id;
-	if(task.context) listItem.dataset.context = task.context;
+	if(task.project) listItem.dataset.project = task.project;
 	if(task.context) listItem.dataset.context = task.context;
 	if(task.priority) listItem.dataset.priority = task.priority;
 	if( task.completed ) {
@@ -162,7 +195,7 @@ function createTodoItem( task, category ) {
 	const checkbox = document.createElement('input');
 	checkbox.type = 'checkbox';
 	checkbox.id = 'task_complete_' + task.id;
-	checkbox.className = "css-checkbox";
+	checkbox.className = 'css-checkbox';
 	if( task.completed ) {
 		checkbox.checked = true;
 	}
@@ -201,11 +234,11 @@ function createTodoItem( task, category ) {
 		div_meta.appendChild( span_category );
 	}
 
-	if( task.context && category !== 'context' ) {
+	if( task.project && category !== 'project' ) {
 		span_category = document.createElement('span');
-		span_category.id = `context_${task.id}`;
-		span_category.className = 'task-meta-context';
-		span_category.textContent = `+${ task.context }`;
+		span_category.id = `project_${task.id}`;
+		span_category.className = 'task-meta-project';
+		span_category.textContent = `+${ task.project }`;
 		div_meta.appendChild( span_category );
 	}
 
@@ -214,13 +247,13 @@ function createTodoItem( task, category ) {
 }
 
 function createDatalistItem( item ) {
-	dataItem = document.createElement('option');
+	let dataItem = document.createElement('option');
 	dataItem.textContent = item;
 	return dataItem;
 }
 
 function createMenuItem( category, item ) {
-	menuItem = document.createElement('li');
+	let menuItem = document.createElement('li');
 	menuItem.textContent = item;
 	menuItem.className = 'menu-item';
 	menuItem.onclick = function() { 
@@ -239,7 +272,7 @@ function createMenu( category, itemList ) {
 		categoryMenu.appendChild(createMenuItem(category, item) ) );
 	// insert items in task edit form datalist
 	if( category === 'context' || category === 'project' ) {
-		formDataList = document.getElementById(category + 's');
+		let formDataList = document.getElementById(category + 's');
 		formDataList.innerHTML = '';
 		itemList.pop();
 		itemList.forEach( item => 
@@ -247,3 +280,4 @@ function createMenu( category, itemList ) {
 	}
 }
 
+/* eslint-disable indent */

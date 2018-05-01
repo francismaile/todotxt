@@ -5,6 +5,8 @@ server
 *.swp
 todo.txt
 *.bak.*
+*.lint.*
+.eslintrc.json
 
 css/
 img/

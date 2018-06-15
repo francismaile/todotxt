@@ -1,63 +1,29 @@
 /* eslint-disable indent */
-document.getElementById('task-list').addEventListener( 'click', function( event ) {
-	console.log(event.target);
-	const eventId = event.target.id.split('_');
-	const taskId = eventId[eventId.length-1];
-	const taskPart = eventId[0];
-	// go to listing of that part (ex: project: +Novel)
-	
-	console.log({taskId}, {taskPart});
-});
 
-// ***************  tabbed menu  ******************
-(function(){
-	function onTabClick(event){
-		var actives = document.querySelectorAll('.active');
-		// deactivate existing active tab and panel
-		actives.forEach( activeElem => {
-			activeElem.classList.remove('active');
-		});
-
-		// activate new tab and panel
-		event.target.classList.add('active');
-		renderTodoList(event.target.id);	
-		const activeMenu = event.target.id;
-		document.getElementById(activeMenu + '-tab').classList.add('active');
-		// document.getElementById(activeMenu + '-pane').classList.add('active');
-	}
-
-	function onAllMenuClick(event) {
-		document.getElementById(event.target.id.split('-')[0]).click();
-	}
-	document.getElementById('all-menu').addEventListener('click', onAllMenuClick, false);
-	var el = document.getElementById('nav-tab');
-	// document.getElementById('nav-tab')
-	el.addEventListener('click', onTabClick, false);
-})();
-
-function newSection(headingText) {
+function newSection(headingText = 'main') {
+	// console.log(headingText);
 	const section = document.createElement('ul');
+	section.id = 'list-' + headingText.toCamelCase();
 	let li = document.createElement('li');
 	li.textContent = headingText;
 	li.className = 'category-heading';
 	section.appendChild(li);
 	return section;
 }
+/*
+document.getElementById('show-it').addEventListener("click", function() {
+	editForm.style.display = 'inline';
+}, false);
+
+*/
 
 function renderTodoList(category = 'all', which ) {
 	const taskListDiv = document.getElementById('task-list');
 	taskListDiv.innerHTML = '';
- 
+
 	let completedTodos = document.createElement('ul');
-			// let noProjectTodos;
-			let projectTodos;
-			let contextTodos;
-			let priorityTodos;
-			let projectName = '';
-			let contextName = '';
-			let priorityName = '';
-			let priorities;
-			let activeTodos;
+	let projectTodos, contextTodos, priorityTodos, activeTodos, priorities;
+	let projectName = '', contextName = '', priorityName = '';
 	switch( category ) {
 		case 'project':
 
@@ -74,7 +40,7 @@ function renderTodoList(category = 'all', which ) {
 					} else if( which === projectName ) {
 						completedTodos.appendChild( createTodoItem(todo, 'project') );
 					}
-				} else { 
+				} else {
 					arr[projectName].appendChild( createTodoItem(todo, 'project') );
 				}
 				return arr;
@@ -107,7 +73,7 @@ function renderTodoList(category = 'all', which ) {
 					} else if( which === contextName ) {
 						completedTodos.appendChild( createTodoItem(todo, 'context') );
 					}
-				} else { 
+				} else {
 					arr[contextName].appendChild( createTodoItem(todo, 'context') );
 				}
 				return arr;
@@ -139,7 +105,7 @@ function renderTodoList(category = 'all', which ) {
 					} else if( which === priorityName ) {
 						completedTodos.appendChild( createTodoItem(todo, 'priority') );
 					}
-				} else { 
+				} else {
 					arr[priorityName].appendChild( createTodoItem(todo, 'priority') );
 				}
 				return arr;
@@ -160,7 +126,7 @@ function renderTodoList(category = 'all', which ) {
 
 			break;
 		default:
-			activeTodos = newSection('');
+			activeTodos = newSection();
 			completedTodos = newSection('Completed Todos');
 			todoList.forEach( function( todo ) {
 				if(todo.completed) {
@@ -172,12 +138,6 @@ function renderTodoList(category = 'all', which ) {
 			taskListDiv.appendChild(activeTodos);
 			taskListDiv.appendChild(completedTodos);
 	}
-// Save data to the current local store
-// localStorage.setItem('todo', JSON.stringify(todoList) );
-
-// Access some stored data
-// const theList = JSON.parse( localStorage.getItem('todo'));
-// theList.forEach( todoItem => console.log(todoItem) );
 }
 
 function createTodoItem( task, category ) {
@@ -211,6 +171,12 @@ function createTodoItem( task, category ) {
 	div_description.id = `description_${task.id}`;
 	div_description.className = 'task-description';
 	div_description.textContent = task.description;
+
+	div_description.addEventListener("click", function(event) {
+		editForm.style.display = 'inline';
+		const taskId = event.target.id.split('_')[1];
+		editTask(taskId);	
+	}, false);
 
 	listItem.appendChild(div_description);
 
@@ -256,7 +222,7 @@ function createMenuItem( category, item ) {
 	let menuItem = document.createElement('li');
 	menuItem.textContent = item;
 	menuItem.className = 'menu-item';
-	menuItem.onclick = function() { 
+	menuItem.onclick = function() {
 		renderTodoList(category, this.textContent);
 	};
 	return menuItem;
@@ -268,16 +234,65 @@ function createMenu( category, itemList ) {
 	categoryMenu.innerHTML = '';
 	categoryMenu.appendChild(createMenuItem(category, 'All') );
 
-	itemList.forEach( item => 
+	itemList.forEach( item =>
 		categoryMenu.appendChild(createMenuItem(category, item) ) );
 	// insert items in task edit form datalist
 	if( category === 'context' || category === 'project' ) {
 		let formDataList = document.getElementById(category + 's');
 		formDataList.innerHTML = '';
 		itemList.pop();
-		itemList.forEach( item => 
+		itemList.forEach( item =>
 			formDataList.appendChild(createDatalistItem(item) ) );
 	}
 }
 
-/* eslint-disable indent */
+document.getElementById('task-list').addEventListener( 'click', function( event ) {
+	if(event.target.nodeName === 'INPUT' && event.target.type === 'checkbox') {
+		const eventId = event.target.id.split('_');
+		const taskId = eventId[eventId.length-1];
+		const liElem = event.target.parentNode;
+		if(todoList[taskId].completed) {
+			todoList[taskId].completed = false;
+			liElem.classList.remove('task-completed');
+			// figure out where it goes
+			const currentList = document.getElementsByClassName('tab-pane active')[0].id.split('-')[0];
+			document.getElementById('list-completedTodos').appendChild(liElem);
+			const myList = document.getElementById('list-' + liElem.dataset[currentList]);
+			myList.appendChild(liElem);
+		} else {
+			todoList[taskId].completed = true;
+			liElem.classList.add('task-completed');
+			document.getElementById('list-completedTodos').appendChild(liElem);
+		}
+	}
+});
+
+// ***************  tabbed menu  ******************
+(function(){
+	function onTabClick(event){
+		var actives = document.querySelectorAll('.active');
+		// deactivate existing active tab and panel
+		actives.forEach( activeElem => {
+			activeElem.classList.remove('active');
+		});
+
+		// activate new tab and panel
+		event.target.classList.add('active');
+		renderTodoList(event.target.id);
+		const activeMenu = event.target.id;
+		document.getElementById(activeMenu + '-tab').classList.add('active');
+		// document.getElementById(activeMenu + '-pane').classList.add('active');
+	}
+
+	function onAllMenuClick(event) {
+	// remove this function once we're sure it works	
+	}
+	
+	document.getElementById('all-menu').addEventListener('click', (event) => {
+		document.getElementById(event.target.id.split('-')[0]).click();
+	}, false);
+	var el = document.getElementById('nav-tab');
+	// document.getElementById('nav-tab')
+	el.addEventListener('click', onTabClick, false);
+})();
+

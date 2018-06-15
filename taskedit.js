@@ -95,7 +95,8 @@ newTaskForm.onsubmit=function() {
 }
 
 
- taskEditForm.addEventListener('submit', event => event.preventDefault());
+taskEditForm.addEventListener('submit', event => event.preventDefault());
+
 taskEditForm.onsubmit=function() {
 // need to sanitize the input
 	// this['task-options'].style.display = 'none';
@@ -138,7 +139,6 @@ taskEditForm.onsubmit=function() {
 	}
 
 	this.description.value = '';
-	displayAllTodoLists();
 
 	return false;
 };

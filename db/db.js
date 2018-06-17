@@ -63,44 +63,11 @@ function deleteItem( key ) {
 	});
 }
 
-let item = {
-	task: 'do something',
-	context: 'home',
-	project: 'tinyHouse'
-};
-addItem(item);
-
-item = {
-	task: 'do something else',
-	context: 'home',
-	project: 'cleanUpBasement'
-};
-addItem(item);
-
-item = {
-	id: 1,
-	task: 'buy something',
-	context: 'lowes',
-	project: 'tinyHouse'
-};
-updateItem(item);
-
-getItem(1).then(function(val) {
-		console.log(val);
-});
-
-deleteItem(1);
-
 // get and display all items in db
-dbPromise.then( function(db) {
-	const tx = db.transaction('todoList', 'readonly');
-	const todoList = tx.objectStore('todoList');
-	return todoList.getAll();
-}).then( function(items) {
-	console.log('items:', items);
-});
-
-getItem(1).then(function(val) {
-		console.log(val);
-});
-
+function getAll() {
+	return dbPromise.then( function(db) {
+		const tx = db.transaction('todoList', 'readonly');
+		const todoList = tx.objectStore('todoList');
+		return todoList.getAll();
+	})
+}

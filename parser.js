@@ -1,3 +1,8 @@
+// if indexedDb exists use it
+// else get file
+	// ask user for file location
+	// parse and insert into indexedDB
+
 const todoFile = 'todo.txt';
 
 const lines = [];
@@ -11,6 +16,10 @@ function getFile() {
 			lines.push(...text.split('\n') );
 			parse(lines);
 			renderTodoList(); // display.js
+			// console.log(todoList);
+			getAll().then( function(items) {
+				console.log('items:', items);
+			});
 		});
 }
 
@@ -21,9 +30,12 @@ function parse( todoTxt ) {
 	// parse the lines of the file and build the todoList
 	const lines = todoTxt;
 	let taskid = 0;
+	let newTask;
 	lines.forEach(function(line) {
 		if(line !== '' ) {
-			todoList.push(newTodoTask(line, taskid) );
+			newTask = newTodoTask(line, taskid);
+			todoList.push( newTask );
+			addItem(newTask);
 			taskid++;
 		}
 	});
@@ -75,7 +87,7 @@ function newTodoTask( todoTaskTxt, taskid ) {
 		todoTaskTxt = todoTaskTxt.replace(resultArr[0],'');
 	}
 	task.description = todoTaskTxt.trim();
-	task.id = taskid;
+	// task.id = taskid;
 	return task;
 }
 

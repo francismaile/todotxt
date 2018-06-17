@@ -17,9 +17,6 @@ function getFile() {
 			parse(lines);
 			renderTodoList(); // display.js
 			// console.log(todoList);
-			getAll().then( function(items) {
-				console.log('items:', items);
-			});
 		});
 }
 

@@ -26,7 +26,7 @@ function addItem( item ) {
 		todoList.add(item);
 		return tx.completed;
 	}).then(function(result) {
-		console.log('added item to todo list', result);
+		// console.log('added item to todo list', result);
 	});
 }
 

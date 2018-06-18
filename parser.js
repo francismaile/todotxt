@@ -8,20 +8,19 @@ const todoFile = 'todo.txt';
 const lines = [];
 const todoList = [];
 
-
-function getFile() {
-	fetch(todoFile, { mode: 'no-cors' })
-		.then(response => response.text())
-		.then(text => {
-			lines.push(...text.split('\n') );
-			parse(lines);
-			renderTodoList(); // display.js
-			// console.log(todoList);
-			getAll().then( function(items) {
-				console.log('items:', items);
-			});
-		});
-}
+// function getFile() {
+// 	fetch(todoFile, { mode: 'no-cors' })
+// 		.then(response => response.text())
+// 		.then(text => {
+// 			lines.push(...text.split('\n') );
+// 			parse(lines);
+// 			renderTodoList(); // display.js
+// 			// console.log(todoList);
+// 			getAll().then( function(items) {
+// 				console.log('items:', items);
+// 			});
+// 		});
+// }
 
 // refactor to handle line by line
 // parse a line (todo task) and return task object

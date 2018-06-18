@@ -7,7 +7,15 @@ const todoFile = 'todo.txt';
 
 const lines = [];
 const todoList = [];
-getFile(todoFile);
+
+getStores().then( function( names ) {
+	if( names.contains( 'todoList' ) ) {
+		console.log(names);
+	} else {
+		getFile(todoFile);
+	}
+});
+
 
 function getFile() {
 	fetch(todoFile, { mode: 'no-cors' })

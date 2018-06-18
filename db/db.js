@@ -71,3 +71,22 @@ function getAll() {
 		return todoList.getAll();
 	})
 }
+
+// count items in db
+function countItems() {
+	return dbPromise.then( function(db) {
+		const tx = db.transaction('todoList', 'readonly');
+		const todoList = tx.objectStore('todoList');
+		return todoList.count();
+	}).then( function(result) {
+		console.log(result)
+	});
+}
+
+// return names of object stores
+function getStores() {
+	return dbPromise.then( function(db) {
+		return db.objectStoreNames;
+		return list;
+	})
+}

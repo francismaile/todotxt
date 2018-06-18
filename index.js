@@ -10,14 +10,3 @@ on startup
 
 */
 
-// Save data to the current local store
-// localStorage.setItem('todo', JSON.stringify(todoList) );
-
-// Access some stored data
-// const theList = JSON.parse( localStorage.getItem('todo'));
-// theList.forEach( todoItem => console.log(todoItem) );
-
-// const todoApp = (function() {
-// 	todoList = [];
-// })();
-

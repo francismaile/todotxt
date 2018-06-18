@@ -78,9 +78,7 @@ function countItems() {
 		const tx = db.transaction('todoList', 'readonly');
 		const todoList = tx.objectStore('todoList');
 		return todoList.count();
-	}).then( function(result) {
-		console.log(result)
-	});
+	})
 }
 
 // return names of object stores

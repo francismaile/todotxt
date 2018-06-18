@@ -10,3 +10,18 @@ on startup
 
 */
 
+
+countItems().then( function( cnt ) { 
+	if(cnt) {
+	// we don't need to load todo.txt
+	} else {
+		getFile(todoFile);
+	// ask user to choose todo.txt on local hd
+	// read file
+	// parse text
+	// insert into indexedDB
+	}
+	// read todoList from indexedDB
+	// insert into DOM - render()
+});
+

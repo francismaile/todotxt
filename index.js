@@ -16,7 +16,7 @@ function getFile() {
 	const fileSelector = document.createElement('input');
 	fileSelector.setAttribute('type', 'file');
 
-	const selectDialogue = document.createElement('div');
+	const selectDialogue = document.createElement('dialog');
 	selectDialogue.id = 'fileChoose';
 
 	const selectDialogueText = document.createElement('p');
@@ -28,13 +28,40 @@ function getFile() {
 
 	selectDialogueLink.onclick = function () {
 			 fileSelector.click();
+			 selectDialogue.style.display = 'none';
 			 return false;
 	}
 	
 	selectDialogue.appendChild(selectDialogueText);
 	selectDialogue.appendChild(selectDialogueLink);
 
+	// ask user to choose todo.txt on local hd
 	document.body.appendChild(selectDialogue);
+
+	fileSelector.addEventListener( 'change', function() {
+		const file = this.files[0];
+		console.log(file);
+		const reader = new FileReader();
+		const lines = [];
+
+		reader.onload = function(e) {
+			console.log(e.target.result);
+	// read file
+			const text = e.target.result;
+			lines.push(...text.split('\n'));
+	// parse text
+			parse(lines);
+	// insert into indexedDB
+			getAll().then( function(list) {
+				todoList.push(...list);
+				// insert into DOM - render()
+				console.log('render');
+				renderTodoList();
+			});
+		}
+		reader.readAsText(file);
+
+	}, false );
 
 }
 
@@ -42,15 +69,14 @@ countItems().then( function( cnt ) {
 	console.log(cnt);
 	if(cnt) {
 	// we don't need to load todo.txt
+		getAll().then( function(list) {
+			todoList.push(...list);
+			// insert into DOM - render()
+			renderTodoList();
+		});
 	} else {
-	console.log('get file');
-		// getFile(todoFile);
-	// ask user to choose todo.txt on local hd
-	// read file
-	// parse text
-	// insert into indexedDB
+		getFile(todoFile);
 	}
 	// read todoList from indexedDB
-	// insert into DOM - render()
 });
 

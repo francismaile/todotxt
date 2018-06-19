@@ -1,25 +1,7 @@
-// if indexedDb exists use it
-// else get file
-	// ask user for file location
-	// parse and insert into indexedDB
-
 const todoFile = 'todo.txt';
 
 const lines = [];
 const todoList = [];
-getFile(todoFile);
-
-function getFile() {
-	fetch(todoFile, { mode: 'no-cors' })
-		.then(response => response.text())
-		.then(text => {
-			lines.push(...text.split('\n') );
-			parse(lines);
-			renderTodoList(); // display.js
-			// console.log(todoList);
-		});
-}
-
 // refactor to handle line by line
 // parse a line (todo task) and return task object
 
@@ -32,7 +14,7 @@ function parse( todoTxt ) {
 		if(line !== '' ) {
 			newTask = newTodoTask(line, taskid);
 			todoList.push( newTask );
-			addItem(newTask);
+			addItem(newTask); // indexedDB
 			taskid++;
 		}
 	});

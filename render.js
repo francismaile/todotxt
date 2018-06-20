@@ -1,7 +1,6 @@
 /* eslint-disable indent */
 
 function newSection(headingText = 'main') {
-	// console.log(headingText);
 	const section = document.createElement('ul');
 	section.id = 'list-' + headingText.toCamelCase();
 	let li = document.createElement('li');
@@ -10,139 +9,76 @@ function newSection(headingText = 'main') {
 	section.appendChild(li);
 	return section;
 }
-/*
-document.getElementById('show-it').addEventListener("click", function() {
-	editForm.style.display = 'inline';
-}, false);
-
-*/
 
 function renderTodoList(category = 'all', which ) {
 	console.log({category}, {which});
 	const taskListDiv = document.getElementById('task-list');
 	taskListDiv.innerHTML = '';
 
-	let completedTodos = document.createElement('ul');
-	let projectTodos, contextTodos, priorityTodos, activeTodos, priorities;
-	let projectName = '', contextName = '', priorityName = '';
-	switch( category ) {
-		case 'project':
+	function render( todoList ){
+		const completedTodos = newSection('Completed');
 
-			completedTodos = newSection('Completed Todos');
-
-			projectTodos = todoList.reduce( function( arr, todo ) {
-				projectName = todo.project !== undefined ? todo.project : 'No Project';
-				if( ! arr[projectName] ) {
-					arr[projectName] = newSection(todo.project || 'No Project');
-				}
-				if( todo.completed ) {
-					if( which === undefined || which === 'All' ) {
-						completedTodos.appendChild( createTodoItem(todo, 'project') );
-					} else if( which === projectName ) {
-						completedTodos.appendChild( createTodoItem(todo, 'project') );
-					}
+		if( category ==='all' ) {
+			const thisTodoList = newSection('Todo List');
+			const	categoryName = '';
+			todoList.forEach( task => {
+				if( task.completed ) {
+					completedTodos.appendChild( createTodoItem(task) );
 				} else {
-					arr[projectName].appendChild( createTodoItem(todo, 'project') );
-				}
-				return arr;
-			}, [] );
-
-			if( which === undefined || which === 'All' ) {
-				for( let project in projectTodos ) {
-					taskListDiv.appendChild(projectTodos[project]);
-				}
-			} else {
-				taskListDiv.appendChild(projectTodos[which]);
-			}
-			if(completedTodos.childNodes.length > 1) taskListDiv.appendChild(completedTodos);
-
-			createMenu('project',  Object.keys(projectTodos));
-
-			break;
-		case 'context':
-
-			completedTodos = newSection('Completed Todos');
-
-			contextTodos = todoList.reduce( function( arr, todo ) {
-				contextName = todo.context !== undefined ? todo.context : 'No Context';
-				if( ! arr[contextName] ) {
-					arr[contextName] = newSection(todo.context || 'No Context');
-				}
-				if( todo.completed ) {
-					if( which === undefined || which === 'All' ) {
-						completedTodos.appendChild( createTodoItem(todo, 'context') );
-					} else if( which === contextName ) {
-						completedTodos.appendChild( createTodoItem(todo, 'context') );
-					}
-				} else {
-					arr[contextName].appendChild( createTodoItem(todo, 'context') );
-				}
-				return arr;
-			}, [] );
-
-			if( which === undefined || which === 'All' ) {
-				for( let context in contextTodos ) {
-					taskListDiv.appendChild(contextTodos[context]);
-				}
-			} else {
-				taskListDiv.appendChild(contextTodos[which]);
-			}
-			if(completedTodos.childNodes.length > 1) taskListDiv.appendChild(completedTodos);
-
-			createMenu('context',  Object.keys(contextTodos));
-
-			break;
-		case 'priority':
-			completedTodos = newSection('Completed Todos');
-
-			priorityTodos = todoList.reduce( function( arr, todo ) {
-			priorityName = todo.priority !== undefined ? todo.priority : 'No Priority';
-				if( ! arr[priorityName] ) {
-					arr[priorityName] = newSection(todo.priority || 'No Priority');
-				}
-				if( todo.completed ) {
-					if( which === undefined || which === 'All' ) {
-						completedTodos.appendChild( createTodoItem(todo, 'priority') );
-					} else if( which === priorityName ) {
-						completedTodos.appendChild( createTodoItem(todo, 'priority') );
-					}
-				} else {
-					arr[priorityName].appendChild( createTodoItem(todo, 'priority') );
-				}
-				return arr;
-			}, [] );
-
-			priorities = Object.keys(priorityTodos).sort();
-
-			if( which === undefined || which === 'All' ) {
-				priorities.forEach( priority => {
-					taskListDiv.appendChild(priorityTodos[priority]);
-				});
-			} else {
-				taskListDiv.appendChild(priorityTodos[which]);
-			}
-			if(completedTodos.childNodes.length > 1) taskListDiv.appendChild(completedTodos);
-
-			createMenu('priority',  priorities);
-
-			break;
-		default:
-			activeTodos = newSection();
-			completedTodos = newSection('Completed Todos');
-			todoList.forEach( function( todo ) {
-				if(todo.completed) {
-					completedTodos.appendChild( createTodoItem( todo, 'all' ) );
-				} else {
-					activeTodos.appendChild(createTodoItem( todo, 'all' ));
+					thisTodoList.appendChild( createTodoItem(task) );
 				}
 			});
-			taskListDiv.appendChild(activeTodos);
+			taskListDiv.appendChild(thisTodoList);
 			taskListDiv.appendChild(completedTodos);
+		} else {
+			if( which === undefined || which === 'All') {
+				const thisTodoList = todoList.reduce( function(taskList, task) {
+					// divide up todos by category name
+					const categoryName = task[category] !== undefined ? task[category] : 'No ' + category.charAt(0).toUpperCase() + category.slice(1);
+					console.log({categoryName}, {task});
+					if( ! taskList[categoryName] ) {
+						taskList[categoryName] = newSection(task[category] || 'No Project');
+					}
+					if(task.completed) {
+						// separate list for completed todos
+						completedTodos.appendChild( createTodoItem(task, 'all') );
+					} else {
+						taskList[categoryName].appendChild( createTodoItem(task, category) );
+					}
+					return taskList;
+				}, [] );
+	
+				for( let catName in thisTodoList ) {
+					taskListDiv.appendChild(thisTodoList[catName]);
+				}
+				taskListDiv.appendChild(completedTodos);
+			createMenu(category,  Object.keys(thisTodoList));
+			} else {
+				const thisTodoList = newSection(which);
+				// foreach to get only which from category
+				todoList.forEach( task => {
+					if( task[category] === which ) {
+						if( task.completed ) {
+							completedTodos.appendChild( createTodoItem( task, category ) );
+						} else {
+							thisTodoList.appendChild( createTodoItem( task, category ) );
+						}
+					}
+				});
+				taskListDiv.appendChild(thisTodoList);
+				taskListDiv.appendChild(completedTodos);
+			}
+		}
+
+		
+
 	}
+
+	getAll().then( list => render(list) );
+
 }
 
 function createTodoItem( task, category ) {
-// console.log({task}, {category});
 	const listItem = document.createElement('li');
 	listItem.className = 'task-item';
 	listItem.id = 'task_' + task.id;
@@ -252,7 +188,7 @@ document.getElementById('task-list').addEventListener( 'click', function( event 
 		const eventId = event.target.id.split('_');
 		const taskId = eventId[eventId.length-1];
 		const liElem = event.target.parentNode;
-		if(todoList[taskId].completed) {
+		if([taskId].completed) {
 			todoList[taskId].completed = false;
 			liElem.classList.remove('task-completed');
 			// figure out where it goes

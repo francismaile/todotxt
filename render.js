@@ -35,7 +35,7 @@ function renderTodoList(category = 'all', which ) {
 				const thisTodoList = todoList.reduce( function(taskList, task) {
 					// divide up todos by category name
 					const categoryName = task[category] !== undefined ? task[category] : 'No ' + category.charAt(0).toUpperCase() + category.slice(1);
-					console.log({categoryName}, {task});
+					// console.log({categoryName}, {task});
 					if( ! taskList[categoryName] ) {
 						taskList[categoryName] = newSection(task[category] || 'No Project');
 					}
@@ -54,10 +54,11 @@ function renderTodoList(category = 'all', which ) {
 				taskListDiv.appendChild(completedTodos);
 			createMenu(category,  Object.keys(thisTodoList));
 			} else {
+				// const categoryName = task[category] !== undefined ? task[category] : 'No ' + category.charAt(0).toUpperCase() + category.slice(1);
 				const thisTodoList = newSection(which);
 				// foreach to get only which from category
 				todoList.forEach( task => {
-					if( task[category] === which ) {
+					if( task[category] === which || ( which.slice(0,2) === 'No' && task[category] === undefined) ) {
 						if( task.completed ) {
 							completedTodos.appendChild( createTodoItem( task, category ) );
 						} else {

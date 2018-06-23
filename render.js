@@ -10,8 +10,13 @@ function newSection(headingText = 'main') {
 	return section;
 }
 
+let renderCategory = 'all', renderWhich = '';
+const render = {
+	}
+
 function renderTodoList(category = 'all', which ) {
-	console.log({category}, {which});
+	renderCategory = category;
+	renderWhich = which;
 	const taskListDiv = document.getElementById('task-list');
 	taskListDiv.innerHTML = '';
 
@@ -35,7 +40,6 @@ function renderTodoList(category = 'all', which ) {
 				const thisTodoList = todoList.reduce( function(taskList, task) {
 					// divide up todos by category name
 					const categoryName = task[category] !== undefined ? task[category] : 'No ' + category.charAt(0).toUpperCase() + category.slice(1);
-					// console.log({categoryName}, {task});
 					if( ! taskList[categoryName] ) {
 						taskList[categoryName] = newSection(task[category] || 'No Project');
 					}
@@ -70,9 +74,6 @@ function renderTodoList(category = 'all', which ) {
 				taskListDiv.appendChild(completedTodos);
 			}
 		}
-
-		
-
 	}
 
 	getAll().then( list => render(list) );

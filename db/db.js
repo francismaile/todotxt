@@ -30,8 +30,8 @@ function addItem( item ) {
 	});
 }
 
+// get and display item
 function getItem(key) {
-	// get and display item
 	return dbPromise.then(function(db) {
 		const tx = db.transaction('todoList', 'readonly');
 		const todoList = tx.objectStore('todoList');
@@ -47,7 +47,7 @@ function updateItem(item) {
 		todoList.put(item);
 		return tx.complete;
 	}).then( function() {
-		console.log('item updated');
+		// console.log('item updated');
 	});
 }
 

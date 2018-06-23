@@ -8,20 +8,17 @@ const todoList = [];
 function parse( todoTxt ) {
 	// parse the lines of the file and build the todoList
 	const lines = todoTxt;
-	let taskid = 0;
 	let newTask;
 	lines.forEach(function(line) {
 		if(line !== '' ) {
-			newTask = newTodoTask(line, taskid);
-			todoList.push( newTask );
+			newTask = newTodoTask(line);
+			// todoList.push( newTask );
 			addItem(newTask); // indexedDB
-			taskid++;
 		}
 	});
 }
 
-function newTodoTask( todoTaskTxt, taskid ) {
-	// let result;
+function newTodoTask(todoTaskTxt) {
 	let regex = new RegExp();
 	let task = {};
 	todoTaskTxt = todoTaskTxt.trim();
@@ -66,7 +63,6 @@ function newTodoTask( todoTaskTxt, taskid ) {
 		todoTaskTxt = todoTaskTxt.replace(resultArr[0],'');
 	}
 	task.description = todoTaskTxt.trim();
-	// task.id = taskid;
 	return task;
 }
 

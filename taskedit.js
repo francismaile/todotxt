@@ -21,124 +21,147 @@ function toggleTaskComplete(taskid) {
 }
 
 function editTask(taskId) {
-	const task = todoList.find( todo => todo.id === parseInt(taskId));
-	taskEditForm.description.value = task.description;
-	taskEditForm.taskid.value = task.id;
-	// task project
-	if( task.hasOwnProperty('project') )
-		taskEditForm.project.value = task.project;
-	else
-		taskEditForm.project.value = '';
-	// task context
-	if( task.hasOwnProperty('context'))
-		taskEditForm.context.value = task.context;
-	else
-		taskEditForm.context.value = '';
-	// task priority
-	if( task.hasOwnProperty('priority')) {
-		for( let i=0; i<=taskEditForm.priority.length; i++ ) {
-			if( taskEditForm.priority.options[i].value === task.priority ) {
-				taskEditForm.priority.selectedIndex = i;
-				break;
-			}
-		}
-	} else {
-		taskEditForm.priority.selectedIndex = 0;
-	}
-	// task created date
-	if( task.hasOwnProperty('createdDate')) {
-		taskEditForm.created.value = task.createdDate;
-	}
-	// task completed date
-	if( task.hasOwnProperty('completeDate')) {
-		taskEditForm.completed.value = task.completeDate;
-	}
-	// deal with tags
-	if( task.hasOwnProperty('tags') ) {
-		taskEditForm.tags.rows = 1;
-		taskEditForm.tags.value = '';
-		numberOfTags = task.tags.length;
-		if( task.tags.hasOwnProperty('due') ) {
-			numberOfTags = numberOfTags - 1;
-		}
-		let tagContent = '';
-		numberOfTags = 0;
-		for( const key in task.tags ) {
-			if( key === 'due' ) {
-				taskEditForm.due.value = task.tags[key];
-			} else {
-				tagContent = tagContent + '\n' + key + ':' + task.tags[key];
-				numberOfTags++;
-			}
-		}
-		taskEditForm.tags.rows = numberOfTags;
-		taskEditForm.tags.value = tagContent.trim();
-	} else {
-		taskEditForm.tags.rows = 1;
-		taskEditForm.tags.value = '';
-	}
-	
-	taskEditWrapper.style.display = 'inline';
-	// taskEditForm['task-options'].style.display = 'inline';
 
+	function edit(task = {description: ''}) {
+		taskEditForm.description.value = task.description;
+		taskEditForm.taskid.value = task.id;
+		// task project
+		if( task.hasOwnProperty('project') )
+			taskEditForm.project.value = task.project;
+		else
+			taskEditForm.project.value = '';
+		// task context
+		if( task.hasOwnProperty('context'))
+			taskEditForm.context.value = task.context;
+		else
+			taskEditForm.context.value = '';
+		// task priority
+		if( task.hasOwnProperty('priority')) {
+			for( let i=0; i<=taskEditForm.priority.length; i++ ) {
+				if( taskEditForm.priority.options[i].value === task.priority ) {
+					taskEditForm.priority.selectedIndex = i;
+					break;
+				}
+			}
+		} else {
+			taskEditForm.priority.selectedIndex = 0;
+		}
+		// task created date
+		if( task.hasOwnProperty('createdDate')) {
+			taskEditForm.created.value = task.createdDate;
+		}
+		// task completed date
+		if( task.hasOwnProperty('completeDate')) {
+			taskEditForm.completed.value = task.completeDate;
+		}
+		// deal with tags
+		if( task.hasOwnProperty('tags') ) {
+			taskEditForm.tags.rows = 1;
+			taskEditForm.tags.value = '';
+			numberOfTags = task.tags.length;
+			if( task.tags.hasOwnProperty('due') ) {
+				numberOfTags = numberOfTags - 1;
+			}
+			let tagContent = '';
+			numberOfTags = 0;
+			for( const key in task.tags ) {
+				if( key === 'due' ) {
+					taskEditForm.due.value = task.tags[key];
+				} else {
+					tagContent = tagContent + '\n' + key + ':' + task.tags[key];
+					numberOfTags++;
+				}
+			}
+			taskEditForm.tags.rows = numberOfTags;
+			taskEditForm.tags.value = tagContent.trim();
+		} else {
+			taskEditForm.tags.rows = 1;
+			taskEditForm.tags.value = '';
+		}
+		
+		taskEditWrapper.style.display = 'inline';
+		// taskEditForm['task-options'].style.display = 'inline';
+	}
+
+	// const task = todoList.find( todo => todo.id === parseInt(taskId));
+	if(taskId) {
+		// taskId = parseInt(taskId, 10);
+		getItem(parseInt(taskId, 10)).then( task => edit(task) );
+	} else {
+		edit();
+	}
 }
 
-
+// new task input field handler
 newTaskForm.addEventListener('submit', event => event.preventDefault());
-newTaskForm.onsubmit=function() {
+newTaskForm.onsubmit=function(e) {
 // need to sanitize the input
-	todoList.unshift( newTodoTask(this.description.value, todoList.length + 1) );
-	this.description.value = '';
-	displayAllTodoLists();
-
+	if( this.newTask.value ) {
+		// save changes to indexedDB
+		addItem( newTodoTask(this.newTask.value) );
+		this.newTask.value = '';
+		// re-render list
+		renderTodoList(renderCategory, renderWhich);
+	} else {
+		editTask();	
+	}
 	return false;
 }
 
-
+// task edit form handler
 taskEditForm.addEventListener('submit', event => event.preventDefault());
-
 taskEditForm.onsubmit=function() {
 // need to sanitize the input
 	// this['task-options'].style.display = 'none';
 	taskEditWrapper.style.display = 'none';
-	task = todoList.findIndex( task => task.id === parseInt(taskEditForm.taskid.value) );
-	todoList[task].completed = taskEditForm.completed.checked || taskEditForm.completeDate.value !== '';
-	todoList[task].description = taskEditForm.description.value;
-	// todoList[task].priority = taskEditForm.priority.value;
+	const task ={};
+	// something is not working here
+	if(taskEditForm.taskid.value.length !== 0) {
+		task.id = parseInt(taskEditForm.taskid.value); 
+	}
+	task.completed = taskEditForm.completed.checked || taskEditForm.completeDate.value !== '';
+	task.description = taskEditForm.description.value;
+	// task.priority = taskEditForm.priority.value;
 	if( taskEditForm.priority.value !== '' ) {
-		todoList[task].priority = taskEditForm.priority.value;
+		task.priority = taskEditForm.priority.value;
 	} else {
-	 	delete todoList[task].priority;
+	 	delete task.priority;
 	}
 	if( taskEditForm.project.value !== '' ) {
-		todoList[task].project = taskEditForm.project.value.toCamelCase();
+		task.project = taskEditForm.project.value.toCamelCase();
 	} else {
-	 	delete todoList[task].project;
+	 	delete task.project;
 	}
 	if( taskEditForm.context.value !== '' ) {
-		todoList[task].context = taskEditForm.context.value.toCamelCase();
+		task.context = taskEditForm.context.value.toCamelCase();
 	} else {
-	 	delete todoList[task].context;
+	 	delete task.context;
 	}
-	todoList[task].createdDate = taskEditForm.created.value;
+	task.createdDate = taskEditForm.created.value;
 
 	if(taskEditForm.due.value !== '' ) {
-		todoList[task].tags = {};
-		todoList[task].tags['due'] = taskEditForm.due.value;
+		task.tags = {};
+		task.tags['due'] = taskEditForm.due.value;
 	}
 
-	todoList[task].completeDate = taskEditForm.completeDate.value;
+	task.completeDate = taskEditForm.completeDate.value;
 
 	if( taskEditForm.tags.value !== '' ) {
-		if( !todoList[task].hasOwnProperty('tags') ) todoList[task].tags = {};
+		if( !task.hasOwnProperty('tags') ) task.tags = {};
 		const tags = taskEditForm.tags.value.split('\n');
 		tags.forEach( tag => {
 			[key, value] = tag.split(':');
-			todoList[task].tags[key] = value;
+			task.tags[key] = value;
 		});
 	}
 
-	this.description.value = '';
+	// this.description.value = '';
+	if(task.id) {
+		updateItem(task);
+	} else { 
+		addItem(task)
+	}
+	renderTodoList(renderCategory, renderWhich);
 
 	return false;
 };

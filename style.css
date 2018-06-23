@@ -6,6 +6,7 @@
 
 input:focus { outline: solid gray thin; }
 select:focus { outline: solid gray thin; }
+button:focus { outline: none; }
 
 #wrapper {
 	border: solid black;
@@ -246,11 +247,17 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
 /* New Task Form */
 /* ************* */
 
-form#new-task  #description {
+form#new-task  #newTask {
 	border: solid gray thin;
 	font-size: 20px;
 }
-
+/* newTaskButton */
+form#new-task button {
+	cursor: pointer;
+	border: 3px double;
+	min-width: 60px;
+	padding: 4px;
+}
 /* ************** */
 /* task edit form */
 /* ************** */

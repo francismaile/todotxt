@@ -115,9 +115,7 @@ taskEditForm.onsubmit=function() {
 	taskEditWrapper.style.display = 'none';
 	const task ={};
 	// something is not working here
-	console.log('value:', taskEditForm.taskid.value, 'length:', taskEditForm.taskid.value.length);
 	if(taskEditForm.taskid.value !== 'undefined') {
-		console.log('setting id');
 		task.id = parseInt(taskEditForm.taskid.value); 
 	}
 	task.completed = taskEditForm.completed.checked || taskEditForm.completeDate.value !== '';
@@ -157,10 +155,8 @@ taskEditForm.onsubmit=function() {
 	}
 
 	if(task.id) {
-console.log(task);
 		updateItem(task);
 	} else { 
-console.log(task);
 		addItem(task)
 	}
 	taskEditForm.reset();

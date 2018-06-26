@@ -83,8 +83,7 @@ function renderTodoList(category = 'all', which ) {
 					taskListDiv.appendChild(thisTodoList[catName]);
 				}
 				taskListDiv.appendChild(completedTodos);
-			console.log(Object.keys(thisTodoList));
-			createMenu(category,  Object.keys(thisTodoList));
+				createMenu(category,  Object.keys(thisTodoList));
 			} else {
 				// const categoryName = task[category] !== undefined ? task[category] : 'No ' + category.charAt(0).toUpperCase() + category.slice(1);
 				const thisTodoList = newSection(which);
@@ -104,7 +103,10 @@ function renderTodoList(category = 'all', which ) {
 		}
 	}
 
-	getAll().then( list => render(list) );
+	getAll().then( list => {
+		render(list);
+		populateSelectElems(list);
+	});
 
 }
 
@@ -195,24 +197,38 @@ function createMenuItem( category, item ) {
 	return menuItem;
 }
 
+function populateSelectElems( todoList ) {
+	// insert items in task edit form datalist
+	let projectDataList = document.getElementById('projects');
+	let contextDataList = document.getElementById('contexts');
+	projectDataList.innerHTML = '';
+	contextDataList.innerHTML = '';
+
+	let projects = [];
+	let contexts = [];
+	todoList.forEach( item => {
+		if(item.project && !projects.includes(item.project)) {
+			projects.push(item.project);
+			projectDataList.appendChild(createDatalistItem(item.project) );
+		}
+		if(item.context && !contexts.includes(item.context)) {
+			contexts.push(item.context);
+			contextDataList.appendChild(createDatalistItem(item.context) );
+		}
+	});
+}
+
 function createMenu( category, itemList ) {
 	// insert items into sidebar nav menu
 	const categoryMenu = document.getElementById(category + '-menu');
 	categoryMenu.innerHTML = '';
 	categoryMenu.appendChild(createMenuItem(category, 'All') );
 
-	// insert items in task edit form datalist
-	let formDataList = document.getElementById(category + 's');
-	formDataList.innerHTML = '';
-
 	itemList.forEach( item => {
 		categoryMenu.appendChild(createMenuItem(category, item) )
-		if( category === 'context' || category === 'project' ) {
-			formDataList.appendChild(createDatalistItem(item) );
-		}
 	});
 }
-// console.log(itemList);
+
 document.getElementById('task-list').addEventListener( 'click', function( event ) {
 	if(event.target.nodeName === 'INPUT' && event.target.type === 'checkbox') {
 		const eventId = event.target.id.split('_');

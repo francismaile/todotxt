@@ -88,9 +88,7 @@ let textFile = null;
 			}
 			todotxt += todoItem + '\n';
 		});
-		todotxt = document.getElementById('editor').innerText;
-		// todotxt = todotxt.replace(/<div>\s*/g, '').replace(/<br\s*\/*><\/div>/g, '\n');
-		console.log(todotxt);
+		// todotxt = document.getElementById('editor').innerText;
 
     var link = document.createElement('a');
     link.setAttribute('download', 'todo.txt');

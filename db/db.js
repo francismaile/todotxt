@@ -46,10 +46,24 @@ function updateItem(item) {
 		const todoList = tx.objectStore('todoList');
 		todoList.put(item);
 		return tx.complete;
-	}).then( function() {
-		// console.log('item updated');
+	}).then( function(result) {
+		// console.log('item updated', result);
 	});
 }
+// const task = {
+// 	completed: true,
+// 	priority: "B",
+// 	createdDate: "2018-02-09",
+// 	context: "context",
+// 	project: "camelCaseTag",
+// 	description: "item description",
+// 	id: 1,
+// 	tags: {key: "value", due: "2018-02-13"}
+// }
+// 
+// updateItem(task).then( function(result) {
+// 	console.log('item updated', result);
+// });
 
 // delete one item
 function deleteItem( key ) {

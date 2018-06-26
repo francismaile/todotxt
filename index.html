@@ -20,7 +20,7 @@
 			<li class="tab" id="project">+</li>
 			<li class="tab" id="context">@</li>
 			<li class="tab" id="priority">(!)</li>
-			<li class="tab" id="tag"></li>
+			<li class="tab" id="txt">txt</li>
 		</ul>
 
 		<!-- Tab panes -->
@@ -45,8 +45,8 @@
 				<ul id="priority-menu">
 				</ul>
 			</div>
-			<div class="tab-pane" id="tag-tab">
-				<ul id="tag-menu">
+			<div class="txt-pane" id="txt-tab">
+				<ul id="txt-menu">
 				</ul>
 			</div>
 		</div><!-- tab-content -->
@@ -65,7 +65,7 @@
 <!-- Task Edit Form -->
 <div id="form-wrapper">
 <form action="" id="taskEdit" method="">
-<input type="hidden" id="taskid">
+<input type="hidden" id="taskid" value="">
 <fieldset>
 <legend>Task Item</legend>
 	<div>
@@ -191,21 +191,9 @@
 <button id="hide-it">Hide It</button>
 </p>
 
-<script>
-const fileSelector = document.createElement('input');
-fileSelector.setAttribute('type', 'file');
-
-const selectDialogueLink = document.createElement('a');
-selectDialogueLink.setAttribute('href', '');
-selectDialogueLink.innerText = "Select File";
-
-selectDialogueLink.onclick = function () {
-     fileSelector.click();
-     return false;
-}
-// document.body.appendChild(selectDialogueLink);
-     fileSelector.click(); // must be fired by user
-</script>
+<p>
+<button id="saveToFile">Save</button>
+</p>
 
 <script src="db/idb.js">
 </script>
@@ -228,6 +216,26 @@ selectDialogueLink.onclick = function () {
 <script src="index.js">
 // can i put comments here and not crash the app?
 // apparently, I can
+</script>
+
+<script>
+// choose local todo.txt file
+const fileSelector = document.createElement('input');
+fileSelector.setAttribute('type', 'file');
+
+const selectDialogueLink = document.createElement('a');
+selectDialogueLink.setAttribute('href', '');
+selectDialogueLink.innerText = "Select File";
+
+selectDialogueLink.onclick = function () {
+     fileSelector.click();
+     return false;
+}
+// document.body.appendChild(selectDialogueLink);
+     fileSelector.click(); // must be fired by user
+
+document.getElementById('saveToFile').addEventListener('click', saveFile);
+
 </script>
 
 <script>

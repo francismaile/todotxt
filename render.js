@@ -11,10 +11,12 @@ function newSection(headingText = 'main') {
 }
 
 let renderCategory = 'all', renderWhich = '';
+// thinking about making this an object
 const render = {
 	}
 
 function renderTodoList(category = 'all', which ) {
+	// console.log({category}, {which});
 	renderCategory = category;
 	renderWhich = which;
 	const taskListDiv = document.getElementById('task-list');
@@ -22,8 +24,33 @@ function renderTodoList(category = 'all', which ) {
 
 	function render( todoList ){
 		const completedTodos = newSection('Completed');
-
-		if( category ==='all' ) {
+// console.log(todoList);
+		if( category ==='txt' ) {
+			// reassemble the todo.txt file format
+			const todoTxtEditor = document.createElement('div');
+			todoTxtEditor.id = 'editor';
+			todoTxtEditor.contentEditable = 'true';
+			todoList.forEach( task => {
+				let todotxt = '';
+				todotxt += task.completed ? 'x' : '';
+				todotxt += task.priority ? ' (' + task.priority + ')' : '';
+				if( task.completedDate ) todotxt += ' ' + task.completedDate;
+				if( task.createdDate ) todotxt += ' ' + task.createdDate;
+				if( task.description ) todotxt += ' ' + task.description;
+				if( task.project ) todotxt += ' +' + task.project;
+				if( task.context ) todotxt += ' @' + task.context;
+				if( task.tags ) {
+					for ( const prop in task.tags ) {
+						todotxt += ' ' + prop + ':' + task.tags[prop];
+					}
+				}
+				const taskDiv = document.createElement('div');
+				taskDiv.textContent = todotxt;
+				todoTxtEditor.appendChild(taskDiv);
+			});
+			taskListDiv.appendChild(todoTxtEditor);
+		}
+		else if( category ==='all' ) {
 			const thisTodoList = newSection('Todo List');
 			const	categoryName = '';
 			todoList.forEach( task => {
@@ -56,6 +83,7 @@ function renderTodoList(category = 'all', which ) {
 					taskListDiv.appendChild(thisTodoList[catName]);
 				}
 				taskListDiv.appendChild(completedTodos);
+			console.log(Object.keys(thisTodoList));
 			createMenu(category,  Object.keys(thisTodoList));
 			} else {
 				// const categoryName = task[category] !== undefined ? task[category] : 'No ' + category.charAt(0).toUpperCase() + category.slice(1);
@@ -173,36 +201,28 @@ function createMenu( category, itemList ) {
 	categoryMenu.innerHTML = '';
 	categoryMenu.appendChild(createMenuItem(category, 'All') );
 
-	itemList.forEach( item =>
-		categoryMenu.appendChild(createMenuItem(category, item) ) );
 	// insert items in task edit form datalist
-	if( category === 'context' || category === 'project' ) {
-		let formDataList = document.getElementById(category + 's');
-		formDataList.innerHTML = '';
-		itemList.pop();
-		itemList.forEach( item =>
-			formDataList.appendChild(createDatalistItem(item) ) );
-	}
-}
+	let formDataList = document.getElementById(category + 's');
+	formDataList.innerHTML = '';
 
+	itemList.forEach( item => {
+		categoryMenu.appendChild(createMenuItem(category, item) )
+		if( category === 'context' || category === 'project' ) {
+			formDataList.appendChild(createDatalistItem(item) );
+		}
+	});
+}
+// console.log(itemList);
 document.getElementById('task-list').addEventListener( 'click', function( event ) {
 	if(event.target.nodeName === 'INPUT' && event.target.type === 'checkbox') {
 		const eventId = event.target.id.split('_');
 		const taskId = eventId[eventId.length-1];
 		const liElem = event.target.parentNode;
-		if([taskId].completed) {
-			todoList[taskId].completed = false;
-			liElem.classList.remove('task-completed');
-			// figure out where it goes
-			const currentList = document.getElementsByClassName('tab-pane active')[0].id.split('-')[0];
-			document.getElementById('list-completedTodos').appendChild(liElem);
-			const myList = document.getElementById('list-' + liElem.dataset[currentList]);
-			myList.appendChild(liElem);
-		} else {
-			todoList[taskId].completed = true;
-			liElem.classList.add('task-completed');
-			document.getElementById('list-completedTodos').appendChild(liElem);
-		}
+		getItem(parseInt(taskId, 10)).then( function(task) {
+			task.completed = !task.completed;
+			updateItem(task)
+			renderTodoList(renderCategory, renderWhich);
+		});
 	}
 });
 

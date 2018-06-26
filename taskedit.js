@@ -80,7 +80,6 @@ function editTask(taskId) {
 		}
 		
 		taskEditWrapper.style.display = 'inline';
-		// taskEditForm['task-options'].style.display = 'inline';
 	}
 
 	// const task = todoList.find( todo => todo.id === parseInt(taskId));
@@ -116,7 +115,9 @@ taskEditForm.onsubmit=function() {
 	taskEditWrapper.style.display = 'none';
 	const task ={};
 	// something is not working here
-	if(taskEditForm.taskid.value.length !== 0) {
+	console.log('value:', taskEditForm.taskid.value, 'length:', taskEditForm.taskid.value.length);
+	if(taskEditForm.taskid.value !== 'undefined') {
+		console.log('setting id');
 		task.id = parseInt(taskEditForm.taskid.value); 
 	}
 	task.completed = taskEditForm.completed.checked || taskEditForm.completeDate.value !== '';
@@ -155,12 +156,14 @@ taskEditForm.onsubmit=function() {
 		});
 	}
 
-	// this.description.value = '';
 	if(task.id) {
+console.log(task);
 		updateItem(task);
 	} else { 
+console.log(task);
 		addItem(task)
 	}
+	taskEditForm.reset();
 	renderTodoList(renderCategory, renderWhich);
 
 	return false;

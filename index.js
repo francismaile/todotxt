@@ -39,7 +39,7 @@ function getFile() {
 			parse(lines);
 	// insert into indexedDB
 			getAll().then( function(list) {
-				todoList.push(...list);
+				// todoList.push(...list);
 				// insert into DOM - render()
 				renderTodoList();
 			});
@@ -48,6 +48,64 @@ function getFile() {
 
 	}, false );
 
+}
+
+function saveFile() {
+
+// http://jsfiddle.net/UselessCode/qm5AG/
+// http://jsfiddle.net/k56eezxp/
+
+let textFile = null;
+  makeTextFile = function (text) {
+    var data = new Blob([text], {type: 'text/plain'});
+
+    // If we are replacing a previously generated file we need to
+    // manually revoke the object URL to avoid memory leaks.
+    if (textFile !== null) {
+      window.URL.revokeObjectURL(textFile);
+    }
+
+    textFile = window.URL.createObjectURL(data);
+
+    return textFile;
+  };
+
+	function save( todoList ) {
+		let todotxt = '';
+		todoList.forEach( task => {
+			let todoItem = '';
+			if( task.completed ) todoItem += 'x ';
+			if( task.priority ) todoItem += '(' + task.priority + ') ';
+			if( task.completedDate ) todoItem += task.completedDate + ' ';
+			if( task.createdDate ) todoItem += task.createdDate + ' ';
+			if( task.description ) todoItem += task.description + ' ';
+			if( task.project ) todoItem += '+' + task.project + ' ';
+			if( task.context ) todoItem += '@' + task.context + ' ';
+			if( task.tags ) {
+				for ( const prop in task.tags ) {
+					todoItem += ' ' + prop + ':' + task.tags[prop] + ' ';
+				}
+			}
+			todotxt += todoItem + '\n';
+		});
+		todotxt = document.getElementById('editor').innerText;
+		// todotxt = todotxt.replace(/<div>\s*/g, '').replace(/<br\s*\/*><\/div>/g, '\n');
+		console.log(todotxt);
+
+    var link = document.createElement('a');
+    link.setAttribute('download', 'todo.txt');
+    link.href = makeTextFile(todotxt);
+    document.body.appendChild(link);
+
+    // wait for the link to be added to the document
+    window.requestAnimationFrame(function () {
+      var event = new MouseEvent('click');
+      link.dispatchEvent(event);
+      document.body.removeChild(link);
+		});
+	}
+
+	getAll().then( list => save(list) );
 }
 
 countItems().then( function( cnt ) { 

@@ -168,19 +168,6 @@
 
 </div><!-- /wrapper -->
 
-
-
-<p>
-<button id="show-form">Show Form</button>
-<button id="hide-form">Hide Form</button>
-</p>
-
-
-<p>
-<button id="show-it">Show It</button>
-<button id="hide-it">Hide It</button>
-</p>
-
 <p>
 <button id="saveToFile">Save</button>
 </p>
@@ -227,31 +214,6 @@ selectDialogueLink.onclick = function () {
 document.getElementById('saveToFile').addEventListener('click', saveFile);
 
 </script>
-
-<script>
-
-const editForm = document.getElementById('form-wrapper');
-
-document.getElementById('hide-it').addEventListener("click", function() {
-	editForm.style.display = 'none';
-}, false);
-
-document.getElementById('show-it').addEventListener("click", function() {
-	editForm.style.display = 'inline';
-}, false);
-
-document.getElementById('show-form').addEventListener("click", function() {
-	const theForm = document.getElementById('form-wrapper');
-	theForm.style.diplay = 'inline';
-	console.log(theForm,style.display);
-}, false);
-
-document.getElementById('hide-form').addEventListener("click", function() {
-	taskEditForm['task-options'].style.display = 'none';
-}, false);
-
-</script>
-
 
 </body>
 </html>

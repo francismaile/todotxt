@@ -9,7 +9,6 @@ select:focus { outline: solid gray thin; }
 button:focus { outline: none; }
 
 #wrapper {
-	border: solid black;
 	max-width: 980px;
 	margin: 10px auto;
 	display: flex;
@@ -17,9 +16,8 @@ button:focus { outline: none; }
 }
 
 section {
-	border: solid green;
 	min-height: 500px;
-	min-width: 200px;
+	min-width: 80px;
 }
 
 /* ********** */
@@ -27,12 +25,11 @@ section {
 /* ********** */
 
 section#nav {
-	flex: 120px;
+	flex: 1;
 }
 
 nav {
 	flex: 2;
-	border: solid gray thin;
 }
 
 nav ul {
@@ -85,14 +82,11 @@ ul.nav {
 }
 .tab-pane {
 	display: none;
+	cursor: pointer;
 }
 .tab-pane.active {
 	display: block;
 	padding-top: 0;
-}
-
-.tab-pane {
-	cursor: pointer;
 }
 
 .tab-pane ul li:hover {
@@ -113,13 +107,7 @@ section#todolist {
 	flex: 5;
 }
 
-#form-wrapper {
-	border: solid blue;
-	min-height: 70px;
-}
-
 #todo-wrapper {
-	border: solid blue;
 	min-height: 200px;
 }
 
@@ -138,7 +126,7 @@ section#todolist {
 #task-list {
 	margin-top: 6px;
 	font: sans-serif;
-	height: 500px;
+	height: 100vh;
 	overflow-y: scroll;
 }
 
@@ -186,12 +174,12 @@ section#todolist {
 }
 
 li.task-item {
-	border: solid gray thin;
-	border-radius: 6px;
-	background-color: #FFFDD0;
-	margin-top: 6px;
-	padding: 6px;
+	margin-top: 3px;
+	padding: 3px;
 }
+
+li.task-item:nth-child(even) {background: #CCC}
+li.task-item:nth-child(odd) {background: #FFF}
 
 li.task-completed {
 	background-color: pink;
@@ -258,6 +246,15 @@ form#new-task button {
 	min-width: 60px;
 	padding: 4px;
 }
+/* ************** */
+/* task edit form */
+/* ************** */
+
+#form-wrapper {
+	border: solid blue;
+	min-height: 70px;
+}
+
 /* ************** */
 /* task edit form */
 /* ************** */

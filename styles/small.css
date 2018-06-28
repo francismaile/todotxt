@@ -1,0 +1,6 @@
+/* styles for small screens */
+
+#wrapper {
+	width: 100vw;
+	border: double red;
+}

@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 
-function newSection(headingText = 'main') {
+function newSection(headingText = 'unnamed') {
 	const section = document.createElement('ul');
 	section.id = 'list-' + headingText.toCamelCase();
 	let li = document.createElement('li');
@@ -64,20 +64,37 @@ function renderTodoList(category = 'all', which ) {
 			taskListDiv.appendChild(completedTodos);
 		} else {
 			if( which === undefined || which === 'All') {
+				const noCategoryItems = [];
 				const thisTodoList = todoList.reduce( function(taskList, task) {
-					// divide up todos by category name
-					const categoryName = task[category] !== undefined ? task[category] : 'No ' + category.charAt(0).toUpperCase() + category.slice(1);
-					if( ! taskList[categoryName] ) {
-						taskList[categoryName] = newSection(task[category] || 'No Project');
+					if(category === 'priority' && !taskList['A']) {
+					// this didn't work because it needs to be inside the reduce function
+						taskList['A'] = newSection('A');
+						taskList['B'] = newSection('B');
+						taskList['C'] = newSection('C');
 					}
+					// divide up todos by category name
 					if(task.completed) {
 						// separate list for completed todos
 						completedTodos.appendChild( createTodoItem(task, 'all') );
 					} else {
-						taskList[categoryName].appendChild( createTodoItem(task, category) );
+						if( task[category] === undefined ) {
+							noCategoryItems.push(task);
+						} else {
+							const categoryName = task[category] ;
+							if( ! taskList[categoryName] ) {
+								taskList[categoryName] = newSection(categoryName);
+							}
+							taskList[categoryName].appendChild( createTodoItem(task, category) );
+						}
 					}
 					return taskList;
 				}, [] );
+
+				const noCategoryName = 'No ' + category.charAt(0).toUpperCase() + category.slice(1);
+				thisTodoList[noCategoryName] = newSection(noCategoryName);
+				noCategoryItems.forEach( item => {
+					thisTodoList[noCategoryName].appendChild( createTodoItem(item, category));
+				});
 	
 				for( let catName in thisTodoList ) {
 					taskListDiv.appendChild(thisTodoList[catName]);
@@ -187,16 +204,6 @@ function createDatalistItem( item ) {
 	return dataItem;
 }
 
-function createMenuItem( category, item ) {
-	let menuItem = document.createElement('li');
-	menuItem.textContent = item;
-	menuItem.className = 'menu-item';
-	menuItem.onclick = function() {
-		renderTodoList(category, this.textContent);
-	};
-	return menuItem;
-}
-
 function populateSelectElems( todoList ) {
 	// insert items in task edit form datalist
 	let projectDataList = document.getElementById('projects');
@@ -218,8 +225,20 @@ function populateSelectElems( todoList ) {
 	});
 }
 
+function createMenuItem( category, item ) {
+	let menuItem = document.createElement('li');
+	menuItem.textContent = item;
+	menuItem.className = 'menu-item';
+	menuItem.onclick = function() {
+		renderTodoList(category, this.textContent);
+	};
+	return menuItem;
+}
+
+
 function createMenu( category, itemList ) {
 	// insert items into sidebar nav menu
+	// console.log({itemList});
 	const categoryMenu = document.getElementById(category + '-menu');
 	categoryMenu.innerHTML = '';
 	categoryMenu.appendChild(createMenuItem(category, 'All') );

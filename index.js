@@ -88,7 +88,7 @@ let textFile = null;
 			}
 			todotxt += todoItem + '\n';
 		});
-		// todotxt = document.getElementById('editor').innerText;
+		todotxt = document.getElementById('editor').innerText;
 
     var link = document.createElement('a');
     link.setAttribute('download', 'todo.txt');

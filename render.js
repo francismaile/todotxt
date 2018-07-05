@@ -122,7 +122,7 @@ function renderTodoList(category = 'all', which ) {
 
 	getAll().then( list => {
 		render(list);
-		populateSelectElems(list);
+		// populateSelectElems(list);
 	});
 
 }
@@ -229,8 +229,11 @@ function createMenuItem( category, item ) {
 	let menuItem = document.createElement('li');
 	menuItem.textContent = item;
 	menuItem.className = 'menu-item';
-	menuItem.onclick = function() {
+	menuItem.onclick = function(e) {
 		renderTodoList(category, this.textContent);
+		this.parentNode.parentNode.classList.add('hide');
+		// console.log(this.parentNode.parentNode, e.target.parentNode.parentNode);
+		// document.getElementsByClassName('active')[1].style.display = 'none';
 	};
 	return menuItem;
 }
@@ -253,6 +256,7 @@ document.getElementById('task-list').addEventListener( 'click', function( event 
 		const eventId = event.target.id.split('_');
 		const taskId = eventId[eventId.length-1];
 		const liElem = event.target.parentNode;
+		console.log(liElem);
 		getItem(parseInt(taskId, 10)).then( function(task) {
 			task.completed = !task.completed;
 			updateItem(task)
@@ -274,7 +278,10 @@ document.getElementById('task-list').addEventListener( 'click', function( event 
 		event.target.classList.add('active');
 		renderTodoList(event.target.id);
 		const activeMenu = event.target.id;
-		document.getElementById(activeMenu + '-tab').classList.add('active');
+		const activeElem = document.getElementById(activeMenu + '-tab')
+		activeElem.classList.add('active');
+		activeElem.classList.remove('hide');
+		// activeElem.style.display = 'none';
 		// document.getElementById(activeMenu + '-pane').classList.add('active');
 	}
 

@@ -246,14 +246,6 @@ form#new-task button {
 	min-width: 60px;
 	padding: 4px;
 }
-/* ************** */
-/* task edit form */
-/* ************** */
-
-#form-wrapper {
-	border: solid blue;
-	min-height: 70px;
-}
 
 /* ************** */
 /* task edit form */
@@ -262,6 +254,8 @@ form#new-task button {
 #form-wrapper {
 	display: none;
 	position: absolute;
+	border: solid blue;
+	min-height: 70px;
 }
 
 form#taskEdit {

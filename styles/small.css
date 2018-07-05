@@ -1,6 +1,300 @@
 /* styles for small screens */
+*_, *:before, *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+input:focus { outline: solid gray thin; }
+select:focus { outline: solid gray thin; }
+button:focus { outline: none; }
+
+body{
+    margin:0px;
+    height: 100%;
+    overflow: auto;
+		// background-color: #FEA685;
+		background-image: url("../img/kk_ikea.jpg");
+		background-attachment: fixed;
+		background-size: contain;
+}
+html {
+    overflow: hidden;
+    height: 100%;
+}
 
 #wrapper {
-	width: 100vw;
-	border: double red;
+	width: 98vw;
+	// background: #EEE;
+	// height: 2000px;
+	margin: 90px auto;
+	padding-top: 2px;
 }
+
+/* ********** */
+/* navigation */ 
+/* ********** */
+
+div#header {
+	width: 100%;
+	position: fixed;
+	top: 0px;
+}
+
+nav {
+	border: 1px solid #CCC;
+	height: 46px;
+	background: #EEE;
+	width: 100%;
+	margin: 0px auto;
+}
+
+nav ul .active { 
+	color: red;
+	border-bottom: none;
+	background: pink;
+}
+
+nav ul {
+	padding: 0;
+	list-style-type: none;
+	margin-bottom: 0;
+	margin-top: 0;
+}
+
+nav ul#nav-tab {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+nav ul#nav-tab li {
+	display: inline;
+	flex: 1;
+	margin-left: 1px;
+	min-height: 45px;
+	text-align: center;
+	font-size: 2em;
+}
+
+.tab-content {
+	border: 1px solid red;
+	background: pink;
+	margin: 0;
+	padding: 0;
+	font-size: 1.5em;
+}
+
+.tab-pane ul {
+	padding-left: 8px;
+	padding-top: 3px;
+	margin-top: 0;
+}
+
+.task-pane {
+	display: none;
+}
+
+#task-list {
+	flex: 5;
+}
+
+.tab-pane {
+	display: none;
+	position: absolute;
+	border-top: none;
+	margin: top;
+	width: 100%;
+	padding-top: 0;
+	background: pink;
+	font-size: 1.5em;
+}
+
+.tab-pane.active {
+	display: block;
+	position: absolute;
+}
+
+.tab-pane#all-tab {
+	display: none;
+}
+
+.tab-pane.hide {
+	display: none;
+}
+
+/* ************* */
+/* New Task Form */
+/* ************* */
+
+#new-task-wrapper {
+	border: solid gray thin;
+	padding: 6px;
+	background: #FFF;
+}
+
+form#new-task  #task-input {
+	width: 100%;
+	border: none;
+	font-size: 20px;
+}
+
+/* newTaskButton */
+form#new-task button {
+	display: none;
+}
+
+
+/* ********** */
+/* todo lists */
+/* ********** */
+
+#todo-wrapper {
+	min-height: 200px;
+}
+
+#task-list {
+	margin-top: 0px;
+	font: sans-serif;
+	min-height: 100vh;
+}
+
+#task-list ul {
+	list-style-type: none;
+	padding: 0px;
+}
+
+#task-list li {
+	margin-bottom: 4px;
+	background: #FFF;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+#task-list li.category-heading {
+	display: inline;
+	border: 1px solid green;
+	margin-bottom: 4px;
+	padding: 2px 8px;
+	background: #FFF;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+#task-list li div {
+	padding: 0px;
+	margin: 0px;
+	margin-top: -2px;
+	color: rgba(78, 78, 242, 0.6); // #4E4EF2;
+}
+
+.task-description {
+	display: inline-block;
+	width: 90vw;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.task-list .context {
+	color: #A9A9A9;
+}
+
+.task-due {
+	flex: 1;
+	margin: 0px 2px;
+	max-width: 80px;
+	padding-top: 0px;
+	font-size: 0.6em;
+}
+
+.task-priority {
+	flex: 1;
+	margin: 0px 2px;
+	max-width: 80px;
+	padding-top: 0px;
+	font-size: 0.6em;
+}
+
+li.task-item {
+	border-radius: 5px;
+	margin: 6px 0;
+	padding: 3px;
+}
+
+li.task-completed {
+	background-color: pink;
+}
+
+li.task-completed div.task-description {
+	text-decoration: line-through;
+}
+
+.task-meta span {
+	display: inline-block;
+	min-width: 40px;
+	cursor: pointer;
+	display: inline-block;
+	margin: 0 8px;
+}
+
+input[type=checkbox].css-checkbox {
+	position: absolute;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	height:1px;
+	width:1px;
+	margin:-1px;
+	padding:0;
+	border:0;
+}
+
+input[type=checkbox].css-checkbox + label.css-label {
+	padding-left:20px;
+	height:15px;
+	display:inline-block;
+	line-height:15px;
+	background-repeat:no-repeat;
+	background-position: 0 0;
+	font-size:15px;
+	vertical-align: bottom;
+	cursor:pointer;
+}
+
+input[type=checkbox].css-checkbox:checked + label.css-label {
+	background-position: 0 -15px;
+}
+.css-label {
+	background-image:url(http://www.csscheckbox.com/checkboxes/lite-x-gray.png);
+}
+
+.task-meta-priority {
+	text-align: right;
+}
+
+/* ************** */
+/* task edit form */
+/* ************** */
+
+#form-wrapper {
+	display: none;
+}
+
+/*
+
+<li class="task-item" id="task_14" data-project="Family" data-context="Phone" data-priority="A">
+
+<input type="checkbox" id="task_complete_14" class="css-checkbox">
+<label for="task_complete_14" class="css-label"></label>
+
+<div id="description_14" class="task-description">Call Mom</div>
+
+<div class="task-meta">
+	<span id="priority_14" class="task-meta-priority">(A)</span>
+	<span id="context_14" class="task-meta-context">@Phone</span>
+	<span id="project_14" class="task-meta-project">+Family</span>
+</div>
+
+</li>
+
+*/

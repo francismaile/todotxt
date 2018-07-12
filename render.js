@@ -122,7 +122,7 @@ function renderTodoList(category = 'all', which ) {
 
 	getAll().then( list => {
 		render(list);
-		// populateSelectElems(list);
+		populateSelectElems(list);
 	});
 
 }
@@ -198,31 +198,56 @@ function createTodoItem( task, category ) {
 	return listItem;
 }
 
-function createDatalistItem( item ) {
-	let dataItem = document.createElement('option');
-	dataItem.textContent = item;
-	return dataItem;
+function createSelectItem( todoItem ) {
+	let option = document.createElement('option');
+	option.value = todoItem;
+	option.text = todoItem;
+	return option;
 }
 
 function populateSelectElems( todoList ) {
 	// insert items in task edit form datalist
-	let projectDataList = document.getElementById('projects');
-	let contextDataList = document.getElementById('contexts');
-	projectDataList.innerHTML = '';
-	contextDataList.innerHTML = '';
+	let projectSelectElem = document.getElementById('projects');
+	let contextSelectElem = document.getElementById('contexts');
+	
+	projectSelectElem.length = 0;
+	contextSelectElem.length = 0;
 
 	let projects = [];
 	let contexts = [];
 	todoList.forEach( item => {
 		if(item.project && !projects.includes(item.project)) {
 			projects.push(item.project);
-			projectDataList.appendChild(createDatalistItem(item.project) );
+			projectSelectElem.add(createSelectItem(item.project));
 		}
+		
 		if(item.context && !contexts.includes(item.context)) {
 			contexts.push(item.context);
-			contextDataList.appendChild(createDatalistItem(item.context) );
+			contextSelectElem.add(createSelectItem(item.context));
 		}
 	});
+	projectSelectElem.add(createSelectItem('New Project'));
+	contextSelectElem.add(createSelectItem('New Context'));
+	
+	projectSelectElem.onchange = function(e) {
+		if(this.selectedIndex === this.options.length-1) {
+			document.getElementById('project').value = '';
+			document.getElementById('project').focus();
+			this.style.display = 'none';
+		} else {
+			document.getElementById('project').value = this.options[this.selectedIndex].value;
+		}
+	};
+
+	contextSelectElem.onchange = function(e) {
+		if(this.selectedIndex === this.options.length-1) {
+			document.getElementById('context').value = '';
+			document.getElementById('context').focus();
+			this.style.visibility = 'visibility';
+		} else {
+			document.getElementById('context').value = this.options[this.selectedIndex].value;
+		}
+	};
 }
 
 function createMenuItem( category, item ) {
@@ -232,8 +257,6 @@ function createMenuItem( category, item ) {
 	menuItem.onclick = function(e) {
 		renderTodoList(category, this.textContent);
 		this.parentNode.parentNode.classList.add('hide');
-		// console.log(this.parentNode.parentNode, e.target.parentNode.parentNode);
-		// document.getElementsByClassName('active')[1].style.display = 'none';
 	};
 	return menuItem;
 }
@@ -241,7 +264,7 @@ function createMenuItem( category, item ) {
 
 function createMenu( category, itemList ) {
 	// insert items into sidebar nav menu
-	// console.log({itemList});
+	 // console.log({itemList});
 	const categoryMenu = document.getElementById(category + '-menu');
 	categoryMenu.innerHTML = '';
 	categoryMenu.appendChild(createMenuItem(category, 'All') );
@@ -276,13 +299,11 @@ document.getElementById('task-list').addEventListener( 'click', function( event 
 
 		// activate new tab and panel
 		event.target.classList.add('active');
-		renderTodoList(event.target.id);
-		const activeMenu = event.target.id;
-		const activeElem = document.getElementById(activeMenu + '-tab')
+		const activeMenu = event.target.id.split('-')[0];;
+		renderTodoList(activeMenu);
+		const activeElem = document.getElementById(activeMenu + '-pane')
 		activeElem.classList.add('active');
 		activeElem.classList.remove('hide');
-		// activeElem.style.display = 'none';
-		// document.getElementById(activeMenu + '-pane').classList.add('active');
 	}
 
 	function onAllMenuClick(event) {

@@ -26,15 +26,27 @@ function editTask(taskId) {
 		taskEditForm.description.value = task.description;
 		taskEditForm.taskid.value = task.id;
 		// task project
-		if( task.hasOwnProperty('project') )
+		if( task.hasOwnProperty('project') ) {
 			taskEditForm.project.value = task.project;
-		else
+			[].forEach.call(document.getElementById('projects').options, opt => {
+				if( task.project === opt.value ) {
+					opt.selected = 'selected';
+				}
+			});
+		} else {
 			taskEditForm.project.value = '';
+		}
 		// task context
-		if( task.hasOwnProperty('context'))
+		if( task.hasOwnProperty('context')) {
 			taskEditForm.context.value = task.context;
-		else
+			[].forEach.call(document.getElementById('contexts').options, opt => {
+				if( task.context === opt.value ) {
+					opt.selected = 'selected';
+				}
+			});
+		} else {
 			taskEditForm.context.value = '';
+		}
 		// task priority
 		if( task.hasOwnProperty('priority')) {
 			for( let i=0; i<=taskEditForm.priority.length; i++ ) {

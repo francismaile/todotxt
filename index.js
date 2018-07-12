@@ -120,3 +120,6 @@ countItems().then( function( cnt ) {
 	// read todoList from indexedDB
 });
 
+function show(elemId) {
+	document.getElementById(elemId).style.visibility = 'visible';
+}

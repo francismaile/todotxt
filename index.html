@@ -4,6 +4,8 @@
 	<meta charset="utf-8">
 	<title>ToDo_txt app</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
 	<link rel="stylesheet" media="(min-width:738px)" href="styles/style.css" >
 	<link rel="stylesheet" media="(max-width:736px)" href="styles/small.css" >
 
@@ -16,16 +18,16 @@
 <div id="header">
 <nav>
 	<ul id="nav-tab" class="nav">
-		<li class="tab active" id="all">*</li>
-		<li class="tab" id="project">+</li>
-		<li class="tab" id="context">@</li>
-		<li class="tab" id="priority">(!)</li>
-		<li class="tab" id="txt">txt</li>
+		<li class="tab fa fa-asterisk active" id="all"></li>
+		<li class="tab fas fa-plus" id="project-tab"></li>
+		<li class="tab fas fa-at" id="context-tab"></li>
+		<li class="tab fas fa-exclamation" id="priority-tab"></li>
+		<li class="tab far fa-file" id="txt-tab"></li>
 	</ul>
 
 	<!-- Tab panes -->
 	<!-- div class="tab-content" -->
-		<div class="tab-pane active" id="all-tab">
+		<div class="tab-pane active" id="all-pane">
 			<ul id="all-menu">
 				<li id="project-item">Projects</li>
 				<li id="context-item">Contexts</li>
@@ -33,19 +35,19 @@
 				<li id="txt-item">todo.txt</li>
 			</ul>
 		</div>
-		<div class="tab-pane" id="project-tab">
+		<div class="tab-pane" id="project-pane">
 			<ul id="project-menu">
 			</ul>
 		</div>
-		<div class="tab-pane" id="context-tab">
+		<div class="tab-pane" id="context-pane">
 			<ul id="context-menu">
 			</ul>
 		</div>
-		<div class="tab-pane" id="priority-tab">
+		<div class="tab-pane" id="priority-pane">
 			<ul id="priority-menu">
 			</ul>
 		</div>
-		<div class="tab-pane" id="txt-tab">
+		<div class="tab-pane" id="txt-pane">
 			<ul id="txt-menu">
 			</ul>
 		</div>
@@ -56,6 +58,71 @@
 		<input type="text" id="task-input" value="" placeholder="add new task"><button id="newTaskButton">New</button>
 	</form>
 </div>
+
+<!-- Task Edit Form -->
+<div id="form-wrapper">
+<form action="" id="taskEdit" method="">
+<input type="hidden" id="taskid" value="">
+<fieldset>
+<legend>Task Item</legend>
+	<div>
+		<input type="checkbox" id="completed">
+		<input type="text" size="55" id="description" value="" size="80">
+	</div>
+</fieldset>
+
+<fieldset id="task-options">
+	<label>Priority:</label>
+	<select id="priority">
+		<option value ></option>
+		<option value="A">Priority A</option>
+		<option value="B">Priority B</option>
+		<option value="C">Priority C</option>
+	</select>
+	<div class="here">
+		Project: 
+		<div>
+		<input type="text" id="project">
+		<label for="projects">
+			<select id="projects">
+			</select>
+		</label>
+		</div>
+	</div>
+	<div>
+		Context: <input type="text" id="context">
+		<label for="contexts">
+			<select id="contexts">
+			</select>
+		</label>
+	</div>
+	<div>
+		<label for="created">Created Date:
+			<input type="date" id="created">
+		</label>
+	</div>
+	<div>
+		<label for="due">Due Date:
+			<input type="date" id="due">
+		</label>
+	</div>
+	<div>
+		<label for="completeDate">Completed Date:
+			<input type="date" id="completeDate">
+		</label>
+	</div>
+	<div>
+		<label for="tags">Tags:
+			<textarea id="tags" rows=1></textarea>
+		</label>
+	</div>
+<input type="reset" id="revert-changes" value="Cancel">
+<input type="submit" id="submit-changes" value="Go">
+</fieldset>
+
+</form>
+</div><!-- /form-wrapper -->
+
 
 </div><!-- header -->
 
@@ -73,8 +140,6 @@
 
 </div>
 <!-- /todo-wrapper -->
-
-
 
 
 </div>

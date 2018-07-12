@@ -1,3 +1,13 @@
+#project #projects {
+	position: relative;
+	top: 0;
+	left: 0;
+}
+
+div < #project {
+	border: 1px solid green;
+}
+
 /* styles for small screens */
 *_, *:before, *:after {
   -webkit-box-sizing: border-box;
@@ -115,7 +125,7 @@ nav ul#nav-tab li {
 	position: absolute;
 }
 
-.tab-pane#all-tab {
+.tab-pane#all-pane {
 	display: none;
 }
 
@@ -172,14 +182,26 @@ form#new-task button {
 }
 
 #task-list li.category-heading {
-	display: inline;
-	border: 1px solid green;
+	border: 1px solid #CCC;
+	max-width: 50%;
+	margin: 4px auto;
 	margin-bottom: 4px;
 	padding: 2px 8px;
-	background: #FFF;
+	background: lightblue;
 	font-size: 1.2em;
 	font-weight: bold;
+	text-align: center;
 }
+
+/*
+#task-list li.task-completed {
+	display: none;
+}
+
+#task-list ul#list-Completed li.category-heading:before {
+	content: "Show ";
+}
+*/
 
 #task-list li div {
 	padding: 0px;
@@ -277,7 +299,124 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
 /* ************** */
 
 #form-wrapper {
-	display: none;
+	border: 2px solid red;
+	// display: none;
+	top: 0px;
+	position: absolute;
+	height: 100vh;
+	width: 100vw;
+	padding: 0px;
+	background-color: #FFF;
+}
+
+#form-wrapper form {
+	border: 2px green solid;
+	height: 80vh;
+	padding: 0px;
+}
+
+#form-wrapper form input {
+	border: 2px green solid;
+}
+
+form#taskEdit {
+	background-color: #FFF;
+	padding: 0px;
+}
+
+#form-wrapper form label {
+	// display: block;
+	font-size: 1.5em;
+}
+	
+form#taskEdit #description {
+	font-size: 20px;
+}
+
+input[type=text]#description {
+	border: thin solid;
+	width: 70vw;
+	display: inline-block;
+}
+
+input[type=checkbox]#completed {
+	border: 5px solid blue;
+  transform: scale(0.75);
+	margin: 0 4px;
+	outline: none;
+	padding: 12px;
+}
+
+#form-wrapper form select {
+	border: 1px solid blue;
+}
+
+#form-wrapper form datalist {
+	border: 1px solid blue;
+}
+
+#form-wrapper form input {
+	// border: 1px solid red;
+}
+
+#task-options {
+	border: solid blue thin;
+	background-color: #FFF;
+}
+
+input[type=submit] {
+	height: 45px;
+	width: 48%;
+	margin: 0px;
+	background: green;
+	font-size: 1.25em;
+}
+
+input[type=reset] {
+	height: 45px;
+	width: 48%;
+	margin: 0px;
+	background: orange;
+	font-size: 1.25em;
+}
+
+
+/* ****************** */
+/* choose file notice */
+/* ****************** */
+
+dialog {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 440px;
+	height: 240px;;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-left: -220px;
+	margin-top: -220px;
+	padding: 0px;
+	background: #F48942;
+}
+
+dialog p {
+	margin: 8px;
+	text-align: justify;
+	font-size: 32px;
+	font-weight: bold;
+}
+
+dialog a {
+	border: 1px solid;
+	width: 160px;
+	padding: 8px;
+	background: #FFA500;
+	text-align: center;
+	text-decoration: none;
+	font-size: 22px;
+	color: black;
 }
 
 /*

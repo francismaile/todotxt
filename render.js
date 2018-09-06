@@ -159,7 +159,7 @@ function createTodoItem( task, category ) {
 	div_description.textContent = task.description;
 
 	div_description.addEventListener("click", function(event) {
-		editForm.style.display = 'inline';
+		taskEditForm.style.display = 'inline';
 		const taskId = event.target.id.split('_')[1];
 		editTask(taskId);	
 	}, false);

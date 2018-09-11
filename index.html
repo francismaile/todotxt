@@ -172,6 +172,11 @@
 <button id="saveToFile">Save</button>
 </p>
 
+<p>
+<button id="show-form">Show Form</button>
+<button id="hide-form">Hide Form</button>
+</p>
+
 <script src="db/idb.js">
 </script>
 
@@ -212,6 +217,19 @@ selectDialogueLink.onclick = function () {
      fileSelector.click(); // must be fired by user
 
 document.getElementById('saveToFile').addEventListener('click', saveFile);
+
+document.getElementById('show-form').addEventListener("click", function(event) {
+	showTaskEditForm();
+	console.log(event.target);
+	console.log(taskEditForm);
+	// taskEditForm.style.display = 'inline';
+	// taskEditForm['task-options'].style.display = 'inline';
+	// console.log(taskEditForm['task-options']);
+}, false);
+
+document.getElementById('hide-form').addEventListener("click", function() {
+	taskEditForm['task-options'].style.display = 'none';
+}, false);
 
 </script>
 

@@ -1,7 +1,6 @@
 /* eslint-disable indent */
 
 function newSection(headingText = 'main') {
-	// console.log(headingText);
 	const section = document.createElement('ul');
 	section.id = 'list-' + headingText.toCamelCase();
 	let li = document.createElement('li');
@@ -18,7 +17,6 @@ document.getElementById('show-it').addEventListener("click", function() {
 */
 
 function renderTodoList(category = 'all', which ) {
-	console.log({category}, {which});
 	const taskListDiv = document.getElementById('task-list');
 	taskListDiv.innerHTML = '';
 
@@ -142,7 +140,6 @@ function renderTodoList(category = 'all', which ) {
 }
 
 function createTodoItem( task, category ) {
-// console.log({task}, {category});
 	const listItem = document.createElement('li');
 	listItem.className = 'task-item';
 	listItem.id = 'task_' + task.id;

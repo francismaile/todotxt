@@ -16,7 +16,6 @@ const render = {
 	}
 
 function renderTodoList(category = 'all', which ) {
-	// console.log({category}, {which});
 	renderCategory = category;
 	renderWhich = which;
 	const taskListDiv = document.getElementById('task-list');
@@ -24,7 +23,6 @@ function renderTodoList(category = 'all', which ) {
 
 	function render( todoList ){
 		const completedTodos = newSection('Completed');
-// console.log(todoList);
 		if( category ==='txt' ) {
 			// reassemble the todo.txt file format
 			const todoTxtEditor = document.createElement('div');
@@ -159,9 +157,10 @@ function createTodoItem( task, category ) {
 	div_description.textContent = task.description;
 
 	div_description.addEventListener("click", function(event) {
-		taskEditForm.style.display = 'inline';
+		// taskEditForm.style.display = 'inline';
+		showTaskEditForm();
 		const taskId = event.target.id.split('_')[1];
-		editTask(taskId);	
+		// editTask(taskId);	
 	}, false);
 
 	listItem.appendChild(div_description);
@@ -238,7 +237,6 @@ function createMenuItem( category, item ) {
 
 function createMenu( category, itemList ) {
 	// insert items into sidebar nav menu
-	// console.log({itemList});
 	const categoryMenu = document.getElementById(category + '-menu');
 	categoryMenu.innerHTML = '';
 	categoryMenu.appendChild(createMenuItem(category, 'All') );

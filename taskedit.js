@@ -3,6 +3,12 @@ const newTaskForm = document.getElementById('new-task');
 const taskEditWrapper = document.getElementById('form-wrapper');
 // const newTaskForm = taskEditWrapper.childNodes[1];
 
+function showTaskEditForm() {
+	taskEditWrapper.style.display = 'inline';
+	// taskEditForm.style.display = 'inline';
+	console.log('show');
+}
+
 function toggleTaskComplete(taskid) {
 	// get task by id
 	const taskIndex = todoList.findIndex( task => task.id === parseInt(taskid) );
@@ -79,7 +85,6 @@ function editTask(taskId) {
 			taskEditForm.tags.value = '';
 		}
 		
-		taskEditWrapper.style.display = 'inline';
 	}
 
 	// const task = todoList.find( todo => todo.id === parseInt(taskId));

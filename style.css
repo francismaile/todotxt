@@ -97,7 +97,7 @@ ul.nav {
 }
 
 .tab-pane ul li:hover {
-  background-color: powderblue;
+  background-color: aqua;
   transition: background-color .5s;
 }
 
@@ -106,6 +106,9 @@ ul.nav {
 	border-top: none;
 }
 
+.active-item {
+	background: aquamarine;
+}
 /* ********** */
 /* todo lists */
 /* ********** */

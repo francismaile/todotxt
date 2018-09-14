@@ -151,7 +151,7 @@ taskEditForm.onsubmit=function() {
 				task.tags[key] = value;
 			});
 		}
-		console.log(task);
+		// console.log(task);
 		updateItem(task);
 	} else { 
 		let newTask = taskEditForm.description.value

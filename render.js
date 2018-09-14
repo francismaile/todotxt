@@ -244,7 +244,12 @@ function createMenuItem( category, item ) {
 	menuItem.textContent = item;
 	menuItem.className = 'menu-item';
 	menuItem.onclick = function() {
-		// console.log(category, this.textContent);
+		// clear hilighting of active menu item and set hilight of new one
+		document.querySelectorAll('.active-item').forEach( item => {
+			item.classList.remove('active-item');
+		});
+		this.classList.add('active-item');
+
 		renderTodoList(category, this.textContent);
 	};
 	return menuItem;

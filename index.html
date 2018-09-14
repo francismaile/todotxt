@@ -63,72 +63,59 @@
 <section id="todolist">
 
 <!-- Task Edit Form -->
-<div id="form-wrapper">
-<form action="" id="taskEdit" method="">
-<input type="hidden" id="taskid" value="">
-<fieldset>
-<legend>Task Item</legend>
-	<div>
-		<input type="checkbox" id="completed"><input type="text" size="55"  id="description" value="" size="80">
-	</div>
-</fieldset>
-
-<fieldset id="task-options">
-	Priority:
-	<select id="priority">
-		<option value ></option>
-		<option value="A">A</option>
-		<option value="B">B</option>
-		<option value="C">C</option>
-	</select>
-	<div>
-		<label>Project:<input list="projects" id="project"></label>
-		<datalist id="projects">
-			<select>
-			</select>
-		</datalist>
-	</div>
-	<div>
-		<label>Context:<input list="contexts" id="context"></label>
-		<datalist id="contexts">
-			<select>
-			</select>
-		</datalist>
-	</div>
-	<div>
-		<label for="created">Created Date:
-			<input type="date" id="created">
-		</label>
-	</div>
-	<div>
-		<label for="due">Due Date:
-			<input type="date" id="due">
-		</label>
-	</div>
-	<div>
-		<label for="completeDate">Completed Date:
-			<input type="date" id="completeDate">
-		</label>
-	</div>
-	<div>
-		<label for="tags">Tags:
-			<textarea id="tags" rows=1></textarea>
-		</label>
-	</div>
-<input type="submit" id="submit-changes" value="Go">
-<input type="reset" id="revert-changes" value="Cancel">
-</fieldset>
-
-</form>
-</div><!-- /form-wrapper -->
-
-<div id="new-todo-wrapper">
-<form action="" id="new-task" method="">
-	<div>
-		<fieldset>
-			<input type="text" size="55"  id="newTask" value="" size="80"><button id="newTaskButton">New</button>
-		</fieldset>
-	</div>
+<div id="task-edit-wrapper">
+<form action="" id="task-edit" method="">
+	<fieldset>
+		<input type="text" size="55"  id="description" value="" size="80">
+		<input type="hidden" id="taskid">
+		<input type="hidden" id="category" value="test">
+		<input type="hidden" id="whichCategory" value="test">
+	</fieldset>
+	<fieldset id="task-options">
+		Priority:
+		<select id="priority">
+			<option value ></option>
+			<option value="A">A</option>
+			<option value="B">B</option>
+			<option value="C">C</option>
+		</select>
+		<div>
+			<label>Project:<input list="projects" id="project"></label>
+			<datalist id="projects">
+				<select>
+				</select>
+			</datalist>
+		</div>
+		<div>
+			<label>Context:<input list="contexts" id="context"></label>
+			<datalist id="contexts">
+				<select>
+				</select>
+			</datalist>
+		</div>
+		<div>
+			<label for="created">Created Date:
+				<input type="date" id="created">
+			</label>
+		</div>
+		<div>
+			<label for="due">Due Date:
+				<input type="date" id="due">
+			</label>
+		</div>
+		<div>
+			<label for="completeDate">Completed Date:
+				<input type="date" id="completeDate">
+			</label>
+		</div>
+		<div>
+			<label for="tags">Tags:
+				<textarea id="tags" rows=1></textarea>
+			</label>
+		</div>
+		<input type="submit" id="submit-changes" value="Go">
+		<input type="reset" id="revert-changes" value="Cancel">
+	</fieldset>
 </form>
 </div>
 
@@ -230,6 +217,11 @@ document.getElementById('show-form').addEventListener("click", function(event) {
 document.getElementById('hide-form').addEventListener("click", function() {
 	taskEditForm['task-options'].style.display = 'none';
 }, false);
+
+// Hide the gray autofill icon inserted by LastPass
+const inputFields = document.querySelectorAll('input').forEach( field => {
+	field.dataset.lpignore = true;
+});
 
 </script>
 

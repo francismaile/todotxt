@@ -9,7 +9,7 @@ select:focus { outline: solid gray thin; }
 button:focus { outline: none; }
 
 #wrapper {
-	border: solid black;
+	border: solid black thin;
 	max-width: 980px;
 	margin: 10px auto;
 	display: flex;
@@ -17,7 +17,7 @@ button:focus { outline: none; }
 }
 
 section {
-	border: solid green;
+	/* border: solid green; */
 	min-height: 500px;
 	min-width: 200px;
 }
@@ -33,6 +33,7 @@ section#nav {
 nav {
 	flex: 2;
 	border: solid gray thin;
+	height: 100%;
 }
 
 nav ul {
@@ -114,12 +115,12 @@ section#todolist {
 }
 
 #form-wrapper {
-	border: solid blue;
+	/* border: solid blue; */
 	min-height: 70px;
 }
 
 #todo-wrapper {
-	border: solid blue;
+	/* border: solid blue; */
 	min-height: 200px;
 }
 
@@ -243,36 +244,22 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
 	text-align: right;
 }
 
-/* ************* */
-/* New Task Form */
-/* ************* */
-
-form#new-task  #newTask {
-	border: solid gray thin;
-	font-size: 20px;
-}
-/* newTaskButton */
-form#new-task button {
-	cursor: pointer;
-	border: 3px double;
-	min-width: 60px;
-	padding: 4px;
-}
 /* ************** */
 /* task edit form */
 /* ************** */
 
-#form-wrapper {
+#task-options {
 	display: none;
 	position: absolute;
 }
 
 form#taskEdit {
-	border: solid black thin;
+	border: solid red 5px;
 	background-color: #FFF;
 }
 
-form#taskEdit #description {
+form#task-edit #description {
+	width: 100%;
 	font-size: 20px;
 }
 

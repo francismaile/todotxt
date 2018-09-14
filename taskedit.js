@@ -1,13 +1,5 @@
-const taskEditForm = document.getElementById('taskEdit');
-const newTaskForm = document.getElementById('new-task');
-const taskEditWrapper = document.getElementById('form-wrapper');
-// const newTaskForm = taskEditWrapper.childNodes[1];
-
-function showTaskEditForm() {
-	taskEditWrapper.style.display = 'inline';
-	// taskEditForm.style.display = 'inline';
-	console.log('show');
-}
+const taskEditForm = document.getElementById('task-edit');
+// const taskEditWrapper = document.getElementById('form-wrapper');
 
 function toggleTaskComplete(taskid) {
 	// get task by id
@@ -58,7 +50,7 @@ function editTask(taskId) {
 		}
 		// task completed date
 		if( task.hasOwnProperty('completeDate')) {
-			taskEditForm.completed.value = task.completeDate;
+			taskEditForm.completeDate.value = task.completeDate;
 		}
 		// deal with tags
 		if( task.hasOwnProperty('tags') ) {
@@ -96,6 +88,7 @@ function editTask(taskId) {
 	}
 }
 
+/*
 // new task input field handler
 newTaskForm.addEventListener('submit', event => event.preventDefault());
 newTaskForm.onsubmit=function(e) {
@@ -111,59 +104,74 @@ newTaskForm.onsubmit=function(e) {
 	}
 	return false;
 }
+*/
 
 // task edit form handler
 taskEditForm.addEventListener('submit', event => event.preventDefault());
 taskEditForm.onsubmit=function() {
 // need to sanitize the input
-	// this['task-options'].style.display = 'none';
-	taskEditWrapper.style.display = 'none';
-	const task ={};
-	// something is not working here
-	if(taskEditForm.taskid.value !== 'undefined') {
-		task.id = parseInt(taskEditForm.taskid.value); 
-	}
-	task.completed = taskEditForm.completed.checked || taskEditForm.completeDate.value !== '';
-	task.description = taskEditForm.description.value;
-	// task.priority = taskEditForm.priority.value;
-	if( taskEditForm.priority.value !== '' ) {
-		task.priority = taskEditForm.priority.value;
-	} else {
-	 	delete task.priority;
-	}
-	if( taskEditForm.project.value !== '' ) {
-		task.project = taskEditForm.project.value.toCamelCase();
-	} else {
-	 	delete task.project;
-	}
-	if( taskEditForm.context.value !== '' ) {
-		task.context = taskEditForm.context.value.toCamelCase();
-	} else {
-	 	delete task.context;
-	}
-	task.createdDate = taskEditForm.created.value;
+	taskEditForm['task-options'].style.display = 'none';
 
-	if(taskEditForm.due.value !== '' ) {
-		task.tags = {};
-		task.tags['due'] = taskEditForm.due.value;
-	}
+	if(taskEditForm.taskid.value) {
+		const task ={};
+		task.description = taskEditForm.description.value;
 
-	task.completeDate = taskEditForm.completeDate.value;
+		if(taskEditForm.taskid.value !== 'undefined') {
+			task.id = parseInt(taskEditForm.taskid.value); 
+		}
+		if( taskEditForm.priority.value !== '' ) {
+			task.priority = taskEditForm.priority.value;
+		} else {
+			delete task.priority;
+		}
+		if( taskEditForm.project.value !== '' ) {
+			task.project = taskEditForm.project.value.toCamelCase();
+		} else {
+			delete task.project;
+		}
+		if( taskEditForm.context.value !== '' ) {
+			task.context = taskEditForm.context.value.toCamelCase();
+		} else {
+			delete task.context;
+		}
+		task.createdDate = taskEditForm.created.value;
 
-	if( taskEditForm.tags.value !== '' ) {
-		if( !task.hasOwnProperty('tags') ) task.tags = {};
-		const tags = taskEditForm.tags.value.split('\n');
-		tags.forEach( tag => {
-			[key, value] = tag.split(':');
-			task.tags[key] = value;
-		});
-	}
+		if(taskEditForm.due.value !== '' ) {
+			task.tags = {};
+			task.tags['due'] = taskEditForm.due.value;
+		}
 
-	if(task.id) {
+		task.completeDate = taskEditForm.completeDate.value;
+
+		if( taskEditForm.tags.value !== '' ) {
+			if( !task.hasOwnProperty('tags') ) task.tags = {};
+			const tags = taskEditForm.tags.value.split('\n');
+			tags.forEach( tag => {
+				[key, value] = tag.split(':');
+				task.tags[key] = value;
+			});
+		}
+		console.log(task);
 		updateItem(task);
 	} else { 
-		addItem(task)
+		let newTask = taskEditForm.description.value
+		if(taskEditForm.category.value === 'project') {
+			if(taskEditForm.whichCategory.value !== 'All' && taskEditForm.whichCategory.value !== 'No Project') {
+				newTask += ' +' + taskEditForm.whichCategory.value;
+			}
+		} else if(taskEditForm.category.value === 'context')  {
+			if(taskEditForm.whichCategory.value !== 'All' && taskEditForm.whichCategory.value !== 'No Context') {
+				newTask += ' @' + taskEditForm.whichCategory.value;
+			}
+		} else if(taskEditForm.category.value === 'priority')  {
+			if(taskEditForm.whichCategory.value !== 'All' && taskEditForm.whichCategory.value !== 'No Priority') {
+				newTask = ' (' +  taskEditForm.whichCategory.value + ') ' + newTask;
+			}
+		}
+		taskEditForm.whichCategory.value
+		addItem( newTodoTask(newTask) );
 	}
+
 	taskEditForm.reset();
 	renderTodoList(renderCategory, renderWhich);
 
@@ -171,6 +179,7 @@ taskEditForm.onsubmit=function() {
 };
 
 taskEditForm.onreset = function() { 
-	taskEditWrapper.style.display = 'none';
+	taskEditForm['task-options'].style.display = 'none';
+	taskEditForm['taskid'].value='';
 }
 

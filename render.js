@@ -21,6 +21,9 @@ function renderTodoList(category = 'all', which ) {
 	const taskListDiv = document.getElementById('task-list');
 	taskListDiv.innerHTML = '';
 
+	taskEditForm.category.value = category;
+	taskEditForm.whichCategory.value = which;
+
 	function render( todoList ){
 		const completedTodos = newSection('Completed');
 		if( category ==='txt' ) {
@@ -157,10 +160,9 @@ function createTodoItem( task, category ) {
 	div_description.textContent = task.description;
 
 	div_description.addEventListener("click", function(event) {
-		// taskEditForm.style.display = 'inline';
-		showTaskEditForm();
+		taskEditForm['task-options'].style.display = 'inline';
 		const taskId = event.target.id.split('_')[1];
-		// editTask(taskId);	
+		editTask(taskId);	
 	}, false);
 
 	listItem.appendChild(div_description);
@@ -229,6 +231,7 @@ function createMenuItem( category, item ) {
 	menuItem.textContent = item;
 	menuItem.className = 'menu-item';
 	menuItem.onclick = function() {
+		console.log(category, this.textContent);
 		renderTodoList(category, this.textContent);
 	};
 	return menuItem;

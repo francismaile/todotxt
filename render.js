@@ -21,8 +21,21 @@ function renderTodoList(category = 'all', which ) {
 	const taskListDiv = document.getElementById('task-list');
 	taskListDiv.innerHTML = '';
 
+	// console.log({category}, {which});
+
 	taskEditForm.category.value = category;
 	taskEditForm.whichCategory.value = which;
+	if(category !== 'all') {
+		// console.log({category}, {which})
+		if(which === 'All' || !which || which.startsWith('No') ) {
+			taskEditForm.description.placeholder = 'Add a new todo…';
+		} else {
+			taskEditForm.description.placeholder = 'Add new todo to ' + category + ':' + which;
+		}
+	} else {
+		taskEditForm.description.placeholder = 'Add a new todo…';
+		
+	}
 
 	function render( todoList ){
 		const completedTodos = newSection('Completed');
@@ -231,7 +244,7 @@ function createMenuItem( category, item ) {
 	menuItem.textContent = item;
 	menuItem.className = 'menu-item';
 	menuItem.onclick = function() {
-		console.log(category, this.textContent);
+		// console.log(category, this.textContent);
 		renderTodoList(category, this.textContent);
 	};
 	return menuItem;

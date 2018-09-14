@@ -156,15 +156,15 @@ taskEditForm.onsubmit=function() {
 	} else { 
 		let newTask = taskEditForm.description.value
 		if(taskEditForm.category.value === 'project') {
-			if(taskEditForm.whichCategory.value !== 'All' && taskEditForm.whichCategory.value !== 'No Project') {
+			if(taskEditForm.whichCategory.value !== 'All' && !taskEditForm.whichCategory.value.startsWith('No') ) {
 				newTask += ' +' + taskEditForm.whichCategory.value;
 			}
 		} else if(taskEditForm.category.value === 'context')  {
-			if(taskEditForm.whichCategory.value !== 'All' && taskEditForm.whichCategory.value !== 'No Context') {
+			if(taskEditForm.whichCategory.value !== 'All' && !taskEditForm.whichCategory.value.startsWith('No')) {
 				newTask += ' @' + taskEditForm.whichCategory.value;
 			}
 		} else if(taskEditForm.category.value === 'priority')  {
-			if(taskEditForm.whichCategory.value !== 'All' && taskEditForm.whichCategory.value !== 'No Priority') {
+			if(taskEditForm.whichCategory.value !== 'All' && !taskEditForm.whichCategory.value.startsWith('No')) {
 				newTask = ' (' +  taskEditForm.whichCategory.value + ') ' + newTask;
 			}
 		}

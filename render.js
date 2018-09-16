@@ -152,6 +152,20 @@ function createTodoItem( task, category ) {
 		listItem.classList.add( 'task-completed' );
 	}
 
+	const deleteBtn = document.createElement('i');
+	deleteBtn.className = 'deletebutton fa fa-trash';
+	deleteBtn.dataset.taskId = task.id;
+	deleteBtn.addEventListener('click', e => {
+		// ask the user to confirm delete
+		if( confirm('This cannot be undone. Are your sure your want to delete this task?') ) {
+			// delete task from indexdb
+			deleteItem( parseInt(e.target.dataset.taskId, 10) );
+			renderTodoList(renderCategory, renderWhich);
+		}
+		// rerender list
+	});
+	listItem.appendChild(deleteBtn);
+
 	const checkbox = document.createElement('input');
 	checkbox.type = 'checkbox';
 	checkbox.id = 'task_complete_' + task.id;

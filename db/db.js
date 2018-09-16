@@ -50,30 +50,17 @@ function updateItem(item) {
 		// console.log('item updated', result);
 	});
 }
-// const task = {
-// 	completed: true,
-// 	priority: "B",
-// 	createdDate: "2018-02-09",
-// 	context: "context",
-// 	project: "camelCaseTag",
-// 	description: "item description",
-// 	id: 1,
-// 	tags: {key: "value", due: "2018-02-13"}
-// }
-// 
-// updateItem(task).then( function(result) {
-// 	console.log('item updated', result);
-// });
 
 // delete one item
 function deleteItem( key ) {
 	dbPromise.then( function(db) {
 		const tx = db.transaction('todoList', 'readwrite');
 		const todoList = tx.objectStore('todoList');
+		console.log('deleting:', key);
 		todoList.delete(key);
 		return tx.complete;
-	}).then( function() {
-		console.log('item deleted');
+	}).then( function(result) {
+		// console.log('item deleted');
 	});
 }
 

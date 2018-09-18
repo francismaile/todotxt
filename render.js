@@ -15,8 +15,8 @@ let renderCategory = 'all', renderWhich = '';
 // const render = {	}
 
 function renderTodoList(category = 'all', which ) {
-	renderCategory = category;
-	renderWhich = which;
+	renderCategory = category; // why rename this?
+	renderWhich = which; // why rename this?
 	const taskListDiv = document.getElementById('task-list');
 	taskListDiv.innerHTML = '';
 
@@ -38,6 +38,13 @@ function renderTodoList(category = 'all', which ) {
 
 	function render( todoList ){
 		const completedTodos = newSection('Completed');
+		// sort tasks by priority - I haven't decided whether to do this here or just when choosing single project or context
+				const categoryTaskList = [];
+				todoList.forEach( task => {
+					if( !categoryTaskList[task.priority] ) categoryTaskList[task.priority] = [];
+					categoryTaskList[task.priority].push(task);
+				});
+				todoList = [...categoryTaskList['A'], ...categoryTaskList['B'], ...categoryTaskList['C'], ...categoryTaskList[undefined]];
 		if( category ==='txt' ) {
 			// reassemble the todo.txt file format
 			const todoTxtEditor = document.createElement('div');
@@ -115,8 +122,13 @@ function renderTodoList(category = 'all', which ) {
 				taskListDiv.appendChild(completedTodos);
 				createMenu(category,  Object.keys(thisTodoList));
 			} else {
-				// const categoryName = task[category] !== undefined ? task[category] : 'No ' + category.charAt(0).toUpperCase() + category.slice(1);
 				const thisTodoList = newSection(which);
+				const categoryTaskList = [];
+				todoList.forEach( task => {
+					if( !categoryTaskList[task.priority] ) categoryTaskList[task.priority] = [];
+					categoryTaskList[task.priority].push(task);
+				});
+				todoList = [...categoryTaskList['A'], ...categoryTaskList['B'], ...categoryTaskList['C'], ...categoryTaskList[undefined]];
 				// foreach to get only which from category
 				todoList.forEach( task => {
 					if( task[category] === which || ( which.slice(0,2) === 'No' && task[category] === undefined) ) {
@@ -130,7 +142,7 @@ function renderTodoList(category = 'all', which ) {
 				// sort the list by priority if category != all
 				// thisTodoList.sort();
 				if(which) {
-					console.log( thisTodoList.childNodes );
+					// console.log( thisTodoList.childNodes );
 				}
 				taskListDiv.appendChild(thisTodoList);
 				taskListDiv.appendChild(completedTodos);

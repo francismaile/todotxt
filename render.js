@@ -12,8 +12,7 @@ function newSection(headingText = 'unnamed') {
 
 let renderCategory = 'all', renderWhich = '';
 // thinking about making this an object
-const render = {
-	}
+// const render = {	}
 
 function renderTodoList(category = 'all', which ) {
 	renderCategory = category;
@@ -81,7 +80,7 @@ function renderTodoList(category = 'all', which ) {
 				const noCategoryItems = [];
 				const thisTodoList = todoList.reduce( function(taskList, task) {
 					if(category === 'priority' && !taskList['A']) {
-					// this didn't work because it needs to be inside the reduce function
+					// this didn't work because it needs to be inside the reduce function - but it did work so what is this ???
 						taskList['A'] = newSection('A');
 						taskList['B'] = newSection('B');
 						taskList['C'] = newSection('C');
@@ -128,6 +127,11 @@ function renderTodoList(category = 'all', which ) {
 						}
 					}
 				});
+				// sort the list by priority if category != all
+				// thisTodoList.sort();
+				if(which) {
+					console.log( thisTodoList.childNodes );
+				}
 				taskListDiv.appendChild(thisTodoList);
 				taskListDiv.appendChild(completedTodos);
 			}
@@ -160,9 +164,9 @@ function createTodoItem( task, category ) {
 		if( confirm('This cannot be undone. Are your sure your want to delete this task?') ) {
 			// delete task from indexdb
 			deleteItem( parseInt(e.target.dataset.taskId, 10) );
+			// rerender list
 			renderTodoList(renderCategory, renderWhich);
 		}
-		// rerender list
 	});
 	listItem.appendChild(deleteBtn);
 

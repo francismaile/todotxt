@@ -56,7 +56,6 @@ function deleteItem( key ) {
 	dbPromise.then( function(db) {
 		const tx = db.transaction('todoList', 'readwrite');
 		const todoList = tx.objectStore('todoList');
-		console.log('deleting:', key);
 		todoList.delete(key);
 		return tx.complete;
 	}).then( function(result) {

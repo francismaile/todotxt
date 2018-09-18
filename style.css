@@ -260,8 +260,43 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
 /* ************** */
 
 #task-options {
+	border: solid blue thin;
+	background-color: #FFF;
 	display: none;
 	position: absolute;
+	width: 60%;
+}
+
+#task-options div {
+	height 30px;
+	margin: 8px 2px;
+	font-size: 16px;
+}
+
+#task-options div#fortags {
+	display: flex;
+}
+
+#task-options div#fortags label {
+	margin-right: 6px;
+}
+
+#task-options select {
+	font-size: 16px;
+}
+
+#task-options input {
+	padding-left: 8px;
+	font-size: 16px;
+}
+
+#task-options textarea {
+	font-size: 16px;
+}
+
+.form-button {
+	border: solid green 1px;
+	font-size: 16px;
 }
 
 form#taskEdit {
@@ -282,11 +317,7 @@ input[type=checkbox] {
 	padding: 28px;
 }
 
-#task-options {
-	border: solid blue thin;
-	background-color: #FFF;
-}
-
+/*
 dialog {
 	position: fixed;
 	top: 50%;
@@ -320,3 +351,4 @@ dialog a {
 	font-size: 22px;
 	color: black;
 }
+*/black

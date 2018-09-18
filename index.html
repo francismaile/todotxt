@@ -74,13 +74,15 @@
 		<input type="hidden" id="whichCategory" value="test">
 	</fieldset>
 	<fieldset id="task-options">
-		Priority:
-		<select id="priority">
-			<option value ></option>
-			<option value="A">A</option>
-			<option value="B">B</option>
-			<option value="C">C</option>
-		</select>
+		<div>
+			Priority:
+			<select id="priority">
+				<option value ></option>
+				<option value="A">A</option>
+				<option value="B">B</option>
+				<option value="C">C</option>
+			</select>
+		</div>
 		<div>
 			<label>Project:<input list="projects" id="project"></label>
 			<datalist id="projects">
@@ -110,13 +112,12 @@
 				<input type="date" id="completeDate">
 			</label>
 		</div>
-		<div>
-			<label for="tags">Tags:
+		<div id="fortags">
+			<label for="tags">Tags:</label>
 				<textarea id="tags" rows=1></textarea>
-			</label>
 		</div>
-		<input type="submit" id="submit-changes" value="Go">
-		<input type="reset" id="revert-changes" value="Cancel">
+		<input type="submit" id="submit-changes" class="form-button"  value="Go">
+		<input type="reset" id="revert-changes" class="form-button"  value="Cancel">
 	</fieldset>
 </form>
 </div>

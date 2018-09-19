@@ -213,6 +213,15 @@ i.deletebutton {
 	float: right;
 }
 
+i#downloadbutton {
+	float: right;
+	cursor: pointer;
+}
+
+.fa-file-download {
+	size: 3x;
+}
+
 .task-meta span {
 	display: inline-block;
 	min-width: 40px;
@@ -253,6 +262,10 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
 
 .task-meta-priority {
 	text-align: right;
+}
+
+#todolist {
+	position: relative;
 }
 
 /* ************** */
@@ -305,7 +318,7 @@ form#taskEdit {
 }
 
 form#task-edit #description {
-	width: 100%;
+	width: 95%;
 	font-size: 20px;
 }
 

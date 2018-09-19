@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<title>ToDo_txt app</title>
 	
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 	<script src="https://use.fontawesome.com/37d1ca2b99.js"></script>
 	<link href="style.css" rel="stylesheet">
 
@@ -68,6 +69,7 @@
 <div id="task-edit-wrapper">
 <form action="" id="task-edit" method="">
 	<fieldset>
+		<i id="downloadbutton" class="fas fa-file-download fa-2x"></i>
 		<input type="text" size="55"  id="description" placeholder="Add a new todo…" value="" size="80">
 		<input type="hidden" id="taskid">
 		<input type="hidden" id="category" value="test">
@@ -140,6 +142,7 @@
 <p><i class="fa fa-trash" aria-hidden="true"></i></p>
 
 <p>
+		<i class="fas fa-file-download"></i>
 <button id="saveToFile">Save</button>
 </p>
 
@@ -187,6 +190,7 @@ selectDialogueLink.onclick = function () {
 // document.body.appendChild(selectDialogueLink);
      fileSelector.click(); // must be fired by user
 
+document.getElementById('downloadbutton').addEventListener('click', saveFile);
 document.getElementById('saveToFile').addEventListener('click', saveFile);
 
 document.getElementById('show-form').addEventListener("click", function(event) {

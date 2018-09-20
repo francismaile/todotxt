@@ -204,6 +204,7 @@ function createTodoItem( task, category ) {
 
 	div_description.addEventListener("click", function(event) {
 		taskEditForm['task-options'].style.display = 'inline';
+		taskEditForm['task-options'].style.visibility = 'visible';
 		const taskId = event.target.id.split('_')[1];
 		editTask(taskId);	
 	}, false);
@@ -239,7 +240,6 @@ function createTodoItem( task, category ) {
 	}
 
 	if(task.tags && task.tags['due']) {
-		console.log( 'due:', task.tags['due'] );
 		span_category = document.createElement('span');
 		span_category.id = `duedate_${task.id}`;
 		span_category.className = 'task-meta-duedate';

@@ -110,7 +110,8 @@ newTaskForm.onsubmit=function(e) {
 taskEditForm.addEventListener('submit', event => event.preventDefault());
 taskEditForm.onsubmit=function() {
 // need to sanitize the input
-	taskEditForm['task-options'].style.display = 'none';
+	// taskEditForm['task-options'].style.display = 'none';
+	taskEditForm['task-options'].style.visibility = 'hidden';
 
 	if(taskEditForm.taskid.value) {
 		const task ={};
@@ -179,7 +180,8 @@ taskEditForm.onsubmit=function() {
 };
 
 taskEditForm.onreset = function() { 
-	taskEditForm['task-options'].style.display = 'none';
+	// taskEditForm['task-options'].style.display = 'none';
+	taskEditForm['task-options'].style.visibility = 'hidden';
 	taskEditForm['taskid'].value='';
 }
 

@@ -222,6 +222,14 @@ function createTodoItem( task, category ) {
 	div_meta.appendChild( span_priority );
 
 	let span_category;
+	if( task.project && category !== 'project' ) {
+		span_category = document.createElement('span');
+		span_category.id = `project_${task.id}`;
+		span_category.className = 'task-meta-project';
+		span_category.textContent = `+${ task.project }`;
+		div_meta.appendChild( span_category );
+	}
+
 	if( task.context && category !== 'context' ) {
 		span_category = document.createElement('span');
 		span_category.id = `context_${task.id}`;
@@ -230,11 +238,12 @@ function createTodoItem( task, category ) {
 		div_meta.appendChild( span_category );
 	}
 
-	if( task.project && category !== 'project' ) {
+	if(task.tags && task.tags['due']) {
+		console.log( 'due:', task.tags['due'] );
 		span_category = document.createElement('span');
-		span_category.id = `project_${task.id}`;
-		span_category.className = 'task-meta-project';
-		span_category.textContent = `+${ task.project }`;
+		span_category.id = `duedate_${task.id}`;
+		span_category.className = 'task-meta-duedate';
+		span_category.textContent = `${ task.tags['due'] }`;
 		div_meta.appendChild( span_category );
 	}
 

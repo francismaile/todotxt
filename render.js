@@ -87,7 +87,6 @@ function renderTodoList(category = 'all', which ) {
 				const noCategoryItems = [];
 				const thisTodoList = todoList.reduce( function(taskList, task) {
 					if(category === 'priority' && !taskList['A']) {
-					// this didn't work because it needs to be inside the reduce function - but it did work so what is this ???
 						taskList['A'] = newSection('A');
 						taskList['B'] = newSection('B');
 						taskList['C'] = newSection('C');
@@ -120,7 +119,7 @@ function renderTodoList(category = 'all', which ) {
 					taskListDiv.appendChild(thisTodoList[catName]);
 				}
 				taskListDiv.appendChild(completedTodos);
-				createMenu(category,  Object.keys(thisTodoList));
+				// createMenu(category,  Object.keys(thisTodoList));
 			} else {
 				const thisTodoList = newSection(which);
 				const categoryTaskList = [];
@@ -152,6 +151,7 @@ function renderTodoList(category = 'all', which ) {
 
 	getAll().then( list => {
 		render(list);
+		createNavMenu(list);
 		populateSelectElems(list);
 	});
 
@@ -278,32 +278,58 @@ function populateSelectElems( todoList ) {
 	});
 }
 
-function createMenuItem( category, item ) {
+function createMenuItem( tag ) {
 	let menuItem = document.createElement('li');
-	menuItem.textContent = item;
-	menuItem.className = 'menu-item';
-	menuItem.onclick = function() {
-		// clear hilighting of active menu item and set hilight of new one
-		document.querySelectorAll('.active-item').forEach( item => {
-			item.classList.remove('active-item');
-		});
-		this.classList.add('active-item');
-
-		renderTodoList(category, this.textContent);
-	};
+	menuItem.textContent = tag;
 	return menuItem;
 }
 
 
-function createMenu( category, itemList ) {
-	// insert items into sidebar nav menu
-	const categoryMenu = document.getElementById(category + '-menu');
-	categoryMenu.innerHTML = '';
-	categoryMenu.appendChild(createMenuItem(category, 'All') );
-
-	itemList.forEach( item => {
-		categoryMenu.appendChild(createMenuItem(category, item) )
+function createMenu( tagName, tags ) {
+	// console.log(tagName, tags);
+	const menu = document.createElement('li');
+	menu.textContent = tagName[0].toUpperCase() + tagName.substr(1);
+	const menuList = document.createElement('ul');
+	tags.forEach( tag => {
+		menuList.appendChild( createMenuItem(tag) );
 	});
+	menu.appendChild(menuList);
+	return menu;
+}
+
+function createNavMenu( todoList ) {
+	// insert items into sidebar nav menu
+	const nav = document.getElementsByTagName('nav')[0];
+	const navMenu = document.createElement('ul');
+	let tags = [];
+	tags = todoList.reduce( function( tags, todo ) {
+		if( !tags['projects'] ) {
+			tags['projects'] = [];
+		}
+		if( !tags['projects'].includes(todo.project) ) {
+			tags['projects'].push(todo.project)
+		}
+		if( !tags['contexts'] ) {
+			tags['contexts'] = [];
+		}
+		if( !tags['contexts'].includes(todo.context) ) {
+			tags['contexts'].push(todo.context)
+		}
+		if( !tags['priorities'] ) {
+			tags['priorities'] = [];
+		}
+		if( !tags['priorities'].includes(todo.priority) ) {
+			tags['priorities'].push(todo.priority)
+		}
+		return tags;
+	}, []);
+	const tagNames = Object.keys(tags);
+			// console.log({tagNames});
+	tagNames.forEach( function( tagName ) { 
+			navMenu.appendChild( createMenu(tagName, tags[tagName]) );
+	});
+	nav.innerHTML = navMenu.innerHTML;
+	console.log( navMenu );
 }
 
 document.getElementById('task-list').addEventListener( 'click', function( event ) {

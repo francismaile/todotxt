@@ -277,12 +277,15 @@ function populateSelectElems( todoList ) {
 		}
 	});
 }
-
+// renderTodoList(category = 'all', which ) 
 function createMenuItem( tag ) {
 	let menuItem = document.createElement('li');
 	menuItem.textContent = tag;
 	menuItem.addEventListener('click', e => {
-		console.log(e.target.textContent);
+		const tagName = e.target.parentElement.parentElement.dataset.tagName;
+		const tag = e.target.textContent;
+		// console.log(tagName, tag);
+		renderTodoList(tagName, tag);
 		e.stopPropagation()
 	}, false);
 	return menuItem;
@@ -295,7 +298,8 @@ function createMenu( tagName, tags ) {
 	menu.textContent = tagName[0].toUpperCase() + tagName.substr(1);
 	menu.dataset.tagName = tagName;
 	menu.addEventListener( 'click', e => {
-		console.log( e.target.dataset.tagName );
+		// console.log( e.target.dataset.tagName );
+		renderTodoList(tagName);
 	}, false );
 	const menuList = document.createElement('ul');
 	tags.forEach( tag => {
@@ -313,23 +317,23 @@ function createNavMenu( todoList ) {
 	const navMenu = document.createElement('ul');
 	let tags = [];
 	tags = todoList.reduce( function( tags, todo ) {
-		if( !tags['projects'] ) {
-			tags['projects'] = [];
+		if( !tags['project'] ) {
+			tags['project'] = [];
 		}
-		if( !tags['projects'].includes(todo.project) ) {
-			tags['projects'].push(todo.project)
+		if( !tags['project'].includes(todo.project) ) {
+			tags['project'].push(todo.project)
 		}
-		if( !tags['contexts'] ) {
-			tags['contexts'] = [];
+		if( !tags['context'] ) {
+			tags['context'] = [];
 		}
-		if( !tags['contexts'].includes(todo.context) ) {
-			tags['contexts'].push(todo.context)
+		if( !tags['context'].includes(todo.context) ) {
+			tags['context'].push(todo.context)
 		}
-		if( !tags['priorities'] ) {
-			tags['priorities'] = [];
+		if( !tags['priority'] ) {
+			tags['priority'] = [];
 		}
-		if( !tags['priorities'].includes(todo.priority) ) {
-			tags['priorities'].push(todo.priority)
+		if( !tags['priority'].includes(todo.priority) ) {
+			tags['priority'].push(todo.priority)
 		}
 		return tags;
 	}, []);

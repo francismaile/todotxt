@@ -281,6 +281,10 @@ function populateSelectElems( todoList ) {
 function createMenuItem( tag ) {
 	let menuItem = document.createElement('li');
 	menuItem.textContent = tag;
+	menuItem.addEventListener('click', e => {
+		console.log(e.target.textContent);
+		e.stopPropagation()
+	}, false);
 	return menuItem;
 }
 
@@ -289,9 +293,15 @@ function createMenu( tagName, tags ) {
 	// console.log(tagName, tags);
 	const menu = document.createElement('li');
 	menu.textContent = tagName[0].toUpperCase() + tagName.substr(1);
+	menu.dataset.tagName = tagName;
+	menu.addEventListener( 'click', e => {
+		console.log( e.target.dataset.tagName );
+	}, false );
 	const menuList = document.createElement('ul');
 	tags.forEach( tag => {
-		menuList.appendChild( createMenuItem(tag) );
+		if( tag ) {
+			menuList.appendChild( createMenuItem(tag) );
+		}
 	});
 	menu.appendChild(menuList);
 	return menu;
@@ -324,12 +334,11 @@ function createNavMenu( todoList ) {
 		return tags;
 	}, []);
 	const tagNames = Object.keys(tags);
-			// console.log({tagNames});
 	tagNames.forEach( function( tagName ) { 
 			navMenu.appendChild( createMenu(tagName, tags[tagName]) );
 	});
-	nav.innerHTML = navMenu.innerHTML;
-	console.log( navMenu );
+	nav.innerHTML = '';
+	nav.appendChild(navMenu);
 }
 
 document.getElementById('task-list').addEventListener( 'click', function( event ) {
@@ -344,33 +353,4 @@ document.getElementById('task-list').addEventListener( 'click', function( event 
 		});
 	}
 });
-
-// ***************  tabbed menu  ******************
-(function(){
-	function onTabClick(event){
-		var actives = document.querySelectorAll('.active');
-		// deactivate existing active tab and panel
-		actives.forEach( activeElem => {
-			activeElem.classList.remove('active');
-		});
-
-		// activate new tab and panel
-		event.target.classList.add('active');
-		renderTodoList(event.target.id);
-		const activeMenu = event.target.id;
-		document.getElementById(activeMenu + '-tab').classList.add('active');
-		// document.getElementById(activeMenu + '-pane').classList.add('active');
-	}
-
-	function onAllMenuClick(event) {
-	// remove this function once we're sure it works	
-	}
-	
-	document.getElementById('all-menu').addEventListener('click', (event) => {
-		document.getElementById(event.target.id.split('-')[0]).click();
-	}, false);
-	var el = document.getElementById('nav-tab');
-	// document.getElementById('nav-tab')
-	el.addEventListener('click', onTabClick, false);
-})();
 

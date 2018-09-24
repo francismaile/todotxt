@@ -20,7 +20,7 @@ function renderTodoList(category = 'all', which ) {
 	const taskListDiv = document.getElementById('task-list');
 	taskListDiv.innerHTML = '';
 
-	console.log({category}, {which});
+	// console.log({category}, {which});
 
 	taskEditForm.category.value = category;
 	taskEditForm.whichCategory.value = which;
@@ -277,6 +277,7 @@ function createMenuItem( tag ) {
 }
 
 function createMenu( tagName, tags ) {
+	// console.log({tagName}, {tags});
 	const menu = document.createElement('li');
 	menu.textContent = tagName[0].toUpperCase() + tagName.substr(1);
 	menu.dataset.tagName = tagName;
@@ -323,7 +324,7 @@ function createNavMenu( todoList ) {
 		return tags;
 	}, []);
 	
-	navMenu.appendChild( createMenu('All todos', []) );
+	navMenu.appendChild( createMenu('all', []) );
 	const tagNames = Object.keys(tags);
 	tagNames.forEach(  tagName => { 
 			navMenu.appendChild( createMenu(tagName, tags[tagName]) );

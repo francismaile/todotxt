@@ -84,31 +84,13 @@
 </div>
 
 
-<div id="todo-wrapper">
-
-<div id="task-list">
-
-
-</div><!-- task list -->
-
-</div><!-- /todo-wrapper -->
-
+	<div id="todo-wrapper">
+		<div id="task-list">
+		</div>
+	</div>
 
 </section><!-- /todolist -->
-
-
 </div><!-- /wrapper -->
-<p><i class="fa fa-trash" aria-hidden="true"></i></p>
-
-<p>
-		<i class="fas fa-file-download"></i>
-<button id="saveToFile">Save</button>
-</p>
-
-<p>
-<button id="show-form">Show Form</button>
-<button id="hide-form">Hide Form</button>
-</p>
 
 <script src="db/idb.js">
 </script>
@@ -134,37 +116,6 @@
 </script>
 
 <script>
-// choose local todo.txt file
-const fileSelector = document.createElement('input');
-fileSelector.setAttribute('type', 'file');
-
-const selectDialogueLink = document.createElement('a');
-selectDialogueLink.setAttribute('href', '');
-selectDialogueLink.innerText = "Select File";
-
-selectDialogueLink.onclick = function () {
-     fileSelector.click();
-     return false;
-}
-// document.body.appendChild(selectDialogueLink);
-     fileSelector.click(); // must be fired by user
-
-document.getElementById('downloadbutton').addEventListener('click', saveFile);
-document.getElementById('saveToFile').addEventListener('click', saveFile);
-
-document.getElementById('show-form').addEventListener("click", function(event) {
-	showTaskEditForm();
-	console.log(event.target);
-	console.log(taskEditForm);
-	// taskEditForm.style.display = 'inline';
-	// taskEditForm['task-options'].style.display = 'inline';
-	// console.log(taskEditForm['task-options']);
-}, false);
-
-document.getElementById('hide-form').addEventListener("click", function() {
-	taskEditForm['task-options'].style.display = 'none';
-}, false);
-
 // Hide the gray autofill icon inserted by LastPass
 const inputFields = document.querySelectorAll('input').forEach( field => {
 	field.dataset.lpignore = true;

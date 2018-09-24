@@ -77,6 +77,17 @@ function editTask(taskId) {
 			taskEditForm.tags.value = '';
 		}
 		
+		const deleteBtn = document.getElementById('deletebutton');
+		// deleteBtn.dataset.taskId = task.id;
+		deleteBtn.addEventListener('click', e => {
+			// ask the user to confirm delete
+			if( confirm('This cannot be undone. Are your sure your want to delete this task?') ) {
+				// delete task from indexdb
+				deleteItem(task.id);
+				taskEditForm.reset();
+				renderTodoList(renderCategory, renderWhich);
+			}
+		});
 	}
 
 	// const task = todoList.find( todo => todo.id === parseInt(taskId));

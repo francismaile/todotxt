@@ -126,23 +126,6 @@ li.task-completed div.task-description {
 	text-decoration: line-through;
 }
 
-.fa-trash {
-	font-size: 18px;
-}
-
-i.deletebutton {
-	float: right;
-}
-
-i#downloadbutton {
-	float: right;
-	cursor: pointer;
-}
-
-.fa-file-download {
-	size: 3x;
-}
-
 .task-meta span {
 	display: inline-block;
 	min-width: 40px;
@@ -251,6 +234,25 @@ input[type=checkbox] {
 	outline: none;
 	padding: 28px;
 }
+
+.fa-trash {
+	font-size: 18px;
+	color: #BBB;
+}
+
+i.deletebutton {
+	float: right;
+}
+
+i#downloadbutton {
+	float: right;
+	cursor: pointer;
+}
+
+.fa-file-download {
+	size: 3x;
+}
+
 
 /*
 dialog {

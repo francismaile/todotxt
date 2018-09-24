@@ -20,7 +20,7 @@ function renderTodoList(category = 'all', which ) {
 	const taskListDiv = document.getElementById('task-list');
 	taskListDiv.innerHTML = '';
 
-	// console.log({category}, {which});
+	console.log({category}, {which});
 
 	taskEditForm.category.value = category;
 	taskEditForm.whichCategory.value = which;
@@ -36,7 +36,7 @@ function renderTodoList(category = 'all', which ) {
 		
 	}
 
-	function render( todoList ){
+	function render( todoList ) {
 		const completedTodos = newSection('Completed');
 		// sort tasks by priority - I haven't decided whether to do this here or just when choosing single project or context
 				const categoryTaskList = [];
@@ -277,28 +277,24 @@ function populateSelectElems( todoList ) {
 		}
 	});
 }
-// renderTodoList(category = 'all', which ) 
+
 function createMenuItem( tag ) {
 	let menuItem = document.createElement('li');
 	menuItem.textContent = tag;
 	menuItem.addEventListener('click', e => {
 		const tagName = e.target.parentElement.parentElement.dataset.tagName;
 		const tag = e.target.textContent;
-		// console.log(tagName, tag);
 		renderTodoList(tagName, tag);
 		e.stopPropagation()
 	}, false);
 	return menuItem;
 }
 
-
 function createMenu( tagName, tags ) {
-	// console.log(tagName, tags);
 	const menu = document.createElement('li');
 	menu.textContent = tagName[0].toUpperCase() + tagName.substr(1);
 	menu.dataset.tagName = tagName;
 	menu.addEventListener( 'click', e => {
-		// console.log( e.target.dataset.tagName );
 		renderTodoList(tagName);
 	}, false );
 	const menuList = document.createElement('ul');
@@ -307,6 +303,9 @@ function createMenu( tagName, tags ) {
 			menuList.appendChild( createMenuItem(tag) );
 		}
 	});
+	if( tags.length > 0 ) {
+		menuList.appendChild( createMenuItem('No ' + tagName) );
+	}
 	menu.appendChild(menuList);
 	return menu;
 }
@@ -337,8 +336,10 @@ function createNavMenu( todoList ) {
 		}
 		return tags;
 	}, []);
+	
+	navMenu.appendChild( createMenu('All todos', []) );
 	const tagNames = Object.keys(tags);
-	tagNames.forEach( function( tagName ) { 
+	tagNames.forEach(  tagName => { 
 			navMenu.appendChild( createMenu(tagName, tags[tagName]) );
 	});
 	nav.innerHTML = '';

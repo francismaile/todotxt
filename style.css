@@ -26,6 +26,10 @@ section {
 /* navigation */ 
 /* ********** */
 
+nav {
+	cursor: pointer;
+}
+
 /* ********** */
 /* todo lists */
 /* ********** */

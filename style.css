@@ -48,15 +48,15 @@ section#todolist {
 	min-height: 200px;
 }
 
-.task-category-divider {
+.task-tag-divider {
 	text-align: center;
 }
 
-.task-category-divider:before {
+.task-tag-divider:before {
 	content: '< ';
 }
 
-.task-category-divider:after {
+.task-tag-divider:after {
 	content: ' >';
 }
 
@@ -254,7 +254,6 @@ i#downloadbutton {
 }
 
 
-/*
 dialog {
 	position: fixed;
 	top: 50%;
@@ -288,4 +287,3 @@ dialog a {
 	font-size: 22px;
 	color: black;
 }
-*/black

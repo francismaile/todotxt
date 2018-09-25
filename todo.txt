@@ -1,0 +1,28 @@
+x (A) move "No Project/Context" to end of list in menu +todoTxt 
+x (A) must always populate project/context options in task edit form +todoTxt 
+x (A) a way to delete tasks, not just mark completed +todoTxt @TinyHouse 
+x (A) 2018-02-17 Schedule annual checkup +Health 
+x (A) sort tasks by priority in project/context lists +todoTxt @TinyHouse 
+x (A) save should work when not viewing text version +todoTxt @TinyHouse 
+x (A) Due date displayed in task +todoTxt @TinyHouse 
+(B) sort tasks by due date +todoTxt @TinyHouse  due:2018-09-18 
+x (B) Outline chapter 5 +Novel @Computer 
+x (B) display project first, then context in Priority view  +todoTxt +todoTxt @TinyHouse 
+(C) Add cover sheets +TPSReports @Office 
+x add new task to currently viewed project/context/priority +todoTxt 
+x update product/context list in taskedit form when new project created +todoTxt 
+x fix marking tasks completed +todoTxt 
+x sort priorities A, B, C +todoTxt 
+x context list: "No Project" should read: "No Context" +todoTxt 
+dates in task edit form- created, due, completed +todoTxt @TinyHouse 
+Call Mom +Family @Home  due:2018-02-17  about:dinner  weather:rain 
+Pick up milk @GroceryStore 
+Research self-publishing services +Novel @Computer 
+x Download Todo.txt mobile app @Phone 
+x save button somewhere - but where? +todoTxt @TinyHouse 
+save todo.txt on server +todoTxt @TinyHouse 
+2018-09-13 one with everything +camelCaseTag @context  due:2018-09-20 
+optionally record task completed date when marked completed +todoTxt @TinyHouse 
+add another todo task +Family 
+x highlight current category in sidebar menu +todoTxt 
+gray out priority in nav when no tasks have that priority +todoTxt @TinyHouse 

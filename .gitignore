@@ -3,7 +3,6 @@ server
 .DS_Store
 .jshintrc
 *.swp
-todo.txt
 *.bak.*
 *.lint.*
 .eslintrc.json

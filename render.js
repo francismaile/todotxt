@@ -5,31 +5,31 @@ function newSection(headingText = 'unnamed') {
 	section.id = 'list-' + headingText.toCamelCase();
 	let li = document.createElement('li');
 	li.textContent = headingText;
-	li.className = 'category-heading';
+	li.className = 'tag-heading';
 	section.appendChild(li);
 	return section;
 }
 
-let renderCategory = 'all', renderWhich = '';
+let renderTag = 'all', renderWhich = '';
 // thinking about making this an object
 // const render = {	}
 
-function renderTodoList(category = 'all', which ) {
-	renderCategory = category; // why rename this?
+function renderTodoList(tag = 'all', which ) {
+	renderTag = tag; // why rename this?
 	renderWhich = which; // why rename this?
 	const taskListDiv = document.getElementById('task-list');
 	taskListDiv.innerHTML = '';
 
-	// console.log({category}, {which});
+	// console.log({tag}, {which});
 
-	taskEditForm.category.value = category;
-	taskEditForm.whichCategory.value = which;
-	if(category !== 'all') {
-		// console.log({category}, {which})
+	taskEditForm.tag.value = tag;
+	taskEditForm.whichTag.value = which;
+	if(tag !== 'all') {
+		// console.log({tag}, {which})
 		if(which === 'All' || !which || which.startsWith('No') ) {
 			taskEditForm.description.placeholder = 'Add a new todo…';
 		} else {
-			taskEditForm.description.placeholder = 'Add new todo to ' + category + ':' + which;
+			taskEditForm.description.placeholder = 'Add new todo to ' + tag + ':' + which;
 		}
 	} else {
 		taskEditForm.description.placeholder = 'Add a new todo…';
@@ -39,13 +39,13 @@ function renderTodoList(category = 'all', which ) {
 	function render( todoList ) {
 		const completedTodos = newSection('Completed');
 		// sort tasks by priority - I haven't decided whether to do this here or just when choosing single project or context
-				const categoryTaskList = [];
+				const tagTaskList = [];
 				todoList.forEach( task => {
-					if( !categoryTaskList[task.priority] ) categoryTaskList[task.priority] = [];
-					categoryTaskList[task.priority].push(task);
+					if( !tagTaskList[task.priority] ) tagTaskList[task.priority] = [];
+					tagTaskList[task.priority].push(task);
 				});
-				todoList = [...categoryTaskList['A'], ...categoryTaskList['B'], ...categoryTaskList['C'], ...categoryTaskList[undefined]];
-		if( category ==='txt' ) {
+				todoList = [...tagTaskList['A'], ...tagTaskList['B'], ...tagTaskList['C'], ...tagTaskList[undefined]];
+		if( tag ==='txt' ) {
 			// reassemble the todo.txt file format
 			const todoTxtEditor = document.createElement('div');
 			todoTxtEditor.id = 'editor';
@@ -70,9 +70,9 @@ function renderTodoList(category = 'all', which ) {
 			});
 			taskListDiv.appendChild(todoTxtEditor);
 		}
-		else if( category ==='all' ) {
+		else if( tag ==='all' ) {
 			const thisTodoList = newSection('Todo List');
-			const	categoryName = '';
+			const	tagName = '';
 			todoList.forEach( task => {
 				if( task.completed ) {
 					completedTodos.appendChild( createTodoItem(task) );
@@ -84,61 +84,61 @@ function renderTodoList(category = 'all', which ) {
 			taskListDiv.appendChild(completedTodos);
 		} else {
 			if( which === undefined || which === 'All') {
-				const noCategoryItems = [];
+				const noTagItems = [];
 				const thisTodoList = todoList.reduce( function(taskList, task) {
-					if(category === 'priority' && !taskList['A']) {
+					if(tag === 'priority' && !taskList['A']) {
 						taskList['A'] = newSection('A');
 						taskList['B'] = newSection('B');
 						taskList['C'] = newSection('C');
 					}
-					// divide up todos by category name
+					// divide up todos by tag name
 					if(task.completed) {
 						// separate list for completed todos
 						completedTodos.appendChild( createTodoItem(task, 'all') );
 					} else {
-						if( task[category] === undefined ) {
-							noCategoryItems.push(task);
+						if( task[tag] === undefined ) {
+							noTagItems.push(task);
 						} else {
-							const categoryName = task[category] ;
-							if( ! taskList[categoryName] ) {
-								taskList[categoryName] = newSection(categoryName);
+							const tagName = task[tag] ;
+							if( ! taskList[tagName] ) {
+								taskList[tagName] = newSection(tagName);
 							}
-							taskList[categoryName].appendChild( createTodoItem(task, category) );
+							taskList[tagName].appendChild( createTodoItem(task, tag) );
 						}
 					}
 					return taskList;
 				}, [] );
 
-				const noCategoryName = 'No ' + category.charAt(0).toUpperCase() + category.slice(1);
-				thisTodoList[noCategoryName] = newSection(noCategoryName);
-				noCategoryItems.forEach( item => {
-					thisTodoList[noCategoryName].appendChild( createTodoItem(item, category));
+				const noTagName = 'No ' + tag.charAt(0).toUpperCase() + tag.slice(1);
+				thisTodoList[noTagName] = newSection(noTagName);
+				noTagItems.forEach( item => {
+					thisTodoList[noTagName].appendChild( createTodoItem(item, tag));
 				});
 	
 				for( let catName in thisTodoList ) {
 					taskListDiv.appendChild(thisTodoList[catName]);
 				}
 				taskListDiv.appendChild(completedTodos);
-				// createMenu(category,  Object.keys(thisTodoList));
+				// createMenu(tag,  Object.keys(thisTodoList));
 			} else {
 				const thisTodoList = newSection(which);
-				const categoryTaskList = [];
+				const tagTaskList = [];
 				todoList.forEach( task => {
-					if( !categoryTaskList[task.priority] ) categoryTaskList[task.priority] = [];
-					categoryTaskList[task.priority].push(task);
+					if( !tagTaskList[task.priority] ) tagTaskList[task.priority] = [];
+					tagTaskList[task.priority].push(task);
 				});
-				todoList = [...categoryTaskList['A'], ...categoryTaskList['B'], ...categoryTaskList['C'], ...categoryTaskList[undefined]];
-				// foreach to get only which from category
+				todoList = [...tagTaskList['A'], ...tagTaskList['B'], ...tagTaskList['C'], ...tagTaskList[undefined]];
+				// foreach to get only which from tag
 				todoList.forEach( task => {
-					if( task[category] === which || ( which.slice(0,2) === 'No' && task[category] === undefined) ) {
+					if( task[tag] === which || ( which.slice(0,2) === 'No' && task[tag] === undefined) ) {
 						if( task.completed ) {
-							completedTodos.appendChild( createTodoItem( task, category ) );
+							completedTodos.appendChild( createTodoItem( task, tag ) );
 						} else {
-							thisTodoList.appendChild( createTodoItem( task, category ) );
+							thisTodoList.appendChild( createTodoItem( task, tag ) );
 						}
 					}
 				});
-				// sort the list by priority if category != all
+				// sort the list by priority if tag != all
 				// thisTodoList.sort();
 				if(which) {
 					// console.log( thisTodoList.childNodes );
@@ -157,7 +157,7 @@ function renderTodoList(category = 'all', which ) {
 
 }
 
-function createTodoItem( task, category ) {
+function createTodoItem( task, tag ) {
 	const listItem = document.createElement('li');
 	listItem.className = 'task-item';
 	listItem.id = 'task_' + task.id;
@@ -203,34 +203,34 @@ function createTodoItem( task, category ) {
 	const span_priority = document.createElement('span');
 	span_priority.id = `priority_${task.id}`;
 	span_priority.className = 'task-meta-priority';
-	if( task.priority && category !== 'priority' ) {
+	if( task.priority && tag !== 'priority' ) {
 		span_priority.textContent = `(${ task.priority })`;
 	}
 	div_meta.appendChild( span_priority );
 
-	let span_category;
-	if( task.project && category !== 'project' ) {
-		span_category = document.createElement('span');
-		span_category.id = `project_${task.id}`;
-		span_category.className = 'task-meta-project';
-		span_category.textContent = `+${ task.project }`;
-		div_meta.appendChild( span_category );
+	let span_tag;
+	if( task.project && tag !== 'project' ) {
+		span_tag = document.createElement('span');
+		span_tag.id = `project_${task.id}`;
+		span_tag.className = 'task-meta-project';
+		span_tag.textContent = `+${ task.project }`;
+		div_meta.appendChild( span_tag );
 	}
 
-	if( task.context && category !== 'context' ) {
-		span_category = document.createElement('span');
-		span_category.id = `context_${task.id}`;
-		span_category.className = 'task-meta-context';
-		span_category.textContent = `@${ task.context }`;
-		div_meta.appendChild( span_category );
+	if( task.context && tag !== 'context' ) {
+		span_tag = document.createElement('span');
+		span_tag.id = `context_${task.id}`;
+		span_tag.className = 'task-meta-context';
+		span_tag.textContent = `@${ task.context }`;
+		div_meta.appendChild( span_tag );
 	}
 
 	if(task.tags && task.tags['due']) {
-		span_category = document.createElement('span');
-		span_category.id = `duedate_${task.id}`;
-		span_category.className = 'task-meta-duedate';
-		span_category.textContent = `${ task.tags['due'] }`;
-		div_meta.appendChild( span_category );
+		span_tag = document.createElement('span');
+		span_tag.id = `duedate_${task.id}`;
+		span_tag.className = 'task-meta-duedate';
+		span_tag.textContent = `${ task.tags['due'] }`;
+		div_meta.appendChild( span_tag );
 	}
 
 	listItem.appendChild(div_meta);
@@ -341,7 +341,7 @@ document.getElementById('task-list').addEventListener( 'click', function( event 
 		getItem(parseInt(taskId, 10)).then( function(task) {
 			task.completed = !task.completed;
 			updateItem(task)
-			renderTodoList(renderCategory, renderWhich);
+			renderTodoList(renderTag, renderWhich);
 		});
 	}
 });

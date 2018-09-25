@@ -85,7 +85,7 @@ function editTask(taskId) {
 				// delete task from indexdb
 				deleteItem(task.id);
 				taskEditForm.reset();
-				renderTodoList(renderCategory, renderWhich);
+				renderTodoList(renderTag, renderWhich);
 			}
 		});
 	}
@@ -109,7 +109,7 @@ newTaskForm.onsubmit=function(e) {
 		addItem( newTodoTask(this.newTask.value) );
 		this.newTask.value = '';
 		// re-render list
-		renderTodoList(renderCategory, renderWhich);
+		renderTodoList(renderTag, renderWhich);
 	} else {
 		editTask();	
 	}
@@ -167,25 +167,25 @@ taskEditForm.onsubmit=function() {
 		updateItem(task);
 	} else { 
 		let newTask = taskEditForm.description.value
-		if(taskEditForm.category.value === 'project') {
-			if(taskEditForm.whichCategory.value !== 'All' && !taskEditForm.whichCategory.value.startsWith('No') ) {
-				newTask += ' +' + taskEditForm.whichCategory.value;
+		if(taskEditForm.tag.value === 'project') {
+			if(taskEditForm.whichTag.value !== 'All' && !taskEditForm.whichTag.value.startsWith('No') ) {
+				newTask += ' +' + taskEditForm.whichTag.value;
 			}
-		} else if(taskEditForm.category.value === 'context')  {
-			if(taskEditForm.whichCategory.value !== 'All' && !taskEditForm.whichCategory.value.startsWith('No')) {
-				newTask += ' @' + taskEditForm.whichCategory.value;
+		} else if(taskEditForm.tag.value === 'context')  {
+			if(taskEditForm.whichTag.value !== 'All' && !taskEditForm.whichTag.value.startsWith('No')) {
+				newTask += ' @' + taskEditForm.whichTag.value;
 			}
-		} else if(taskEditForm.category.value === 'priority')  {
-			if(taskEditForm.whichCategory.value !== 'All' && !taskEditForm.whichCategory.value.startsWith('No')) {
-				newTask = ' (' +  taskEditForm.whichCategory.value + ') ' + newTask;
+		} else if(taskEditForm.tag.value === 'priority')  {
+			if(taskEditForm.whichTag.value !== 'All' && !taskEditForm.whichTag.value.startsWith('No')) {
+				newTask = ' (' +  taskEditForm.whichTag.value + ') ' + newTask;
 			}
 		}
-		taskEditForm.whichCategory.value
+		taskEditForm.whichTag.value
 		addItem( newTodoTask(newTask) );
 	}
 
 	taskEditForm.reset();
-	renderTodoList(renderCategory, renderWhich);
+	renderTodoList(renderTag, renderWhich);
 
 	return false;
 };

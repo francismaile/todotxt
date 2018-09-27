@@ -1,0 +1,74 @@
+html, body {
+	padding: 0;
+	margin: 0;
+	height: 100%;
+}
+
+html {
+	overflow: hidden;
+}
+
+body {
+	overflow: auto;
+}
+
+#wrapper {
+	border: solid black thin;
+	height: 100vh;
+	display: flex;
+	flex-direction: row;
+	background: orange;
+}
+
+section#nav {
+	border: solid thin;
+	background: #FFF;
+	width: 200px;
+	min-width: 200px;
+	flex: 1;
+}
+
+section#todolist {
+	width: 80%;
+	border: 3px solid red;
+	flex: 5;
+	display: flex;
+	flex-direction: column;
+}
+
+#task-edit-wrapper {
+	flex: 1;
+}
+
+#todo-wrapper {
+	flex: 2;
+}
+
+/* ********** */
+/* navigation */ 
+/* ********** */
+
+nav {
+	cursor: pointer;
+}
+
+nav ul {
+	list-style-type: none;
+	padding-left: 0;
+}
+
+nav li:hover {
+	background: #778899
+}
+nav .tag-name {
+	border: solid thin;
+	background: #DCDCDC;
+	text-align: center;
+}
+
+nav .tag-list {
+	background: #FFF;
+	padding-left: 8px;
+	text-align: left;
+}
+

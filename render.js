@@ -279,12 +279,14 @@ function createMenuItem( tag ) {
 function createMenu( tagName, tags ) {
 	// console.log({tagName}, {tags});
 	const menu = document.createElement('li');
+	menu.className = 'tag-name';
 	menu.textContent = tagName[0].toUpperCase() + tagName.substr(1);
 	menu.dataset.tagName = tagName;
 	menu.addEventListener( 'click', e => {
 		renderTodoList(tagName);
 	}, false );
 	const menuList = document.createElement('ul');
+	menuList.className = 'tag-list';
 	tags.forEach( tag => {
 		if( tag ) {
 			menuList.appendChild( createMenuItem(tag) );

@@ -2,7 +2,7 @@
 
 function newSection(headingText = 'unnamed') {
 	const section = document.createElement('ul');
-	section.id = 'list-' + headingText.toCamelCase();
+	section.id = 'list-' + headingText.toCamelCase(true);
 	let li = document.createElement('li');
 	li.textContent = headingText;
 	li.className = 'tag-heading';
@@ -36,7 +36,21 @@ function renderTodoList(tag = 'all', which ) {
 		
 	}
 
-	function render( todoList ) {
+	function insertCompleted(completedTodos) {
+		const completedCount = completedTodos.getElementsByTagName("li").length - 1;
+		if( completedCount > 0 ) {
+			const completeLabel = completedTodos.getElementsByTagName("li").item(0);
+			completeLabel.textContent = `${completedCount} ${completeLabel.textContent} To-Do${ completedCount > 1 ? 's' : ''}`;
+			completeLabel.addEventListener('click', e => {
+				console.log(e.target.textContent);
+				e.target.parentNode.classList.toggle( 'show-completed' );
+				// add class showCompleted
+			});
+			taskListDiv.appendChild(completedTodos);
+		}
+	}
+
+function render( todoList ) {
 		const completedTodos = newSection('Completed');
 		// sort tasks by priority - I haven't decided whether to do this here or just when choosing single project or context
 				const tagTaskList = [];
@@ -45,7 +59,7 @@ function renderTodoList(tag = 'all', which ) {
 					tagTaskList[task.priority].push(task);
 				});
 				todoList = [...tagTaskList['A'], ...tagTaskList['B'], ...tagTaskList['C'], ...tagTaskList[undefined]];
-		if( tag ==='txt' ) {
+		if( tag ==='text' ) {
 			// reassemble the todo.txt file format
 			const todoTxtEditor = document.createElement('div');
 			todoTxtEditor.id = 'editor';
@@ -81,7 +95,7 @@ function renderTodoList(tag = 'all', which ) {
 				}
 			});
 			taskListDiv.appendChild(thisTodoList);
-			taskListDiv.appendChild(completedTodos);
+			insertCompleted(completedTodos);
 		} else {
 			if( which === undefined || which === 'All') {
 				const noTagItems = [];
@@ -118,8 +132,7 @@ function renderTodoList(tag = 'all', which ) {
 				for( let catName in thisTodoList ) {
 					taskListDiv.appendChild(thisTodoList[catName]);
 				}
-				taskListDiv.appendChild(completedTodos);
-				// createMenu(tag,  Object.keys(thisTodoList));
+				insertCompleted(completedTodos); 
 			} else {
 				const thisTodoList = newSection(which);
 				const tagTaskList = [];
@@ -138,13 +151,11 @@ function renderTodoList(tag = 'all', which ) {
 						}
 					}
 				});
-				// sort the list by priority if tag != all
-				// thisTodoList.sort();
 				if(which) {
 					// console.log( thisTodoList.childNodes );
 				}
 				taskListDiv.appendChild(thisTodoList);
-				taskListDiv.appendChild(completedTodos);
+				insertCompleted(completedTodos);
 			}
 		}
 	}
@@ -331,6 +342,7 @@ function createNavMenu( todoList ) {
 	tagNames.forEach(  tagName => { 
 			navMenu.appendChild( createMenu(tagName, tags[tagName]) );
 	});
+	navMenu.appendChild( createMenu('text', []) );
 	nav.innerHTML = '';
 	nav.appendChild(navMenu);
 }

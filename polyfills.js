@@ -22,9 +22,10 @@ String.prototype.leftTrim = function() {
 }
 
 if(!String.prototype.toCamelCase) {
-	String.prototype.toCamelCase =  function () {
+	String.prototype.toCamelCase =  function (arg) {
 		theStrings = this.split(' ');
-		if( theStrings.length <= 1 ) return this.toString();
+		// console.log(arg); if we want to, we can have PascalCase by including and argument
+		if( theStrings.length <= 1 ) return this.charAt(0).toLowerCase() + this.slice(1);
 		let theCamel = theStrings.reduce( ( camel, word ) => {
 			return camel + word.charAt(0).toUpperCase() + word.slice(1);
 		});

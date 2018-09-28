@@ -19,7 +19,6 @@ button:focus { outline: none; }
 #task-list {
 	margin-top: 6px;
 	overflow-y: scroll;
-	border: 3px solid blue;
 }
 
 #task-list ul {
@@ -59,6 +58,18 @@ li.task-completed {
 
 li.task-completed div.task-description {
 	text-decoration: line-through;
+}
+
+ul#list-completed {
+	cursor: pointer;
+}
+
+ul#list-completed .tag-heading ~ li {
+	display: none;
+}
+
+ul#list-completed.show-completed .tag-heading ~ li {
+	display: block;
 }
 
 .task-meta span {
@@ -103,9 +114,6 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
 	text-align: right;
 }
 
-#todolist {
-	position: relative;
-}
 
 /* ************** */
 /* task edit form */
@@ -114,7 +122,7 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
 #task-options {
 	border: solid blue thin;
 	background-color: #FFF;
-	/*display: none;*/
+	display: none;
 	visibility: hidden;
 	position: absolute;
 	width: 60%;

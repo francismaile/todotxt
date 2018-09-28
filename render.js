@@ -42,9 +42,7 @@ function renderTodoList(tag = 'all', which ) {
 			const completeLabel = completedTodos.getElementsByTagName("li").item(0);
 			completeLabel.textContent = `${completedCount} ${completeLabel.textContent} To-Do${ completedCount > 1 ? 's' : ''}`;
 			completeLabel.addEventListener('click', e => {
-				console.log(e.target.textContent);
 				e.target.parentNode.classList.toggle( 'show-completed' );
-				// add class showCompleted
 			});
 			taskListDiv.appendChild(completedTodos);
 		}

@@ -17,18 +17,24 @@ if (!String.prototype.padStart) {
     };
 }
 
-String.prototype.leftTrim = function() {
-    return this.replace(/^\s+/,"");
+if(!String.prototype.leftTrim) {
+	String.prototype.leftTrim = function() {
+			return this.replace(/^\s+/,"");
+	}
 }
 
 if(!String.prototype.toCamelCase) {
 	String.prototype.toCamelCase =  function (arg) {
 		theStrings = this.split(' ');
-		// console.log(arg); if we want to, we can have PascalCase by including and argument
-		if( theStrings.length <= 1 ) return this.charAt(0).toLowerCase() + this.slice(1);
+		if( theStrings.length <= 1 ) {
+				return this.toString();	
+		}
 		let theCamel = theStrings.reduce( ( camel, word ) => {
 			return camel + word.charAt(0).toUpperCase() + word.slice(1);
 		});
+		if(arg) {
+			return theCamel;
+		}
 		return theCamel.charAt(0).toLowerCase() + theCamel.slice(1);
 	}
 }

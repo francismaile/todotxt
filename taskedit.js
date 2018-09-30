@@ -137,12 +137,12 @@ taskEditForm.onsubmit=function() {
 			delete task.priority;
 		}
 		if( taskEditForm.project.value !== '' ) {
-			task.project = taskEditForm.project.value.toCamelCase();
+			task.project = taskEditForm.project.value.toCamelCase(false);
 		} else {
 			delete task.project;
 		}
 		if( taskEditForm.context.value !== '' ) {
-			task.context = taskEditForm.context.value.toCamelCase();
+			task.context = taskEditForm.context.value.toCamelCase(false);
 		} else {
 			delete task.context;
 		}

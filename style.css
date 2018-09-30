@@ -16,6 +16,14 @@ button:focus { outline: none; }
 /* todo lists */
 /* ********** */
 
+#task-list  li.tag-heading {
+	text-align: center;
+}
+
+#task-list ul#list-completed li.tag-heading {
+	text-align: left;
+}
+
 #task-list {
 	margin-top: 6px;
 	overflow-y: scroll;
@@ -27,33 +35,27 @@ button:focus { outline: none; }
 
 #task-list li {
 	margin-bottom: 4px;
-	font-size: 1.2em;
-	font-weight: bold;
+	font-size: 1em;
 }
 
-
-#task-list li div {
+ li.task-item  div {
 	padding: 0px;
 	margin: 0px;
 	margin-top: -2px;
-	color: rgba(78, 78, 242, 0.6); // #4E4EF2;
 }
 
-.task-description {
+ li.task-item div.task-description {
 	display: inline-block;
 	cursor: pointer;
 }
 
 li.task-item {
 	border: solid gray thin;
-	border-radius: 6px;
-	background-color: #FFFDD0;
 	margin-top: 6px;
 	padding: 6px;
 }
 
 li.task-completed {
-	background-color: pink;
 }
 
 li.task-completed div.task-description {

@@ -191,13 +191,9 @@ function createTodoItem( task, tag ) {
 	label.htmlFor = 'task_complete_' + task.id;
 	label.className = 'css-label';
 
-	listItem.appendChild(checkbox);
-	listItem.appendChild(label);
-
 	const div_description = document.createElement('div');
 	div_description.id = `description_${task.id}`;
 	div_description.className = 'task-description';
-	div_description.textContent = task.description;
 
 	div_description.addEventListener("click", function(event) {
 		taskEditForm['task-options'].style.display = 'inline';
@@ -206,43 +202,63 @@ function createTodoItem( task, tag ) {
 		editTask(taskId);	
 	}, false);
 
+	const descriptionText = document.createTextNode(task.description);
+	div_description.appendChild(checkbox);
+	div_description.appendChild(label);
+	div_description.appendChild(descriptionText);
+	
 	listItem.appendChild(div_description);
 
 	const div_meta = document.createElement('div');
 	div_meta.className = 'task-meta';
 
-	const span_priority = document.createElement('span');
-	span_priority.id = `priority_${task.id}`;
-	span_priority.className = 'task-meta-priority';
-	if( task.priority && tag !== 'priority' ) {
-		span_priority.textContent = `(${ task.priority })`;
-	}
-	div_meta.appendChild( span_priority );
-
-	let span_tag;
+	const project_div = document.createElement('div');
+	project_div.id = `project_${task.id}`;
+	project_div.className = 'task-meta-project';
 	if( task.project && tag !== 'project' ) {
-		span_tag = document.createElement('span');
-		span_tag.id = `project_${task.id}`;
-		span_tag.className = 'task-meta-project';
-		span_tag.textContent = `+${ task.project }`;
-		div_meta.appendChild( span_tag );
+		project_div.textContent = `+${ task.project }`;
+		project_div.addEventListener('click', e => {
+			const tag = e.target.textContent.slice(1);
+			renderTodoList('project', tag);
+			e.stopPropagation()
+		}, false);
 	}
+	div_meta.appendChild( project_div );
 
+	const context_div = document.createElement('div');
+	context_div.id = `context_${task.id}`;
+	context_div.className = 'task-meta-context';
 	if( task.context && tag !== 'context' ) {
-		span_tag = document.createElement('span');
-		span_tag.id = `context_${task.id}`;
-		span_tag.className = 'task-meta-context';
-		span_tag.textContent = `@${ task.context }`;
-		div_meta.appendChild( span_tag );
+		context_div.textContent = `@${ task.context }`;
+		context_div.addEventListener('click', e => {
+			const tag = e.target.textContent.slice(1);
+			renderTodoList('context', e.target.textContent.slice(1));
+			e.stopPropagation()
+		}, false);
 	}
+	div_meta.appendChild( context_div );
 
+	const duedate_div = document.createElement('div');
+	duedate_div.id = `duedate_${task.id}`;
+	duedate_div.className = 'task-meta-duedate';
 	if(task.tags && task.tags['due']) {
-		span_tag = document.createElement('span');
-		span_tag.id = `duedate_${task.id}`;
-		span_tag.className = 'task-meta-duedate';
-		span_tag.textContent = `${ task.tags['due'] }`;
-		div_meta.appendChild( span_tag );
+		duedate_div.textContent = `due:${ task.tags['due'] }`;
 	}
+	div_meta.appendChild( duedate_div );
+
+	const priority_div = document.createElement('div');
+	priority_div.id = `priority_${task.id}`;
+	priority_div.className = 'task-meta-priority';
+	if( task.priority && tag !== 'priority' ) {
+		priority_div.textContent = `${ task.priority }`;
+		priority_div.classList.add('priority-color-' + task.priority);
+		priority_div.addEventListener('click', e => {
+			const tag = e.target.textContent;
+			renderTodoList('priority', tag);
+			e.stopPropagation()
+		}, false);
+	}
+	div_meta.appendChild( priority_div );
 
 	listItem.appendChild(div_meta);
 	return listItem;

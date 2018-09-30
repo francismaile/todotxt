@@ -2,7 +2,7 @@
 
 function newSection(headingText = 'unnamed') {
 	const section = document.createElement('ul');
-	section.id = 'list-' + headingText.toCamelCase(true);
+	section.id = 'list-' + headingText.toCamelCase(true).toLowerCase();
 	let li = document.createElement('li');
 	li.textContent = headingText;
 	li.className = 'tag-heading';

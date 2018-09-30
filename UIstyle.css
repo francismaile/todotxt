@@ -66,6 +66,9 @@ nav .tag-name {
 	text-align: center;
 }
 
+nav .active {
+	background-color: #778899;
+}
 nav .tag-list {
 	background: #FFF;
 	padding-left: 8px;
@@ -123,8 +126,10 @@ nav .tag-list {
 		border-radius: 18%;
 		width: 20px;
 		max-width: 20px;
+		max-height: 18px;
 		color: #FFF;
 		text-align: center;
+		line-height: 1.25em;
 		font-family: sans-serif;
 	}
 

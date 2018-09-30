@@ -160,7 +160,7 @@ function render( todoList ) {
 
 	getAll().then( list => {
 		render(list);
-		createNavMenu(list);
+		createNavMenu(list, tag, which);
 		populateSelectElems(list);
 	});
 
@@ -289,9 +289,12 @@ function populateSelectElems( todoList ) {
 	});
 }
 
-function createMenuItem( tag ) {
+function createMenuItem( tag, currentTag ) {
 	let menuItem = document.createElement('li');
 	menuItem.textContent = tag;
+	if( tag === currentTag ) {
+		menuItem.classList.add('active');
+	}
 	menuItem.addEventListener('click', e => {
 		const tagName = e.target.parentElement.parentElement.dataset.tagName;
 		const tag = e.target.textContent;
@@ -301,10 +304,13 @@ function createMenuItem( tag ) {
 	return menuItem;
 }
 
-function createMenu( tagName, tags ) {
+function createMenu( tagName, tags, currentTagName, currentTag) {
 	// console.log({tagName}, {tags});
 	const menu = document.createElement('li');
 	menu.className = 'tag-name';
+	if( tagName === currentTagName ) {
+		menu.classList.add('active');
+	}
 	menu.textContent = tagName[0].toUpperCase() + tagName.substr(1);
 	menu.dataset.tagName = tagName;
 	menu.addEventListener( 'click', e => {
@@ -314,7 +320,7 @@ function createMenu( tagName, tags ) {
 	menuList.className = 'tag-list';
 	tags.forEach( tag => {
 		if( tag ) {
-			menuList.appendChild( createMenuItem(tag) );
+			menuList.appendChild( createMenuItem(tag, currentTag) );
 		}
 	});
 	if( tags.length > 0 ) {
@@ -324,7 +330,7 @@ function createMenu( tagName, tags ) {
 	return menu;
 }
 
-function createNavMenu( todoList ) {
+function createNavMenu( todoList, currentTagName, currentTag ) {
 	// insert items into sidebar nav menu
 	const nav = document.getElementsByTagName('nav')[0];
 	const navMenu = document.createElement('ul');
@@ -354,7 +360,7 @@ function createNavMenu( todoList ) {
 	navMenu.appendChild( createMenu('all', []) );
 	const tagNames = Object.keys(tags);
 	tagNames.forEach(  tagName => { 
-			navMenu.appendChild( createMenu(tagName, tags[tagName]) );
+			navMenu.appendChild( createMenu(tagName, tags[tagName], currentTagName, currentTag) );
 	});
 	navMenu.appendChild( createMenu('text', []) );
 	nav.innerHTML = '';

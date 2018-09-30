@@ -31,17 +31,18 @@ button:focus { outline: none; }
 
 #task-list ul {
 	list-style-type: none;
+	margin-right: 2px;
+	padding-left: 6px;
 }
 
 #task-list li {
-	margin-bottom: 4px;
+	margin-bottom: -4px;
 	font-size: 1em;
 }
 
  li.task-item  div {
 	padding: 0px;
-	margin: 0px;
-	margin-top: -2px;
+	margin: -2px 0px;
 }
 
  li.task-item div.task-description {

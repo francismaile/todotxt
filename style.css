@@ -5,27 +5,103 @@
 }
 
 html, body {
+	padding: 0;
+	margin: 0;
 	height: 100%;
+}
+
+html {
+	overflow: hidden;
+}
+
+body {
+	overflow: auto;
 }
 
 input:focus { outline: solid gray thin; }
 select:focus { outline: solid gray thin; }
 button:focus { outline: none; }
 
+#wrapper {
+	height: 100vh;
+	display: flex;
+	flex-direction: row;
+	padding: 6px;
+	background: #FFF;
+}
+
+section#nav {
+	background: #FFF;
+	width: 200px;
+	min-width: 200px;
+	flex: 1;
+}
+
+section#todolist {
+	width: 80%;
+	flex: 5;
+	display: flex;
+	flex-direction: column;
+	border: thin solid #000;
+}
+
+div#task-edit-wrapper {
+	flex: 1;
+	max-height: 50px;
+}
+
+#todo-wrapper {
+	flex: 5;
+}
+
+/* ********** */
+/* navigation */ 
+/* ********** */
+
+nav {
+	cursor: pointer;
+}
+
+nav ul {
+	list-style-type: none;
+	padding-left: 0;
+}
+
+nav li:hover {
+	background: #778899
+}
+nav .tag-name {
+	border-top: 1px solid #FFF;
+	background: #DCDCDC;
+	text-align: center;
+}
+
+nav .active {
+	background-color: #778899;
+}
+nav .tag-list {
+	background: #FFF;
+	padding-left: 8px;
+	text-align: left;
+}
+
+/* ******************** */
+/* ** TodoTxt Editor ** */
+/* ******************** */
+
+#editor {
+	padding: 6px;
+	white-space: nowrap;
+	overflow-x: scroll;
+	font: 16px/1.2 courier;
+}
+
 /* ********** */
 /* todo lists */
 /* ********** */
 
-#task-list  li.tag-heading {
-	text-align: center;
-}
-
-#task-list ul#list-completed li.tag-heading {
-	text-align: left;
-}
-
 #task-list {
-	margin-top: 6px;
+	margin-top: 0px;
 	overflow-y: scroll;
 }
 
@@ -36,35 +112,89 @@ button:focus { outline: none; }
 }
 
 #task-list li {
-	margin-bottom: -4px;
+	margin: 3px auto;
 	font-size: 1em;
 }
 
- li.task-item  div {
-	padding: 0px;
-	margin: -2px 0px;
-}
-
- li.task-item div.task-description {
-	display: inline-block;
-	cursor: pointer;
+#task-list li.tag-heading {
+	text-align: center;
 }
 
 li.task-item {
+	display: flex;
+	justify-content: space-between;
 	border: solid gray thin;
 	margin-top: 6px;
 	padding: 6px;
 }
 
-li.task-completed {
+li.task-item div {
+	padding: 0px;
+	margin: -2px 0px;
 }
 
-li.task-completed div.task-description {
-	text-decoration: line-through;
-}
-
-ul#list-completed {
+div.task-description {
 	cursor: pointer;
+	max-width: 550px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+div.task-meta {
+	min-width: 400px;
+	width: 40%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+div[class^="task-meta-"] {
+	width: 8em;
+}
+
+div.task-meta-project {
+	cursor: pointer;
+}
+
+div.task-meta-context {
+	cursor: pointer;
+}
+
+div.task-meta-priority {
+	cursor: pointer;
+	border-radius: 18%;
+	width: 20px;
+	max-width: 20px;
+	max-height: 18px;
+	color: #FFF;
+	text-align: center;
+	line-height: 1.25em;
+	font-family: sans-serif;
+}
+
+.priority-color-A {
+	background-color: dodgerblue;
+}
+
+.priority-color-B {
+	background-color: deepskyblue;
+}
+
+.priority-color-C {
+	background-color: powderblue;
+}
+
+/* *************** */
+/* completed todos */
+/* *************** */
+
+#task-list ul#list-completed li.tag-heading {
+	cursor: pointer;
+	text-align: left;
+}
+
+li.task-completed {
+	/* text-decoration: line-through; */
 }
 
 ul#list-completed .tag-heading ~ li {
@@ -72,16 +202,26 @@ ul#list-completed .tag-heading ~ li {
 }
 
 ul#list-completed.show-completed .tag-heading ~ li {
-	display: block;
+	display: flex;
 }
 
-.task-meta span {
-	display: inline-block;
-	min-width: 40px;
-	cursor: pointer;
-	display: inline-block;
-	margin: 0 8px;
+/* https://stackoverflow.com/questions/14593415/how-to-strike-through-obliquely-with-css#answer-14593540
+	 with the rotation removed - gives a strikethrough the spans the list item instead of each div
+*/
+
+li.task-completed {
+  position: relative;
 }
+li.task-completed:before {
+  position: absolute;
+  content: "";
+  left: 2px;
+  top: 50%;
+  right: 2px;
+  border-top: 1px solid;
+  border-color: inherit;
+}
+
 
 input[type=checkbox].css-checkbox {
 	position: absolute;
@@ -112,11 +252,6 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
 .css-label {
 	background-image:url(http://www.csscheckbox.com/checkboxes/lite-x-gray.png);
 }
-
-.task-meta-priority {
-	text-align: right;
-}
-
 
 /* ************** */
 /* task edit form */

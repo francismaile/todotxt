@@ -2,13 +2,13 @@ x (A) move "No Project/Context" to end of list in menu +todoTxt
 x (A) must always populate project/context options in task edit form +todoTxt 
 x (A) a way to delete tasks, not just mark completed +todoTxt @TinyHouse 
 x (A) 2018-02-17 Schedule annual checkup +Health 
-x (A) sort tasks by priority in project/context lists +todoTxt @TinyHouse 
+x (C) sort tasks by priority in project/context lists +todoTxt @TinyHouse 
 x (A) save should work when not viewing text version +todoTxt @TinyHouse 
 x (A) Due date displayed in task +todoTxt @TinyHouse 
-(B) sort tasks by due date +todoTxt @TinyHouse  due:2018-09-18 
-x (B) Outline chapter 5 +Novel @Computer 
-x (B) display project first, then context in Priority view  +todoTxt +todoTxt @TinyHouse 
-(C) Add cover sheets +TPSReports @Office 
+2018-09-05 sort tasks by due date +todoTxt @TinyHouse  due:2018-09-18 
+Outline chapter 5 +Novel @Computer 
+x display project first, then context in Priority view +todoTxt @TinyHouse 
+Add cover sheets +TPSReports @Office 
 x add new task to currently viewed project/context/priority +todoTxt 
 x update product/context list in taskedit form when new project created +todoTxt 
 x fix marking tasks completed +todoTxt 
@@ -16,13 +16,23 @@ x sort priorities A, B, C +todoTxt
 x context list: "No Project" should read: "No Context" +todoTxt 
 dates in task edit form- created, due, completed +todoTxt @TinyHouse 
 Call Mom +Family @Home  due:2018-02-17  about:dinner  weather:rain 
-Pick up milk @GroceryStore 
+(B) Pick up milk +Shopping @GroceryStore 
 Research self-publishing services +Novel @Computer 
 x Download Todo.txt mobile app @Phone 
 x save button somewhere - but where? +todoTxt @TinyHouse 
 save todo.txt on server +todoTxt @TinyHouse 
-2018-09-13 one with everything +camelCaseTag @context  due:2018-09-20 
+(B) 2018-09-13 one with everything +camelCaseTag @context  due:2018-09-20  atag:thisone 
 optionally record task completed date when marked completed +todoTxt @TinyHouse 
 add another todo task +Family 
-x highlight current category in sidebar menu +todoTxt 
+x (A) highlight current tag in sidebar menu +todoTxt @TinyHouse 
 gray out priority in nav when no tasks have that priority +todoTxt @TinyHouse 
+allow sync with server or DropBox, google drive, etc +todoTxt @TinyHouse 
+x hide completed tasks in list - click to view +todoTxt @TinyHouse 
+x long todos should be clipped with ellipses at end +todoTxt @diningRoomTable 
+save changes made editing text version +todoTxt @TinyHouse 
+x (A) fix camelCase function - in task edit form submission +todoTxt @TinyHouse 
+x (A) fix priorities order in nav menu +todoTxt @TinyHouse 
+(A) fix adding custom tags in task edit form +todoTxt @TinyHouse 
+x (A) 2018-10-01 task description +camelCaseTag @context  due:2018-10-08 
+allow mark completed in edit task form +todoTxt @TinyHouse 
+match completed todos style to todolist styles +todoTxt @TinyHouse 

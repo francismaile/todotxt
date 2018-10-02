@@ -56,7 +56,7 @@ function render( todoList ) {
 					if( !tagTaskList[task.priority] ) tagTaskList[task.priority] = [];
 					tagTaskList[task.priority].push(task);
 				});
-				todoList = [...tagTaskList['A'], ...tagTaskList['B'], ...tagTaskList['C'], ...tagTaskList[undefined]];
+				// todoList = [...tagTaskList['A'], ...tagTaskList['B'], ...tagTaskList['C'], ...tagTaskList[undefined]];
 		if( tag ==='text' ) {
 			// reassemble the todo.txt file format
 			const todoTxtEditor = document.createElement('div');
@@ -138,7 +138,7 @@ function render( todoList ) {
 					if( !tagTaskList[task.priority] ) tagTaskList[task.priority] = [];
 					tagTaskList[task.priority].push(task);
 				});
-				todoList = [...tagTaskList['A'], ...tagTaskList['B'], ...tagTaskList['C'], ...tagTaskList[undefined]];
+				// todoList = [...tagTaskList['A'], ...tagTaskList['B'], ...tagTaskList['C'], ...tagTaskList[undefined]];
 				// foreach to get only which from tag
 				todoList.forEach( task => {
 					if( task[tag] === which || ( which.slice(0,2) === 'No' && task[tag] === undefined) ) {
@@ -194,10 +194,12 @@ function createTodoItem( task, tag ) {
 	div_description.className = 'task-description';
 
 	div_description.addEventListener("click", function(event) {
-		taskEditForm['task-options'].style.display = 'inline';
-		taskEditForm['task-options'].style.visibility = 'visible';
-		const taskId = event.target.id.split('_')[1];
-		editTask(taskId);	
+		if( event.target === div_description ) {
+			taskEditForm['task-options'].style.display = 'inline';
+			taskEditForm['task-options'].style.visibility = 'visible';
+			const taskId = event.target.id.split('_')[1];
+			editTask(taskId);	
+		}
 	}, false);
 
 	const descriptionText = document.createTextNode(task.description);

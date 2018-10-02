@@ -48,15 +48,20 @@ function renderTodoList(tag = 'all', which ) {
 		}
 	}
 
+let sortByPriority = false;
+
 function render( todoList ) {
 		const completedTodos = newSection('Completed');
-		// sort tasks by priority - I haven't decided whether to do this here or just when choosing single project or context
-				const tagTaskList = [];
-				todoList.forEach( task => {
-					if( !tagTaskList[task.priority] ) tagTaskList[task.priority] = [];
-					tagTaskList[task.priority].push(task);
-				});
-				// todoList = [...tagTaskList['A'], ...tagTaskList['B'], ...tagTaskList['C'], ...tagTaskList[undefined]];
+		// sort tasks by priority - should this be optional
+		if( sortByPriority ) {
+			const tagTaskList = ['A','B','C'];
+			tagTaskList.map( arr => tagTaskList[arr] = [] );
+			todoList.forEach( task => {
+				if( !tagTaskList[task.priority] ) tagTaskList[task.priority] = [];
+				tagTaskList[task.priority].push(task);
+			});
+			todoList = [...tagTaskList['A'], ...tagTaskList['B'], ...tagTaskList['C'], ...tagTaskList[undefined]];
+		}
 		if( tag ==='text' ) {
 			// reassemble the todo.txt file format
 			const todoTxtEditor = document.createElement('div');
@@ -350,14 +355,10 @@ function createNavMenu( todoList, currentTagName, currentTag ) {
 		if( !tags['context'].includes(todo.context) ) {
 			tags['context'].push(todo.context)
 		}
-		if( !tags['priority'] ) {
-			tags['priority'] = [];
-		}
-		if( !tags['priority'].includes(todo.priority) ) {
-			tags['priority'].push(todo.priority)
-		}
+		
 		return tags;
 	}, []);
+	tags['priority'] = ['A','B','C'];
 	
 	navMenu.appendChild( createMenu('all', []) );
 	const tagNames = Object.keys(tags);

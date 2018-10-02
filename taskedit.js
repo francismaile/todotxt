@@ -99,29 +99,10 @@ function editTask(taskId) {
 	}
 }
 
-/*
-// new task input field handler
-newTaskForm.addEventListener('submit', event => event.preventDefault());
-newTaskForm.onsubmit=function(e) {
-// need to sanitize the input
-	if( this.newTask.value ) {
-		// save changes to indexedDB
-		addItem( newTodoTask(this.newTask.value) );
-		this.newTask.value = '';
-		// re-render list
-		renderTodoList(renderTag, renderWhich);
-	} else {
-		editTask();	
-	}
-	return false;
-}
-*/
-
 // task edit form handler
 taskEditForm.addEventListener('submit', event => event.preventDefault());
 taskEditForm.onsubmit=function() {
 // need to sanitize the input
-	// taskEditForm['task-options'].style.display = 'none';
 	taskEditForm['task-options'].style.visibility = 'hidden';
 
 	if(taskEditForm.taskid.value) {
@@ -159,7 +140,9 @@ taskEditForm.onsubmit=function() {
 			if( !task.hasOwnProperty('tags') ) task.tags = {};
 			const tags = taskEditForm.tags.value.split('\n');
 			tags.forEach( tag => {
+				if(tag === '') return;
 				[key, value] = tag.split(':');
+				if( key === '' || value === '') return;
 				task.tags[key] = value;
 			});
 		}

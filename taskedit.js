@@ -1,5 +1,16 @@
 const taskEditForm = document.getElementById('task-edit');
-// const taskEditWrapper = document.getElementById('form-wrapper');
+
+taskEditForm.tags.addEventListener('input', function(event) {
+	event.target.style.height = 'inherit';
+	const style = window.getComputedStyle(event.target);
+	const height =  parseInt(style.borderTopWidth)
+								+ parseInt(style.paddingTop)
+								+ event.target.scrollHeight
+								+ parseInt(style.paddingBottom)
+								+ parseInt(style.borderBottomWidth) - 10;
+	
+	event.target.style.height = height + 'px';
+});
 
 function toggleTaskComplete(taskid) {
 	// get task by id

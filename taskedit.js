@@ -1,15 +1,11 @@
 const taskEditForm = document.getElementById('task-edit');
 
-taskEditForm.tags.addEventListener('input', function(event) {
-	event.target.style.height = 'inherit';
-	const style = window.getComputedStyle(event.target);
-	const height =  parseInt(style.borderTopWidth)
-								+ parseInt(style.paddingTop)
-								+ event.target.scrollHeight
-								+ parseInt(style.paddingBottom)
-								+ parseInt(style.borderBottomWidth) - 10;
-	
-	event.target.style.height = height + 'px';
+taskEditForm.tags.addEventListener('keydown', function(event) {
+	if( event.key === 'Enter' ) {
+		taskEditForm.tags.rows += 1;
+	} else if( event.key === 'Backspace' && taskEditForm.tags.rows > 1) {
+		taskEditForm.tags.rows -= 1;
+	}
 });
 
 function toggleTaskComplete(taskid) {
@@ -65,27 +61,23 @@ function editTask(taskId) {
 		}
 		// deal with tags
 		if( task.hasOwnProperty('tags') ) {
-			taskEditForm.tags.rows = 1;
-			taskEditForm.tags.value = '';
-			numberOfTags = task.tags.length;
-			if( task.tags.hasOwnProperty('due') ) {
-				numberOfTags = numberOfTags - 1;
-			}
+			let numberOfTags = 0;
 			let tagContent = '';
-			numberOfTags = 0;
 			for( const key in task.tags ) {
 				if( key === 'due' ) {
-					taskEditForm.due.value = task.tags[key];
+					taskEditForm.due.value = task.tags['due'];
 				} else {
 					tagContent = tagContent + '\n' + key + ':' + task.tags[key];
 					numberOfTags++;
 				}
 			}
-			taskEditForm.tags.rows = numberOfTags;
-			taskEditForm.tags.value = tagContent.trim();
-		} else {
-			taskEditForm.tags.rows = 1;
-			taskEditForm.tags.value = '';
+			console.log('rows:', taskEditForm.tags.rows , {numberOfTags});
+			taskEditForm.tags.rows = numberOfTags || 1;
+			if( tagContent !== '' ) {
+				taskEditForm.tags.value = tagContent.trim();
+			}
+			console.log({tagContent});
+			console.log('rows:', taskEditForm.tags.rows , {numberOfTags});
 		}
 		
 		const deleteBtn = document.getElementById('deletebutton');
@@ -188,5 +180,6 @@ taskEditForm.onreset = function() {
 	// taskEditForm['task-options'].style.display = 'none';
 	taskEditForm['task-options'].style.visibility = 'hidden';
 	taskEditForm['taskid'].value='';
+	taskEditForm['tags'].rows = 1;
 }
 

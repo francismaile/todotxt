@@ -243,6 +243,13 @@ function createTodoItem( task, tag ) {
 	}
 	div_meta.appendChild( context_div );
 
+	// deal with custom tags
+	if(task.tags ) {
+		if( !task.tags['due'] ) {
+			
+		}
+	}
+
 	const duedate_div = document.createElement('div');
 	duedate_div.id = `duedate_${task.id}`;
 	duedate_div.className = 'task-meta-duedate';

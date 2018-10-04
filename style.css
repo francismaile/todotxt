@@ -21,6 +21,7 @@ body {
 input:focus { outline: solid gray thin; }
 select:focus { outline: solid gray thin; }
 button:focus { outline: none; }
+textarea:focus { outline: none; }
 
 #wrapper {
 	height: 100vh;

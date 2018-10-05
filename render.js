@@ -194,6 +194,19 @@ function createTodoItem( task, tag ) {
 	label.htmlFor = 'task_complete_' + task.id;
 	label.className = 'css-label';
 
+	const priority_div = document.createElement('div');
+	priority_div.id = `priority_${task.id}`;
+	priority_div.className = 'task-meta-priority';
+	if( task.priority && tag !== 'priority' ) {
+		priority_div.textContent = `${ task.priority }`;
+		priority_div.classList.add('priority-color-' + task.priority);
+		priority_div.addEventListener('click', e => {
+			const tag = e.target.textContent;
+			renderTodoList('priority', tag);
+			e.stopPropagation()
+		}, false);
+	}
+
 	const div_description = document.createElement('div');
 	div_description.id = `description_${task.id}`;
 	div_description.className = 'task-description';
@@ -210,6 +223,7 @@ function createTodoItem( task, tag ) {
 	const descriptionText = document.createTextNode(task.description);
 	div_description.appendChild(checkbox);
 	div_description.appendChild(label);
+	div_description.appendChild( priority_div );
 	div_description.appendChild(descriptionText);
 	
 	listItem.appendChild(div_description);
@@ -245,9 +259,31 @@ function createTodoItem( task, tag ) {
 
 	// deal with custom tags
 	if(task.tags ) {
-		if( !task.tags['due'] ) {
-			
+		const customtags_div = document.createElement('div');
+		customtags_div.className = 'task-meta-custom-tags';
+		let tagkey_span, tagvalue_span, customtag_span;
+// <div id='' class="custom-tags"><span class="custom-tag-key">key</span><span class="custom-tag-value">value</span></div>
+		for( const key in task.tags ) {
+			if( key === 'due' ) {
+				// do due stuff
+			} else {
+				// do other tags stuff
+				tagkey_span = document.createElement('span');
+				customtag_span = document.createElement('span');
+				tagkey_span.className = 'custom-tag-key';
+				tagkey_span.textContent = key;
+				customtag_span.appendChild(tagkey_span);
+				
+				tagvalue_span = document.createElement('span');
+				tagvalue_span.className = 'custom-tag-value';
+				tagvalue_span.textContent = task.tags[key];
+				customtag_span.appendChild(tagvalue_span);
+
+				customtags_div.innerHTML += customtag_span.outerHTML; // tagkey_span.outerHTML + ':' + tagvalue_span.outerHTML;
+			}
 		}
+	
+		div_meta.appendChild( customtags_div );
 	}
 
 	const duedate_div = document.createElement('div');
@@ -257,20 +293,6 @@ function createTodoItem( task, tag ) {
 		duedate_div.textContent = `due:${ task.tags['due'] }`;
 	}
 	div_meta.appendChild( duedate_div );
-
-	const priority_div = document.createElement('div');
-	priority_div.id = `priority_${task.id}`;
-	priority_div.className = 'task-meta-priority';
-	if( task.priority && tag !== 'priority' ) {
-		priority_div.textContent = `${ task.priority }`;
-		priority_div.classList.add('priority-color-' + task.priority);
-		priority_div.addEventListener('click', e => {
-			const tag = e.target.textContent;
-			renderTodoList('priority', tag);
-			e.stopPropagation()
-		}, false);
-	}
-	div_meta.appendChild( priority_div );
 
 	listItem.appendChild(div_meta);
 	return listItem;

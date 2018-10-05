@@ -71,13 +71,10 @@ function editTask(taskId) {
 					numberOfTags++;
 				}
 			}
-			console.log('rows:', taskEditForm.tags.rows , {numberOfTags});
 			taskEditForm.tags.rows = numberOfTags || 1;
 			if( tagContent !== '' ) {
 				taskEditForm.tags.value = tagContent.trim();
 			}
-			console.log({tagContent});
-			console.log('rows:', taskEditForm.tags.rows , {numberOfTags});
 		}
 		
 		const deleteBtn = document.getElementById('deletebutton');

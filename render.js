@@ -211,14 +211,14 @@ function createTodoItem( task, tag ) {
 	div_description.id = `description_${task.id}`;
 	div_description.className = 'task-description';
 
-	div_description.addEventListener("click", function(event) {
-		if( event.target === div_description ) {
-			taskEditForm['task-options'].style.display = 'inline';
-			taskEditForm['task-options'].style.visibility = 'visible';
-			const taskId = event.target.id.split('_')[1];
-			editTask(taskId);	
-		}
-	}, false);
+	// div_description.addEventListener("click", function(event) {
+	// 	if( event.target === div_description ) {
+	// 		taskEditForm['task-options'].style.display = 'inline';
+	// 		taskEditForm['task-options'].style.visibility = 'visible';
+	// 		const taskId = event.target.id.split('_')[1];
+	// 		editTask(taskId);	
+	// 	}
+	// }, false);
 
 	const descriptionText = document.createTextNode(task.description);
 	div_description.appendChild(checkbox);
@@ -239,7 +239,7 @@ function createTodoItem( task, tag ) {
 		project_div.addEventListener('click', e => {
 			const tag = e.target.textContent.slice(1);
 			renderTodoList('project', tag);
-			e.stopPropagation()
+			e.stopPropagation();
 		}, false);
 	}
 	div_meta.appendChild( project_div );
@@ -252,7 +252,7 @@ function createTodoItem( task, tag ) {
 		context_div.addEventListener('click', e => {
 			const tag = e.target.textContent.slice(1);
 			renderTodoList('context', e.target.textContent.slice(1));
-			e.stopPropagation()
+			e.stopPropagation();
 		}, false);
 	}
 	div_meta.appendChild( context_div );
@@ -262,7 +262,6 @@ function createTodoItem( task, tag ) {
 		const customtags_div = document.createElement('div');
 		customtags_div.className = 'task-meta-custom-tags';
 		let tagkey_span, tagvalue_span, customtag_span;
-// <div id='' class="custom-tags"><span class="custom-tag-key">key</span><span class="custom-tag-value">value</span></div>
 		for( const key in task.tags ) {
 			if( key === 'due' ) {
 				// do due stuff
@@ -295,6 +294,17 @@ function createTodoItem( task, tag ) {
 	div_meta.appendChild( duedate_div );
 
 	listItem.appendChild(div_meta);
+	
+	listItem.addEventListener("click", function(event) {
+		if( event.target.tagName !== 'INPUT' &&  event.target.tagName !== 'LABEL' ) {
+			taskEditForm['task-options'].style.display = 'inline';
+			taskEditForm['task-options'].style.visibility = 'visible';
+			const taskId = event.currentTarget.id.split('_')[1];
+			event.stopPropagation();
+			editTask(taskId);	
+		}
+	}, false);
+
 	return listItem;
 }
 

@@ -145,6 +145,8 @@ div.task-description {
 	text-overflow: ellipsis;
 }
 
+/* ****** task meta information ****** */
+
 div.task-meta {
 	min-width: 400px;
 	width: 60%;
@@ -155,7 +157,7 @@ div.task-meta {
 
 div[class^="task-meta-"] {
 	margin: 0px 6px;
-	/* width: 8em; */
+	width: 8em;
 }
 
 div.task-meta-project {
@@ -166,6 +168,10 @@ div.task-meta-context {
 	cursor: pointer;
 }
 
+div.task-meta-custom-tags {
+	flex: 1;
+}
+
 div.task-meta-custom-tags span {
 	/* border: thin solid; */
 	cursor: pointer;
@@ -174,19 +180,19 @@ div.task-meta-custom-tags span {
 div.task-meta-custom-tags span.custom-tag-key {
 	margin-left: 2px;
 	padding: 1px 2px 1px;
-	background-color: #aacaFF;
-	border: 1px solid #CCDCFF;
-	border-top-left-radius: 20%;
-	border-bottom-left-radius: 20%;
+	background-color: #AACAFF;
+	border: 2px solid #AACAFF;
+	border-top-left-radius: 10%;
+	border-bottom-left-radius: 10%;
 }
 
 div.task-meta-custom-tags span.custom-tag-value {
 	margin-right: 2px;
 	padding: 1px 2px 1px;
 	background-color: #FFF;
-	border: 1px solid #CCDCFF;
-	border-top-right-radius: 20%;
-	border-bottom-right-radius: 20%;
+	border: 2px solid #AACAFF;
+	border-top-right-radius: 10%;
+	border-bottom-right-radius: 10%;
 }
 
 div.task-meta-priority {
@@ -289,12 +295,13 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
 /* ************** */
 
 #task-options {
-	border: solid blue thin;
+	border: thin solid blue;
 	background-color: #FFF;
+	z-index: 1;
 	display: none;
 	visibility: hidden;
 	position: absolute;
-	width: 60%;
+	width: 380px;
 }
 
 #task-options div {

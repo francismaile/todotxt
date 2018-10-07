@@ -15,18 +15,14 @@ let renderTag = 'all', renderWhich = '';
 // const render = {	}
 
 function renderTodoList(tag = 'all', which ) {
-	renderTag = tag; // why rename this?
-	renderWhich = which; // why rename this?
+	renderTag = tag;
+	renderWhich = which;
 	const taskListDiv = document.getElementById('task-list');
 	taskListDiv.innerHTML = '';
-
-	// console.log({tag}, {which});
-
 	taskEditForm.tag.value = tag;
 	taskEditForm.whichTag.value = which;
 	if(tag !== 'all') {
-		// console.log({tag}, {which})
-		if(which === 'All' || !which || which.startsWith('No') ) {
+		if(which === 'All' || !which || which.startsWith('No ') ) {
 			taskEditForm.description.placeholder = 'Add a new todo…';
 		} else {
 			taskEditForm.description.placeholder = 'Add new todo to ' + tag + ':' + which;
@@ -146,7 +142,7 @@ function render( todoList ) {
 				// todoList = [...tagTaskList['A'], ...tagTaskList['B'], ...tagTaskList['C'], ...tagTaskList[undefined]];
 				// foreach to get only which from tag
 				todoList.forEach( task => {
-					if( task[tag] === which || ( which.slice(0,2) === 'No' && task[tag] === undefined) ) {
+					if( task[tag] === which || ( which.slice(0,3) === 'No ' && task[tag] === undefined) ) {
 						if( task.completed ) {
 							completedTodos.appendChild( createTodoItem( task, tag ) );
 						} else {
@@ -273,7 +269,6 @@ if( tag !== 'project' ) {
 			if( key === 'due' ) {
 				duedate_div.className = 'task-meta-duedate';
 				duedate_div.appendChild(customtag_span);
-				console.log(duedate_div);
 			} else {
 				customtags_div.innerHTML += customtag_span.outerHTML;
 			}
@@ -343,7 +338,6 @@ function createMenuItem( tag, currentTag ) {
 }
 
 function createMenu( tagName, tags, currentTagName, currentTag) {
-	// console.log({tagName}, {tags});
 	const menu = document.createElement('li');
 	menu.className = 'tag-name';
 	if( tagName === currentTagName ) {

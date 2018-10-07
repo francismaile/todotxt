@@ -77,17 +77,6 @@ function editTask(taskId) {
 			}
 		}
 		
-		const deleteBtn = document.getElementById('deletebutton');
-		// deleteBtn.dataset.taskId = task.id;
-		deleteBtn.addEventListener('click', e => {
-			// ask the user to confirm delete
-			if( confirm('This cannot be undone. Are your sure your want to delete this task?') ) {
-				// delete task from indexdb
-				deleteItem(task.id);
-				taskEditForm.reset();
-				renderTodoList(renderTag, renderWhich);
-			}
-		});
 	}
 
 	// const task = todoList.find( todo => todo.id === parseInt(taskId));
@@ -98,6 +87,17 @@ function editTask(taskId) {
 		edit();
 	}
 }
+
+const deleteBtn = document.getElementById('deletebutton');
+deleteBtn.addEventListener('click', e => {
+	// ask the user to confirm delete
+	if( confirm('This cannot be undone. Are your sure your want to delete this task?') ) {
+		// delete task from indexdb
+		deleteItem(parseInt(taskEditForm.taskid.value));
+		taskEditForm.reset();
+		renderTodoList(renderTag, renderWhich);
+	} 
+});
 
 // task edit form handler
 taskEditForm.addEventListener('submit', event => event.preventDefault());
@@ -151,15 +151,15 @@ taskEditForm.onsubmit=function() {
 	} else { 
 		let newTask = taskEditForm.description.value
 		if(taskEditForm.tag.value === 'project') {
-			if(taskEditForm.whichTag.value !== 'All' && !taskEditForm.whichTag.value.startsWith('No') ) {
+			if(taskEditForm.whichTag.value !== 'All' && !taskEditForm.whichTag.value.startsWith('No ') ) {
 				newTask += ' +' + taskEditForm.whichTag.value;
 			}
 		} else if(taskEditForm.tag.value === 'context')  {
-			if(taskEditForm.whichTag.value !== 'All' && !taskEditForm.whichTag.value.startsWith('No')) {
+			if(taskEditForm.whichTag.value !== 'All' && !taskEditForm.whichTag.value.startsWith('No ')) {
 				newTask += ' @' + taskEditForm.whichTag.value;
 			}
 		} else if(taskEditForm.tag.value === 'priority')  {
-			if(taskEditForm.whichTag.value !== 'All' && !taskEditForm.whichTag.value.startsWith('No')) {
+			if(taskEditForm.whichTag.value !== 'All' && !taskEditForm.whichTag.value.startsWith('No ')) {
 				newTask = ' (' +  taskEditForm.whichTag.value + ') ' + newTask;
 			}
 		}

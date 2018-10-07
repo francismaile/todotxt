@@ -172,21 +172,25 @@ div.task-meta-custom-tags {
 	flex: 1;
 }
 
+div.task-meta-duedate {
+	cursor: pointer;
+}
+
 div.task-meta-custom-tags span {
 	/* border: thin solid; */
 	cursor: pointer;
 }
 
-div.task-meta-custom-tags span.custom-tag-key {
+div.task-meta-custom-tags span.custom-tag-key, div.task-meta-duedate span.custom-tag-key {
 	margin-left: 2px;
-	padding: 1px 2px 1px;
+	padding: 1px 1px 1px;
 	background-color: #AACAFF;
 	border: 2px solid #AACAFF;
 	border-top-left-radius: 10%;
 	border-bottom-left-radius: 10%;
 }
 
-div.task-meta-custom-tags span.custom-tag-value {
+div.task-meta-custom-tags span.custom-tag-value, div.task-meta-duedate span.custom-tag-value {
 	margin-right: 2px;
 	padding: 1px 2px 1px;
 	background-color: #FFF;

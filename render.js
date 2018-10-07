@@ -211,15 +211,6 @@ function createTodoItem( task, tag ) {
 	div_description.id = `description_${task.id}`;
 	div_description.className = 'task-description';
 
-	// div_description.addEventListener("click", function(event) {
-	// 	if( event.target === div_description ) {
-	// 		taskEditForm['task-options'].style.display = 'inline';
-	// 		taskEditForm['task-options'].style.visibility = 'visible';
-	// 		const taskId = event.target.id.split('_')[1];
-	// 		editTask(taskId);	
-	// 	}
-	// }, false);
-
 	const descriptionText = document.createTextNode(task.description);
 	div_description.appendChild(checkbox);
 	div_description.appendChild(label);
@@ -231,6 +222,7 @@ function createTodoItem( task, tag ) {
 	const div_meta = document.createElement('div');
 	div_meta.className = 'task-meta';
 
+if( tag !== 'project' ) {
 	const project_div = document.createElement('div');
 	project_div.id = `project_${task.id}`;
 	project_div.className = 'task-meta-project';
@@ -243,6 +235,7 @@ function createTodoItem( task, tag ) {
 		}, false);
 	}
 	div_meta.appendChild( project_div );
+}
 
 	const context_div = document.createElement('div');
 	context_div.id = `context_${task.id}`;
@@ -259,13 +252,12 @@ function createTodoItem( task, tag ) {
 
 	// deal with custom tags
 	if(task.tags ) {
+		const duedate_div = document.createElement('div');
+		
 		const customtags_div = document.createElement('div');
 		customtags_div.className = 'task-meta-custom-tags';
 		let tagkey_span, tagvalue_span, customtag_span;
 		for( const key in task.tags ) {
-			if( key === 'due' ) {
-				// do due stuff
-			} else {
 				// do other tags stuff
 				tagkey_span = document.createElement('span');
 				customtag_span = document.createElement('span');
@@ -278,20 +270,20 @@ function createTodoItem( task, tag ) {
 				tagvalue_span.textContent = task.tags[key];
 				customtag_span.appendChild(tagvalue_span);
 
-				customtags_div.innerHTML += customtag_span.outerHTML; // tagkey_span.outerHTML + ':' + tagvalue_span.outerHTML;
+			if( key === 'due' ) {
+				duedate_div.className = 'task-meta-duedate';
+				duedate_div.appendChild(customtag_span);
+				console.log(duedate_div);
+			} else {
+				customtags_div.innerHTML += customtag_span.outerHTML;
 			}
 		}
 	
 		div_meta.appendChild( customtags_div );
+		if( duedate_div !== null ) {
+			div_meta.appendChild( duedate_div );
+		}
 	}
-
-	const duedate_div = document.createElement('div');
-	duedate_div.id = `duedate_${task.id}`;
-	duedate_div.className = 'task-meta-duedate';
-	if(task.tags && task.tags['due']) {
-		duedate_div.textContent = `due:${ task.tags['due'] }`;
-	}
-	div_meta.appendChild( duedate_div );
 
 	listItem.appendChild(div_meta);
 	

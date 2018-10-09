@@ -17,6 +17,8 @@
 <div id="wrapper">
 
 <section id="nav">
+		<i id="importbutton" class="fas fa-file-upload"><span class="fileio">&nbsp;import</span></i>
+		<i id="exportbutton" class="fas fa-file-download"><span class="fileio">&nbsp;export</span></i>
 	<nav>
 	</nav>
 </section><!-- /nav -->
@@ -27,7 +29,6 @@
 <div id="task-edit-wrapper">
 <form action="" id="task-edit" method="">
 	<fieldset>
-		<i id="downloadbutton" class="fas fa-file-download fa-2x"></i>
 		<input type="text" size="55"  id="description" placeholder="Add a new todo…" value="" size="80">
 		<input type="hidden" id="taskid">
 		<input type="hidden" id="tag" value="test">
@@ -78,7 +79,7 @@
 		</div>
 		<input type="submit" id="submit-changes" class="form-button"  value="Go">
 		<input type="reset" id="revert-changes" class="form-button"  value="Cancel">
-		<i id="deletebutton" class="deletebutton fa fa-trash" data-task-id=""></i>
+		<i id="deletebutton" class="fa fa-trash" data-task-id=""></i>
 	</fieldset>
 </form>
 </div>

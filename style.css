@@ -363,8 +363,9 @@ input[type=checkbox] {
 	color: #BBB;
 }
 
-i.deletebutton {
+i#deletebutton {
 	float: right;
+	cursor: pointer;
 }
 
 i#downloadbutton {
@@ -372,10 +373,18 @@ i#downloadbutton {
 	cursor: pointer;
 }
 
-.fa-file-download {
-	size: 3x;
+i#uploadbutton {
+	float: right;
+	cursor: pointer;
 }
 
+.fas .fileio {
+	cursor: pointer;
+}
+
+.fileio {
+	font-weight: normal
+}
 
 dialog {
 	position: fixed;

@@ -50,6 +50,37 @@ function getFile() {
 
 }
 
+function importFile() {
+	// insert file input element
+	// https://www.richardkotze.com/top-tips/how-to-open-file-dialogue-just-using-javascript
+	const fileSelector = document.createElement('input');
+	fileSelector.setAttribute('type', 'file');
+	 fileSelector.click();
+
+
+	fileSelector.addEventListener( 'change', function() {
+		const file = this.files[0];
+		const reader = new FileReader();
+		const lines = [];
+
+		reader.onload = function(e) {
+	// read file
+			const text = e.target.result;
+			lines.push(...text.split('\n'));
+	// parse text
+			parse(lines);
+	// insert into indexedDB
+			getAll().then( function(list) {
+				// todoList.push(...list);
+				// insert into DOM - render()
+				renderTodoList();
+			});
+		}
+		reader.readAsText(file);
+
+	}, false );
+
+}
 function saveFile() {
 
 // http://jsfiddle.net/UselessCode/qm5AG/
@@ -115,7 +146,7 @@ countItems().then( function( cnt ) {
 			renderTodoList();
 		});
 	} else {
-		getFile(todoFile);
+		// getFile(todoFile);
 	}
 	// read todoList from indexedDB
 });
@@ -139,4 +170,6 @@ selectDialogueLink.onclick = function () {
      fileSelector.click(); // must be fired by user
 
 document.getElementById('downloadbutton').addEventListener('click', saveFile);
+document.getElementById('importbutton').addEventListener('click', importFile);
+document.getElementById('exportbutton').addEventListener('click', saveFile);
 

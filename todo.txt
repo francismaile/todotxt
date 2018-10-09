@@ -1,38 +1,40 @@
+(A) Call Mom @Phone +Family about:picnic weather:rain
+(A) Schedule annual checkup +Health
+(B) Outline chapter 5 +Novel @Computer
+(C) Add cover sheets @Office +TPSReports
+Plan backyard herb garden @Home
+Pick up milk @GroceryStore
+Research self-publishing services +Novel @Computer
+x Download Todo.txt mobile app @Phone
 x (A) move "No Project/Context" to end of list in menu +todoTxt 
 x (A) must always populate project/context options in task edit form +todoTxt 
-x (A) a way to delete tasks, not just mark completed +todoTxt @TinyHouse 
-x (A) 2018-02-17 Schedule annual checkup +Health 
-x (C) sort tasks by priority in project/context lists +todoTxt @TinyHouse 
-x (A) save should work when not viewing text version +todoTxt @TinyHouse 
-x (A) Due date displayed in task +todoTxt @TinyHouse 
-2018-09-05 sort tasks by due date +todoTxt @TinyHouse  due:2018-09-18 
-Outline chapter 5 +Novel @Computer 
-x display project first, then context in Priority view +todoTxt @TinyHouse 
-Add cover sheets +TPSReports @Office 
+x (A) a way to delete tasks, not just mark completed +todoTxt 
+x (C) sort tasks by priority in project/context lists +todoTxt 
+x (A) save should work when not viewing text version +todoTxt 
+x (A) Due date displayed in task +todoTxt 
+x display project first, then context in Priority view +todoTxt 
 x add new task to currently viewed project/context/priority +todoTxt 
 x update product/context list in taskedit form when new project created +todoTxt 
 x fix marking tasks completed +todoTxt 
 x sort priorities A, B, C +todoTxt 
-x context list: "No Project" should read: "No Context" +todoTxt 
-dates in task edit form- created, due, completed +todoTxt @TinyHouse 
-Call Mom +Family @Home  due:2018-02-17  about:dinner  weather:rain 
-(B) Pick up milk +Shopping @GroceryStore 
-Research self-publishing services +Novel @Computer 
-x Download Todo.txt mobile app @Phone 
-x save button somewhere - but where? +todoTxt @TinyHouse 
-save todo.txt on server +todoTxt @TinyHouse 
-(B) 2018-09-13 one with everything +camelCaseTag @context  due:2018-09-20  atag:thisone 
-optionally record task completed date when marked completed +todoTxt @TinyHouse 
-add another todo task +Family 
-x (A) highlight current tag in sidebar menu +todoTxt @TinyHouse 
-gray out priority in nav when no tasks have that priority +todoTxt @TinyHouse 
-allow sync with server or DropBox, google drive, etc +todoTxt @TinyHouse 
-x hide completed tasks in list - click to view +todoTxt @TinyHouse 
+x context list- "No Project" should read- "No Context" +todoTxt 
+dates in task edit form- created, due, completed +todoTxt 
+x save button somewhere - but where? +todoTxt 
+save todo.txt on server +todoTxt 
+optionally record task completed date when marked completed +todoTxt 
+x (A) highlight current tag in sidebar menu +todoTxt 
+gray out priority in nav when no tasks have that priority +todoTxt 
+allow sync with server or DropBox, google drive, etc +todoTxt 
+x hide completed tasks in list - click to view +todoTxt 
+save changes made while editing text version +todoTxt 
+x (A) fix camelCase function - in task edit form submission +todoTxt 
+x (A) fix priorities order in nav menu +todoTxt 
+allow mark completed in edit task form +todoTxt 
+x match completed todos style to todolist styles +todoTxt 
+x (A) figure out how to display custom tags +todoTxt 
+x (A) expand custom tag field automatically as lines are added +todoTxt 
+add "include" checkbox next to create date to include create date +todoTxt 
+x fix completed todos overlap task edit form +todoTxt 
+x fix delete task - not working +todoTxt 
+x (A) fix adding custom tags in task edit form - the problem may just be trailing return characters +todoTxt  custom:value 
 x long todos should be clipped with ellipses at end +todoTxt @diningRoomTable 
-save changes made editing text version +todoTxt @TinyHouse 
-x (A) fix camelCase function - in task edit form submission +todoTxt @TinyHouse 
-x (A) fix priorities order in nav menu +todoTxt @TinyHouse 
-(A) fix adding custom tags in task edit form +todoTxt @TinyHouse 
-x (A) 2018-10-01 task description +camelCaseTag @context  due:2018-10-08 
-allow mark completed in edit task form +todoTxt @TinyHouse 
-match completed todos style to todolist styles +todoTxt @TinyHouse 

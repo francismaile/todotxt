@@ -295,25 +295,28 @@ if( tag !== 'project' ) {
 	return listItem;
 }
 
-function createDatalistItem( item ) {
-	let dataItem = document.createElement('option');
-	dataItem.textContent = item;
-	return dataItem;
-}
-
 function populateSelectElems( todoList ) {
+	function createDatalistItem( item ) {
+		let dataItem = document.createElement('option');
+		dataItem.textContent = item;
+		return dataItem;
+	}
+
 	// insert items in task edit form datalist
 	let projectDataList = document.getElementById('projects');
 	let contextDataList = document.getElementById('contexts');
-	projectDataList.innerHTML = '';
-	contextDataList.innerHTML = '';
+	const dataListSelect = projectDataList.getElementsByTagName('select');
+	// projectDataList.innerHTML = '';
+	// contextDataList.innerHTML = '';
 
 	let projects = [];
 	let contexts = [];
 	todoList.forEach( item => {
-		if(item.project && !projects.includes(item.project)) {
+		console.log('forEach');
+		if(item.project && ! projects.includes(item.project)) {
+			console.log('Project');
 			projects.push(item.project);
-			projectDataList.appendChild(createDatalistItem(item.project) );
+			dataListSelect[0].appendChild(createDatalistItem(item.project) );
 		}
 		if(item.context && !contexts.includes(item.context)) {
 			contexts.push(item.context);

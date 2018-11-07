@@ -155,21 +155,7 @@ function sortTodoList() {
 	
 }
 // choose local todo.txt file
-const fileSelector = document.createElement('input');
-fileSelector.setAttribute('type', 'file');
 
-const selectDialogueLink = document.createElement('a');
-selectDialogueLink.setAttribute('href', '');
-selectDialogueLink.innerText = "Select File";
-
-selectDialogueLink.onclick = function () {
-     fileSelector.click();
-     return false;
-}
-// document.body.appendChild(selectDialogueLink);
-     fileSelector.click(); // must be fired by user
-
-document.getElementById('downloadbutton').addEventListener('click', saveFile);
 document.getElementById('importbutton').addEventListener('click', importFile);
 document.getElementById('exportbutton').addEventListener('click', saveFile);
 

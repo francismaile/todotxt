@@ -38,3 +38,5 @@ if(!String.prototype.toCamelCase) {
 		return theCamel.charAt(0).toLowerCase() + theCamel.slice(1);
 	}
 }
+// toCamelCase = (str) => str.replace(/[_|-][A-Za-z]/g, (match, offset, string) => match[1].toUpperCase());
+
